@@ -86,7 +86,7 @@ Clef is started on the command line using the `clef` command. Clef can be config
 clef --keystore /my/keystore --chainid 5
 ```
 
-On starting Clef, the following welcome messgae is displayed in the terminal:
+On starting Clef, the following welcome message is displayed in the terminal:
 
 ```terminal
 WARNING!
