@@ -1,5 +1,5 @@
 ---
-title: JavaScript Console 2: Contracts
+title: JavaScript Console 2: test
 description: Instructions for working with contracts in the Javascript console.
 ---
 
