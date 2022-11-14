@@ -29,49 +29,53 @@ export const Footer: FC = () => {
         borderColor='brand.light.primary'
       >
         <Flex
+          sx={{ mt: '-2px !important' }}
           borderBottom={{
             base: '2px solid',
             md: 'none'
           }}
           borderColor='brand.light.primary'
         >
-          <NextLink href={DOWNLOADS_PAGE} passHref>
-            <Link
-              flex={1}
-              color='brand.light.primary'
-              _hover={{
-                textDecoration: 'none',
-                bg: 'brand.light.primary',
-                color: 'yellow.50 !important'
-              }}
-              height='full'
-              borderRight='2px solid'
-              borderColor='brand.light.primary'
-            >
-              <Text textStyle='home-section-link-label'>DOWNLOADS</Text>
-            </Link>
-          </NextLink>
+          <Stack
+            flex={1}
+            color='brand.light.primary'
+            _hover={{
+              textDecoration: 'none',
+              bg: 'brand.light.primary',
+              color: 'yellow.50 !important'
+            }}
+            justifyContent='center'
+            borderRight='2px solid'
+            borderColor='brand.light.primary'
+          >
+            <NextLink href={DOWNLOADS_PAGE} passHref>
+              <Link _hover={{ textDecoration: 'none' }}>
+                <Text textStyle='home-section-link-label'>DOWNLOADS</Text>
+              </Link>
+            </NextLink>
+          </Stack>
 
-
-          <NextLink href={DOCS_PAGE} passHref>
-            <Link
-              flex={1}
-              color='brand.light.primary'
-              _hover={{
-                textDecoration: 'none',
-                bg: 'brand.light.primary',
-                color: 'yellow.50 !important'
-              }}
-              height='full'
-              borderRight={{
-                base: 'none',
-                md: '2px solid'
-              }}
-              borderColor='brand.light.primary'
-            >
-              <Text textStyle='home-section-link-label'>DOCUMENTATION</Text>
-            </Link>
-          </NextLink>
+          <Stack
+            flex={1}
+            color='brand.light.primary'
+            _hover={{
+              textDecoration: 'none',
+              bg: 'brand.light.primary',
+              color: 'yellow.50 !important'
+            }}
+            borderRight={{
+              base: 'none',
+              md: '2px solid'
+            }}
+            borderColor='brand.light.primary'
+            justifyContent='center'
+          >
+            <NextLink href={DOCS_PAGE} passHref>
+              <Link _hover={{ textDecoration: 'none' }}>
+                <Text textStyle='home-section-link-label'>DOCUMENTATION</Text>
+              </Link>
+            </NextLink>
+          </Stack>
         </Flex>
 
         <Flex>
