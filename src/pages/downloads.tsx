@@ -3,13 +3,14 @@ import type { NextPage } from 'next';
 import { useState } from 'react';
 
 import { DownloadsHero, DownloadsSection, DownloadsTable } from '../components/UI/downloads';
-import { DataTable } from '../components/UI';
+import { DataTable, PageMetadata } from '../components/UI';
 
 import {
   DEFAULT_BUILD_AMOUNT_TO_SHOW,
   DOWNLOAD_OPENPGP_BUILD_HEADERS,
   DOWNLOAD_OPENPGP_DEVELOPER_HEADERS,
-  GETH_REPO_URL
+  GETH_REPO_URL,
+  METADATA
 } from '../constants';
 
 import { testDownloadData } from '../data/test/download-testdata';
@@ -30,7 +31,10 @@ const DownloadsPage: NextPage = () => {
 
   return (
     <>
-      {/* TODO: add PageMetadata */}
+      <PageMetadata
+        title={METADATA.DOWNLOADS_TITLE}
+        description={METADATA.DOWNLOADS_DESCRIPTION}
+      />
 
       <main>
         <Stack spacing={4}>

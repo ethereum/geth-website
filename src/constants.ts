@@ -66,3 +66,12 @@ export const DOWNLOAD_OPENPGP_DEVELOPER_HEADERS = [
   'OpenPGP Key',
   'Fingerprint'
 ];
+
+export const SITE_URL = 'https://geth.ethereum.org';
+export const SITE_NAME = 'go-ethereum';
+export const METADATA = {
+  HOME_TITLE: 'Home',
+  HOME_DESCRIPTION: '', // TODO: make description
+  DOWNLOADS_TITLE: 'Downloads',
+  DOWNLOADS_DESCRIPTION: '' // TODO: make description
+};

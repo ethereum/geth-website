@@ -6,6 +6,7 @@ import { Heading } from '@chakra-ui/react';
 import MDXComponents from '../components/';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { PageMetadata } from '../components/UI';
 
 const MATTER_OPTIONS = {
   engines: {
@@ -70,9 +71,16 @@ interface Props {
 const DocPage: NextPage<Props> = ({ frontmatter, content }) => {
   return (
     <>
-      <Heading as='h1'>{frontmatter.title}</Heading>
+      <PageMetadata
+        title={frontmatter.title}
+        description={frontmatter.description}
+      />
 
-      <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
+      <main>
+        <Heading as='h1'>{frontmatter.title}</Heading>
+
+        <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
+      </main>
     </>
   );
 };
