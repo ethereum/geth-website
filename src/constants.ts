@@ -71,7 +71,8 @@ export const SITE_URL = 'https://geth.ethereum.org';
 export const SITE_NAME = 'go-ethereum';
 export const METADATA = {
   HOME_TITLE: 'Home',
-  HOME_DESCRIPTION: '', // TODO: make description
+  HOME_DESCRIPTION:
+    'Go-ethereum website, home for the official Golang execution layer implementation of the Ethereum protocol',
   DOWNLOADS_TITLE: 'Downloads',
-  DOWNLOADS_DESCRIPTION: '' // TODO: make description
+  DOWNLOADS_DESCRIPTION: 'All Geth releases and builds, available for download'
 };
