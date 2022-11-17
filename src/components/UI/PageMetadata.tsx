@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -10,14 +9,12 @@ interface Props {
   image?: string;
 }
 
-export const PageMetadata: FC<Props> = ({ title, description, image }) => {
+export const PageMetadata: React.FC<Props> = ({ title, description, image }) => {
   const router = useRouter();
+  const url = `${SITE_URL}${router.asPath}`;
   const fullTitle = `${title} | ${SITE_NAME}`;
   const defaultOgImage = `${SITE_URL}/images/pages/gopher-downloads-front-light.svg`; // TODO: update with right image
-  const postUrl = `${SITE_URL}${router.asPath}`;
-  const ogImage = !image
-    ? defaultOgImage
-    : `${SITE_URL}${image}`;
+  const ogImage = !image ? defaultOgImage : `${SITE_URL}${image}`;
 
   return (
     <Head>
@@ -30,8 +27,8 @@ export const PageMetadata: FC<Props> = ({ title, description, image }) => {
       <meta property='og:title' content={fullTitle} />
       <meta property='og:description' content={description} />
       <meta property='og:type' content='website' />
-      <meta property='og:site_name' content={SITE_NAME}></meta>
-      <meta property='og:url' content={postUrl} />
+      <meta property='og:site_name' content={SITE_NAME} />
+      <meta property='og:url' content={url} />
       <meta property='og:image' content={ogImage} />
       <meta property='og:image:url' content={ogImage} />
       <meta property='og:image:secure_url' content={ogImage} />
@@ -39,9 +36,9 @@ export const PageMetadata: FC<Props> = ({ title, description, image }) => {
       <meta property='og:image:type' content='image/png' />
       {/* Twitter */}
       <meta name='twitter:card' content='summary_large_image' />
-      <meta property='twitter:url' content={postUrl} />
-      <meta name='twitter:creator' content='@ethereum' />
-      <meta name='twitter:site' content='@ethereum' />
+      <meta property='twitter:url' content={url} />
+      <meta name='twitter:creator' content='@go_ethereum' />
+      <meta name='twitter:site' content='@go_ethereum' />
       <meta name='twitter:title' content={fullTitle} />
       <meta name='twitter:description' content={description} />
       {/* patch to force a cache invalidation of twitter's card bot */}
