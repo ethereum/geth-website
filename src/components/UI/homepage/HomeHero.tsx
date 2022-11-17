@@ -8,7 +8,7 @@ export const HomeHero: FC = () => {
   return (
     <Stack
       border='2px solid'
-      borderColor='brand.light.primary'
+      borderColor='primary'
       px={4}
       py={{ base: 8, md: 24, lg: 48 }}
       flexGrow={1}
@@ -19,7 +19,7 @@ export const HomeHero: FC = () => {
           textStyle='h1'
           mb={{ base: 2, md: 4 }}
           textAlign={{ base: 'center', md: 'left' }}
-          fontSize={{ base: '3rem', md: '6rem' }}
+          fontSize={{ base: '5xl', md: '8xl' }}
           lineHeight={{ md: '6rem' }}
           fontWeight='500'
         >
