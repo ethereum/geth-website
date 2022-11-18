@@ -78,7 +78,7 @@ export const MobileMenu: React.FC<Props> = ({ setIsMenuOpen, ...props }) => {
         {/* DOWNLOADS */}
         <Stack {...mobileMenuItemStyles}>
           <NextLink href={DOWNLOADS_PAGE} passHref>
-            <Link _hover={{ textDecoration: 'none' }}>
+            <Link _hover={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(false)}>
               <Text textStyle='downloads-button-label' fontSize="2xl">
                 downloads
               </Text>
@@ -87,18 +87,9 @@ export const MobileMenu: React.FC<Props> = ({ setIsMenuOpen, ...props }) => {
         </Stack>
 
         {/* DOCUMENTATION */}
-        <Stack
-          justifyContent='center'
-          borderBottom='2px'
-          borderColor='bg'
-          _hover={{
-            textDecoration: 'none',
-            bg: 'primary',
-            color: 'bg !important'
-          }}
-        >
+        <Stack {...mobileMenuItemStyles}>
           <NextLink href={DOCS_PAGE} passHref>
-            <Link _hover={{ textDecoration: 'none' }}>
+            <Link _hover={{ textDecoration: 'none' }} onClick={() => setIsMenuOpen(false)}>
               <Text textStyle='downloads-button-label' fontSize="2xl">
                 documentation
               </Text>
