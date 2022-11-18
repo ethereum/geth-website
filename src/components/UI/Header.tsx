@@ -1,19 +1,14 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Box, Flex, Input, InputGroup, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { HamburgerIcon, LensIcon, MoonIcon, SunIcon } from '../UI/icons';
+import { LensIcon, MoonIcon, SunIcon } from '../UI/icons';
 import { DOCS_PAGE, DOWNLOADS_PAGE } from '../../constants';
 import { MobileMenu } from '../layouts';
 
 export const Header: FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === 'dark';
-
-  const handleMenuToggle = () => {
-    setIsMenuOpen(prev => !prev);
-  }
 
   return (
     <Flex
@@ -120,29 +115,10 @@ export const Header: FC = () => {
         >
           {isDark ? <SunIcon color='primary' /> : <MoonIcon color='primary' />}
         </Box>
-        {/* HAMBURGER MENU */}
-        <Box
-          as='button'
-          p={4}
-          display={{ base: 'block', md: 'none' }}
-          color='primary'
-          _hover={{
-            bg: isMenuOpen ? 'secondary' : 'primary',
-            color: 'bg'
-          }}
-          onClick={handleMenuToggle}
-          ms={isMenuOpen ? 'auto' : 'none'}
-        >
-          <HamburgerIcon />
-        </Box>
       </Flex>
 
-
       {/* MOBILE MENU */}
-      <MobileMenu
-        setIsMenuOpen={setIsMenuOpen}
-        transform={`translateY(${!isMenuOpen ? '-150%' : '0'})`}
-      />
+      <MobileMenu />
 
     </Flex>
   );
