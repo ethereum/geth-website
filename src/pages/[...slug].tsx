@@ -2,10 +2,14 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
 import ReactMarkdown from 'react-markdown';
-import { Heading } from '@chakra-ui/react';
+import { Heading, Stack } from '@chakra-ui/react';
 import MDXComponents from '../components/';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+
+import { DocsNav } from '../components/UI/docs';
+
+import { getFileList } from '../utils';
 
 const MATTER_OPTIONS = {
   engines: {
@@ -15,21 +19,6 @@ const MATTER_OPTIONS = {
 
 // This method crawls for all valid docs paths
 export const getStaticPaths: GetStaticPaths = () => {
-  const getFileList = (dirName: string) => {
-    let files: string[] = [];
-    const items = fs.readdirSync(dirName, { withFileTypes: true });
-
-    for (const item of items) {
-      if (item.isDirectory()) {
-        files = [...files, ...getFileList(`${dirName}/${item.name}`)];
-      } else {
-        files.push(`/${dirName}/${item.name}`);
-      }
-    }
-
-    return files.map(file => file.replace('.md', '')).map(file => file.replace('/index', ''));
-  };
-
   const paths: string[] = getFileList('docs'); // This is folder that get crawled for valid docs paths. Change if this path changes.
 
   return {
@@ -40,6 +29,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 // Reads file data for markdown pages
 export const getStaticProps: GetStaticProps = async context => {
+  const paths: string[] = getFileList('docs'); // This is folder that get crawled for valid docs paths. Change if this path changes.
   const { slug } = context.params as ParsedUrlQuery;
   const filePath = (slug as string[])!.join('/');
   let file;
@@ -55,7 +45,8 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       frontmatter,
-      content
+      content,
+      paths
     }
   };
 };
@@ -65,15 +56,21 @@ interface Props {
     [key: string]: string;
   };
   content: string;
+  paths: string[];
 }
 
-const DocPage: NextPage<Props> = ({ frontmatter, content }) => {
+const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
   return (
     <>
       <main>
-        <Heading as='h1'>{frontmatter.title}</Heading>
+        <Stack>
+          <DocsNav paths={paths} />
+        </Stack>
+        <Stack py={8} px={4}>
+          <Heading as='h1'>{frontmatter.title}</Heading>
 
-        <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
+          <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
+        </Stack>
       </main>
     </>
   );
