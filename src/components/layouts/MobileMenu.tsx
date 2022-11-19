@@ -50,7 +50,7 @@ export const MobileMenu: React.FC = () => {
       </Box>
 
       {/* MODAL */}
-      <Modal isOpen={isOpen} onClose={onClose} motionPreset='scale'>
+      <Modal isOpen={isOpen} onClose={onClose}>
 
         <ModalOverlay />
         <ModalContent>
@@ -65,7 +65,6 @@ export const MobileMenu: React.FC = () => {
             border={BORDER_WIDTH}
             overflow='hidden'
             direction='column'
-            transition='opacity 0.2s ease-in-out'
           >
             <Flex borderBottom='2px' justify='flex-end'>
               {/* CLOSE ICON */}
