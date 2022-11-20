@@ -50,7 +50,7 @@ export const MobileMenu: React.FC = () => {
       </Box>
 
       {/* MODAL */}
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} motionPreset='none'>
 
         <ModalOverlay />
         <ModalContent>
@@ -59,14 +59,15 @@ export const MobileMenu: React.FC = () => {
             position='fixed'
             maxW='min(calc(var(--chakra-sizes-container-sm) - 2rem), 100vw - 2rem)'
             marginInline='auto'
-            inset='1.5rem 0 0'
+            inset="0"
+            top={`calc(2rem - ${BORDER_WIDTH} - ${BORDER_WIDTH})`}
             color='bg'
             bg='secondary'
             border={BORDER_WIDTH}
             overflow='hidden'
             direction='column'
           >
-            <Flex borderBottom='2px' justify='flex-end'>
+            <Flex borderBottom={BORDER_WIDTH} justify='flex-end'>
               {/* CLOSE ICON */}
               <Box
                 as='button'
