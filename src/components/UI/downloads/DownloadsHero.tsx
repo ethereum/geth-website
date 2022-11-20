@@ -67,14 +67,12 @@ export const DownloadsHero: FC<DownloadsHero> = ({
           </Stack>
 
           <Stack
-            py={{ base: 0 }}
-            px={{ base: 8 }}
             flex={{ base: 'none' }}
             display={{ base: 'block', lg: 'none' }}
             order={{ base: -1, md: 1 }}
           >
             <Center>
-              <GopherDownloads aria-label='Gopher plugged in' w={{ md: 96 }} />
+              <GopherDownloads aria-label='Gopher plugged in' w={{ base: '100%', md: 96 }} />
             </Center>
           </Stack>
         </Grid>
