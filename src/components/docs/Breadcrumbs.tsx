@@ -16,7 +16,9 @@ export const Breadcrumbs: FC<Props> = ({ router }) => {
         return (
           <BreadcrumbItem key={path}>
             <NextLink href={`/${pathSplit.slice(0, idx + 1).join('/')}`} passHref>
-              <Link color={idx + 1 === pathSplit.length ? 'body' : 'primary'}>{path}</Link>
+              <BreadcrumbLink color={idx + 1 === pathSplit.length ? 'body' : 'primary'}>
+                {path}
+              </BreadcrumbLink>
             </NextLink>
           </BreadcrumbItem>
         );
