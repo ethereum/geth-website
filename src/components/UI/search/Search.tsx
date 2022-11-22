@@ -11,7 +11,7 @@ export const Search: FC = () => {
       borderRight={{ base: 'none', md: BORDER_WIDTH }}
       borderColor={{ base: 'bg', md: 'primary' }}
       p={{ base: 8, md: 4 }}
-      _hover={{ bg: 'primary'}}
+      _hover={{ base: {bg: 'primary'}, md: {bg: 'none'}}}
     >
       <InputGroup>
         <Input

@@ -17,6 +17,7 @@ export const HeaderButtons: FC<Props> = ({
     borderBottom: { base: BORDER_WIDTH, md: 'none' },
     borderRight: { base: 'none', md: BORDER_WIDTH },
     borderColor: {base: 'bg', md: 'primary' }, 
+    color: {base: 'bg', md: 'primary' }, 
     _hover: {
       textDecoration: 'none',
       bg: 'primary',
