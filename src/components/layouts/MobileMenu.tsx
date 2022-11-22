@@ -1,17 +1,15 @@
 import {
   Box,
   Flex,
-  Input,
-  InputGroup,
   Modal,
   ModalContent,
   ModalOverlay,
-  Stack,
   useDisclosure
 } from '@chakra-ui/react'
 import { CloseIcon } from '@chakra-ui/icons';
 
-import { HamburgerIcon, LensIcon } from '../UI/icons';
+import { HamburgerIcon } from '../UI/icons';
+import { Search } from '../UI/search';
 import { HeaderButtons } from '../UI'
 
 const BORDER_WIDTH = '2px';
@@ -67,22 +65,11 @@ export const MobileMenu: React.FC = () => {
               </Box>
             </Flex>
 
+            {/* HEADER BUTT */}
             <HeaderButtons close={onClose} />
 
             {/* SEARCH */}
-            <Stack borderBottom={BORDER_WIDTH} p={8} _hover={{ bg: 'primary'}}>
-              <InputGroup>
-                <Input
-                  variant='unstyled'
-                  placeholder='search'
-                  size='md'
-                  _placeholder={{ color: 'bg', fontStyle: 'italic' }}
-                />
-                <Stack pl={4} justifyContent='center' alignItems='center'>
-                  <LensIcon fontSize='2xl' />
-                </Stack>
-              </InputGroup>
-            </Stack>
+            <Search />
 
           </Flex>
         </ModalContent>

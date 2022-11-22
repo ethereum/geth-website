@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { Box, Flex, Input, InputGroup, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { LensIcon, MoonIcon, SunIcon } from '../UI/icons';
+import { MoonIcon, SunIcon } from '../UI/icons';
+import { Search } from './search';
 import { HeaderButtons } from './';
 import { MobileMenu } from '../layouts';
 
@@ -34,29 +35,16 @@ export const Header: FC = () => {
       </Stack>
 
       <Flex>
+        {/* HEADER BUTTONS */}
         <Stack display={{base: 'none', md: 'block'}}>
           <HeaderButtons />
         </Stack>
 
         {/* SEARCH */}
         <Stack
-          p={4}
           display={{ base: 'none', md: 'block' }}
-          borderRight='2px'
-          borderColor='primary'
         >
-          <InputGroup>
-            <Input
-              variant='unstyled'
-              placeholder='search'
-              size='md'
-              _placeholder={{ color: 'primary', fontStyle: 'italic' }}
-            />
-
-            <Stack pl={4} justifyContent='center' alignItems='center'>
-              <LensIcon color='primary' />
-            </Stack>
-          </InputGroup>
+          <Search />
         </Stack>
 
         {/* DARK MODE SWITCH */}
