@@ -110,7 +110,7 @@ export const DownloadsHero: FC<DownloadsHero> = ({
       </Stack>
 
       <Center display={{ base: 'none', lg: 'flex' }}>
-        <GopherDownloads aria-label='Gopher plugged in' w={96} />
+        <GopherDownloads aria-label='Gopher plugged in' w={96} h='100%' />
       </Center>
     </Grid>
   );
