@@ -9,6 +9,9 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Breadcrumbs } from '../components/docs'
 
+import { PageMetadata } from '../components/UI';
+
+
 const MATTER_OPTIONS = {
   engines: {
     yaml: (s: any) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object
@@ -74,6 +77,11 @@ const DocPage: NextPage<Props> = ({ frontmatter, content }) => {
 
   return (
     <>
+      <PageMetadata
+        title={frontmatter.title}
+        description={frontmatter.description}
+      />
+
       <main>
         <Stack py={8} px={4}>
           <Breadcrumbs router={router} />
