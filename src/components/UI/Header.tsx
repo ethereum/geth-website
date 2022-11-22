@@ -3,7 +3,7 @@ import { Box, Flex, Input, InputGroup, Link, Stack, Text, useColorMode } from '@
 import NextLink from 'next/link';
 
 import { LensIcon, MoonIcon, SunIcon } from '../UI/icons';
-import { DOCS_PAGE, DOWNLOADS_PAGE } from '../../constants';
+import { HeaderButtons } from './';
 import { MobileMenu } from '../layouts';
 
 export const Header: FC = () => {
@@ -34,50 +34,8 @@ export const Header: FC = () => {
       </Stack>
 
       <Flex>
-        {/* DOWNLOADS */}
-        <Stack
-          p={4}
-          justifyContent='center'
-          borderRight='2px'
-          borderColor='primary'
-          display={{ base: 'none', md: 'block' }}
-          color='primary'
-          _hover={{
-            textDecoration: 'none',
-            bg: 'primary',
-            color: 'bg !important'
-          }}
-        >
-          <NextLink href={DOWNLOADS_PAGE} passHref>
-            <Link _hover={{ textDecoration: 'none' }}>
-              <Text textStyle='header-font' textTransform='uppercase'>
-                downloads
-              </Text>
-            </Link>
-          </NextLink>
-        </Stack>
-
-        {/* DOCUMENTATION */}
-        <Stack
-          p={4}
-          justifyContent='center'
-          borderRight='2px'
-          borderColor='primary'
-          display={{ base: 'none', md: 'block' }}
-          color='primary'
-          _hover={{
-            textDecoration: 'none',
-            bg: 'primary',
-            color: 'bg !important'
-          }}
-        >
-          <NextLink href={DOCS_PAGE} passHref>
-            <Link _hover={{ textDecoration: 'none' }}>
-              <Text textStyle='header-font' textTransform='uppercase'>
-                documentation
-              </Text>
-            </Link>
-          </NextLink>
+        <Stack display={{base: 'none', md: 'block'}}>
+          <HeaderButtons />
         </Stack>
 
         {/* SEARCH */}

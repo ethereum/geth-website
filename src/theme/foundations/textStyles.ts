@@ -83,6 +83,18 @@ export const textStyles = {
     textAlign: 'center',
     fontSize: 'sm'
   },
+  'header-button': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 700,
+    fontSize: { base: '0.86rem', sm: '1rem' },
+    color: 'primary'
+  },
+  'header-mobile-button': {
+    fontFamily: '"JetBrains Mono", monospace',
+    color: 'bg',
+    textTransform: 'uppercase',
+    fontSize: '2xl'
+  },
   // TODO: refactor w/ semantic tokens for light/dark mode
   'link-light': {},
   // TODO: refactor w/ semantic tokens for light/dark mode

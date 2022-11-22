@@ -3,37 +3,21 @@ import {
   Flex,
   Input,
   InputGroup,
-  Link,
   Modal,
   ModalContent,
   ModalOverlay,
-  Text,
   Stack,
   useDisclosure
 } from '@chakra-ui/react'
 import { CloseIcon } from '@chakra-ui/icons';
-import NextLink from 'next/link';
 
 import { HamburgerIcon, LensIcon } from '../UI/icons';
-import { DOCS_PAGE, DOWNLOADS_PAGE } from '../../constants';
+import { HeaderButtons } from '../UI'
 
 const BORDER_WIDTH = '2px';
 
 export const MobileMenu: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const mobileMenuItemStyles = {
-    justifyContent: 'center',
-    borderBottom: BORDER_WIDTH,
-    borderColor: 'bg',
-    color: 'primary',
-    p: 8,
-    _hover: {
-      textDecoration: 'none',
-      bg: 'primary',
-      color: 'bg !important'
-    }
-  }
 
   return (
     <>
@@ -83,27 +67,7 @@ export const MobileMenu: React.FC = () => {
               </Box>
             </Flex>
 
-            {/* DOWNLOADS */}
-            <Stack {...mobileMenuItemStyles}>
-              <NextLink href={DOWNLOADS_PAGE} passHref>
-                <Link _hover={{ textDecoration: 'none' }} onClick={onClose}>
-                  <Text textStyle='downloads-button-label' fontSize="2xl">
-                    downloads
-                  </Text>
-                </Link>
-              </NextLink>
-            </Stack>
-
-            {/* DOCUMENTATION */}
-            <Stack {...mobileMenuItemStyles}>
-              <NextLink href={DOCS_PAGE} passHref>
-                <Link _hover={{ textDecoration: 'none' }} onClick={onClose}>
-                  <Text textStyle='downloads-button-label' fontSize="2xl">
-                    documentation
-                  </Text>
-                </Link>
-              </NextLink>
-            </Stack>
+            <HeaderButtons close={onClose} />
 
             {/* SEARCH */}
             <Stack borderBottom={BORDER_WIDTH} p={8} _hover={{ bg: 'primary'}}>
