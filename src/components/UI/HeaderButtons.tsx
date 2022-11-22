@@ -2,9 +2,7 @@ import { FC, MouseEventHandler } from 'react';
 import { Flex, Link, Stack, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { DOCS_PAGE, DOWNLOADS_PAGE } from '../../constants';
-
-const BORDER_WIDTH = '2px';
+import { BORDER_WIDTH, DOCS_PAGE, DOWNLOADS_PAGE } from '../../constants';
 
 interface Props {
   close?: MouseEventHandler<HTMLAnchorElement>

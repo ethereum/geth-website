@@ -12,7 +12,7 @@ import { HamburgerIcon } from '../UI/icons';
 import { Search } from '../UI/search';
 import { HeaderButtons } from '../UI'
 
-const BORDER_WIDTH = '2px';
+import { BORDER_WIDTH } from '../../constants';
 
 export const MobileMenu: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

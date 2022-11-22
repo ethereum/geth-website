@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import { Input, InputGroup, Stack } from '@chakra-ui/react'
 
+import { BORDER_WIDTH } from '../../../constants'
 import { LensIcon } from '../icons';
-
-const BORDER_WIDTH = '2px';
 
 export const Search: FC = () => {
   return (
