@@ -66,15 +66,14 @@ export const DownloadsHero: FC<DownloadsHero> = ({
             </Text>
           </Stack>
 
-          <Stack
+          <Center
+            p={{ base: 0, md: 8 }}
             flex={{ base: 'none' }}
             display={{ base: 'block', lg: 'none' }}
             order={{ base: -1, md: 1 }}
           >
-            <Center>
-              <GopherDownloads aria-label='Gopher plugged in' w={{ base: '100%', md: 96 }} />
-            </Center>
-          </Stack>
+              <GopherDownloads aria-label='Gopher plugged in' w={{ base: '100%' }} />
+          </Center>
         </Grid>
 
         <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={4} mb={4}>
