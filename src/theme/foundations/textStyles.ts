@@ -100,6 +100,20 @@ export const textStyles = {
     textTransform: 'uppercase',
     fontSize: '2xl'
   },
+  'inline-code-snippet': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: 4,
+    letterSpacing: '1%'
+  },
+  'code-block': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: '21.12px',
+    letterSpacing: '1%'
+  },
   // TODO: refactor w/ semantic tokens for light/dark mode
   'link-light': {},
   // TODO: refactor w/ semantic tokens for light/dark mode
