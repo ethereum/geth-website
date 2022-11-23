@@ -1,5 +1,3 @@
-// TODO: update first export
-export * from './getProgrammingLanguageName';
 export { getChecksum } from './getChecksum';
 export { getParsedDate } from './getParsedDate';
 export { getReleaseArch } from './getReleaseArch';

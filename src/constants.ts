@@ -1,3 +1,9 @@
+import React from 'react';
+import { IconProps } from '@chakra-ui/react';
+import { WindowsLogo, MacosLogo, LinuxPenguin, SourceBranch } from './components/UI/icons';
+
+export const BORDER_WIDTH = '2px';
+
 // internal pages
 export const DOWNLOADS_PAGE = '/downloads';
 export const DOCS_PAGE = '/docs';
@@ -16,30 +22,35 @@ export const GO_URL = 'https://go.dev/';
 // Downloads
 export const DEFAULT_BUILD_AMOUNT_TO_SHOW = 10;
 export const DOWNLOAD_HEADER_BUTTONS: {
-  [index: string]: { name: string; image: string; imageAlt: string; buildURL: string };
+  [index: string]: {
+    name: string;
+    ariaLabel: string;
+    buildURL: string;
+    Svg: React.FC<IconProps>;
+  };
 } = {
   linuxBuild: {
     name: 'Linux',
-    image: '/images/pages/linux-penguin.svg',
-    imageAlt: 'Linux logo',
+    ariaLabel: 'Linux logo',
+    Svg: LinuxPenguin,
     buildURL: ''
   },
   macOSBuild: {
     name: 'macOS',
-    image: '/images/pages/macos-logo.svg',
-    imageAlt: 'macOS logo',
+    ariaLabel: 'macOS logo',
+    Svg: MacosLogo,
     buildURL: ''
   },
   windowsBuild: {
     name: 'Windows',
-    image: '/images/pages/windows-logo.svg',
-    imageAlt: 'Windows logo',
+    ariaLabel: 'Windows logo',
+    Svg: WindowsLogo,
     buildURL: ''
   },
   sourceCode: {
     name: 'Sources',
-    image: '/images/pages/source-branch.svg',
-    imageAlt: 'Source branch logo',
+    ariaLabel: 'Source branch logo',
+    Svg: SourceBranch,
     buildURL: ''
   }
 };
@@ -66,6 +77,17 @@ export const DOWNLOADS_OPENPGP_DEVELOPER_HEADERS = [
   'OpenPGP Key',
   'Fingerprint'
 ];
+
+// Metadata
+export const SITE_URL = 'https://geth.ethereum.org';
+export const SITE_NAME = 'go-ethereum';
+export const METADATA = {
+  HOME_TITLE: 'Home',
+  HOME_DESCRIPTION:
+    'Go-ethereum website, home for the official Golang execution layer implementation of the Ethereum protocol',
+  DOWNLOADS_TITLE: 'Downloads',
+  DOWNLOADS_DESCRIPTION: 'All Geth releases and builds, available for download'
+};
 
 // GitHub urls
 export const LATEST_GETH_RELEASE_URL =

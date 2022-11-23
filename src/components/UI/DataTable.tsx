@@ -13,11 +13,11 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
       // Note: This wont work on firefox, we are ok with this.
       css={{
         '&::-webkit-scrollbar': {
-          borderTop: '2px solid #11866f',
+          borderTop: '2px solid var(--chakra-colors-primary)',
           height: 18
         },
         '&::-webkit-scrollbar-thumb': {
-          background: '#11866f'
+          background: 'var(--chakra-colors-primary)'
         }
       }}
       pt={4}
@@ -33,7 +33,7 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
                     fontFamily='"JetBrains Mono", monospace'
                     fontWeight={700}
                     fontSize='md'
-                    color='#868b87'
+                    color='#868b87' //? Use theme color? Or add to theme?
                   >
                     {columnHeader}
                   </Text>
@@ -50,7 +50,7 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
                 key={idx}
                 // TODO: Get new background color from nuno for hover
                 transition={'all 0.5s'}
-                _hover={{ background: 'green.50', transition: 'all 0.5s' }}
+                _hover={{ background: 'button-bg', transition: 'all 0.5s' }}
               >
                 {Object.entries(release).map(item => {
                   // TODO: Make the font size smaller (refer to design system)

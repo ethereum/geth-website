@@ -9,7 +9,7 @@ import {
   DownloadsTable,
   SpecificVersionsSection
 } from '../components/UI/downloads';
-import { DataTable } from '../components/UI';
+import { DataTable, PageMetadata } from '../components/UI';
 
 import {
   ALL_ANDROID_GETH_RELEASES_URL,
@@ -25,6 +25,7 @@ import {
   DOWNLOADS_OPENPGP_BUILD_HEADERS,
   DOWNLOADS_OPENPGP_DEVELOPER_HEADERS,
   GETH_REPO_URL,
+  METADATA,
   LATEST_GETH_RELEASE_URL,
   LATEST_SOURCES_BASE_URL,
   LINUX_BINARY_BASE_URL,
@@ -323,7 +324,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
 
   return (
     <>
-      {/* TODO: add PageMetadata */}
+      <PageMetadata title={METADATA.DOWNLOADS_TITLE} description={METADATA.DOWNLOADS_DESCRIPTION} />
 
       <main>
         <Stack spacing={4}>
@@ -484,7 +485,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             sectionTitle='OpenPGP Signatures'
           >
             {/* TODO: swap for real data */}
-            <Stack borderBottom='2px solid' borderColor='brand.light.primary'>
+            <Stack borderBottom='2px solid' borderColor='primary'>
               <DataTable columnHeaders={DOWNLOADS_OPENPGP_BUILD_HEADERS} data={pgpBuildTestData} />
             </Stack>
 
@@ -500,8 +501,8 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
           <DownloadsSection id='importingkeys' sectionTitle='Importing keys and verifying builds'>
             <Flex
               p={4}
-              borderBottom='2px solid'
-              borderColor='brand.light.primary'
+              borderBottom='2px'
+              borderColor='primary'
               gap={4}
               flexDirection={{ base: 'column', md: 'row' }}
             >
@@ -520,8 +521,8 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
 
             <Flex
               p={4}
-              borderBottom='2px solid'
-              borderColor='brand.light.primary'
+              borderBottom='2px'
+              borderColor='primary'
               gap={4}
               flexDirection={{ base: 'column', md: 'row' }}
             >
@@ -540,8 +541,8 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
 
             <Flex
               p={4}
-              borderBottom='2px solid'
-              borderColor='brand.light.primary'
+              borderBottom='2px'
+              borderColor='primary'
               gap={4}
               flexDirection={{ base: 'column', md: 'row' }}
             >

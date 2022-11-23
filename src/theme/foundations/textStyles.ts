@@ -5,7 +5,7 @@ export const textStyles = {
     fontSize: '2.75rem',
     lineHeight: '3.375rem',
     letterSpacing: '5%',
-    color: 'brand.light.body'
+    color: 'body'
   },
   h2: {
     fontFamily: '"JetBrains Mono", monospace',
@@ -13,7 +13,7 @@ export const textStyles = {
     fontSize: '1.5rem',
     lineHeight: 'auto',
     letterSpacing: '4%',
-    color: 'brand.light.body'
+    color: 'body'
   },
   'header-font': {
     fontFamily: '"JetBrains Mono", monospace',
@@ -29,7 +29,7 @@ export const textStyles = {
   },
   'homepage-primary-label': {
     fontFamily: '"JetBrains Mono", monospace',
-    color: 'yellow.50',
+    color: 'bg',
     fontWeight: 700,
     textTransform: 'uppercase'
   },
@@ -49,14 +49,21 @@ export const textStyles = {
     fontWeight: 700,
     textTransform: 'uppercase',
     textAlign: 'center',
-    color: 'brand.light.primary',
-    _groupHover: { color: 'yellow.50' },
-    _groupActive: { color: 'yellow.50' },
-    _groupFocus: { color: 'yellow.50' }
+    color: 'primary',
+    _groupHover: { color: 'bg' },
+    _groupActive: { color: 'bg' },
+    _groupFocus: { color: 'bg' }
   },
   'hero-text-small': {
     fontSize: '13px',
     fontFamily: '"Inter", sans-serif'
+  },
+  'footer-link-label': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 700,
+    textTransform: 'uppercase',
+    lineHeight: '21.12px',
+    letterSpacing: '2%'
   },
   'footer-text': {
     fontFamily: '"Inter", sans-serif',
@@ -66,13 +73,13 @@ export const textStyles = {
   },
   'downloads-button-label': {
     fontFamily: '"JetBrains Mono", monospace',
-    color: 'yellow.50',
+    color: 'bg',
     fontSize: { base: 'md', lg: 'xl' },
     textTransform: 'uppercase'
   },
   'downloads-button-sublabel': {
     fontFamily: '"JetBrains Mono", monospace',
-    color: 'yellow.50',
+    color: 'bg',
     fontSize: { base: 'xs', lg: 'sm' },
     textTransform: 'uppercase'
   },
@@ -82,6 +89,30 @@ export const textStyles = {
     textTransform: 'uppercase',
     textAlign: 'center',
     fontSize: 'sm'
+  },
+  'header-button': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 700,
+    fontSize: { base: '0.86rem', sm: '1rem' },
+  },
+  'header-mobile-button': {
+    fontFamily: '"JetBrains Mono", monospace',
+    textTransform: 'uppercase',
+    fontSize: '2xl'
+  },
+  'inline-code-snippet': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: 4,
+    letterSpacing: '1%'
+  },
+  'code-block': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: '21.12px',
+    letterSpacing: '1%'
   },
   // TODO: refactor w/ semantic tokens for light/dark mode
   'link-light': {},

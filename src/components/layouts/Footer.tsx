@@ -1,4 +1,4 @@
-import { Flex, Link, Stack, Text } from '@chakra-ui/react';
+import { Center, Flex, Link, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import NextLink from 'next/link';
 
@@ -19,7 +19,7 @@ export const Footer: FC = () => {
         direction={{ base: 'column', md: 'row' }}
         justifyContent={{ md: 'space-between' }}
         border='2px solid'
-        borderColor='brand.light.primary'
+        borderColor='primary'
       >
         <Flex
           sx={{ mt: '-2px !important' }}
@@ -27,52 +27,52 @@ export const Footer: FC = () => {
             base: '2px solid',
             md: 'none'
           }}
-          borderColor='brand.light.primary'
+          borderColor='primary'
         >
-          <Stack
+          <Center
             flex={1}
-            color='brand.light.primary'
+            color='primary'
             _hover={{
               textDecoration: 'none',
-              bg: 'brand.light.primary',
-              color: 'yellow.50 !important'
+              bg: 'primary',
+              color: 'bg !important'
             }}
-            justifyContent='center'
             borderRight='2px solid'
-            borderColor='brand.light.primary'
+            borderColor='primary'
+            p={4}
           >
             <NextLink href={DOWNLOADS_PAGE} passHref>
               <Link _hover={{ textDecoration: 'none' }}>
-                <Text textStyle='home-section-link-label'>DOWNLOADS</Text>
+                <Text textStyle='footer-link-label'>DOWNLOADS</Text>
               </Link>
             </NextLink>
-          </Stack>
+          </Center>
 
-          <Stack
+          <Center
             flex={1}
-            color='brand.light.primary'
+            color='primary'
             _hover={{
               textDecoration: 'none',
-              bg: 'brand.light.primary',
-              color: 'yellow.50 !important'
+              bg: 'primary',
+              color: 'bg !important'
             }}
             borderRight={{
               base: 'none',
               md: '2px solid'
             }}
-            borderColor='brand.light.primary'
-            justifyContent='center'
+            borderColor='primary'
+            p={4}
           >
             <NextLink href={DOCS_PAGE} passHref>
               <Link _hover={{ textDecoration: 'none' }}>
-                <Text textStyle='home-section-link-label'>DOCUMENTATION</Text>
+                <Text textStyle='footer-link-label'>DOCUMENTATION</Text>
               </Link>
             </NextLink>
-          </Stack>
+          </Center>
         </Flex>
 
         <Flex sx={{ mt: '0 !important' }}>
-          <Stack
+          <Center
             flex={1}
             data-group
             borderLeft={{
@@ -80,95 +80,66 @@ export const Footer: FC = () => {
               md: '2px solid',
               lg: 'none'
             }}
-            borderColor='brand.light.primary !important'
+            borderColor='primary !important'
             _hover={{
-              bg: 'brand.light.primary'
+              bg: 'primary'
             }}
-            alignItems='center'
             p={4}
           >
             <NextLink href={GETH_TWITTER_URL} passHref>
               <Link isExternal>
-                <TwitterIcon
-                  w={8}
-                  height={8}
-                  _groupHover={{
-                    svg: {
-                      path: { fill: 'yellow.50 !important' }
-                    }
-                  }}
-                />
+                <TwitterIcon w={8} height='22px' _groupHover={{ color: 'bg' }} color='primary' />
               </Link>
             </NextLink>
-          </Stack>
+          </Center>
 
-          <Stack
+          <Center
             data-group
             flex={1}
             _hover={{
-              bg: 'brand.light.primary'
+              bg: 'primary'
             }}
-            alignItems='center'
             borderWidth='2px'
             borderStyle='none solid'
-            borderColor='brand.light.primary'
+            borderColor='primary'
             p={4}
           >
             <NextLink href={GETH_DISCORD_URL} passHref>
               <Link isExternal>
-                <DiscordIcon
-                  w={8}
-                  height={8}
-                  _groupHover={{
-                    svg: {
-                      path: { fill: 'yellow.50 !important' }
-                    }
-                  }}
-                />
+                <DiscordIcon w={8} height='22px' _groupHover={{ color: 'bg' }} color='primary' />
               </Link>
             </NextLink>
-          </Stack>
+          </Center>
 
-          <Stack
+          <Center
             data-group
             flex={1}
             _hover={{
-              bg: 'brand.light.primary'
+              bg: 'primary'
             }}
-            alignItems='center'
             p={4}
           >
             <NextLink href={GETH_REPO_URL} passHref>
               <Link isExternal>
-                <GitHubIcon
-                  w={7}
-                  height={7}
-                  _groupHover={{
-                    svg: {
-                      path: { fill: 'yellow.50 !important' }
-                    }
-                  }}
-                />
+                <GitHubIcon w={7} height='22px' _groupHover={{ color: 'bg' }} color='primary' />
               </Link>
             </NextLink>
-          </Stack>
+          </Center>
         </Flex>
       </Flex>
 
-      <Stack
+      <Center
         p={4}
-        textAlign='center'
-        justifyContent='center'
         borderWidth='2px'
         borderStyle={{
           base: 'none solid solid solid',
           lg: 'solid solid solid none'
         }}
-        borderColor='brand.light.primary'
+        borderColor='primary'
         flex={1}
       >
         <Text textStyle='footer-text'>{`© 2013–${new Date().getFullYear()}. The go-ethereum Authors.`}</Text>
-      </Stack>
+      </Center>
     </Flex>
   );
 };
