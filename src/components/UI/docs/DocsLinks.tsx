@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { Stack } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Link, Stack, Text } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 interface Props {
   paths: string[];
@@ -36,11 +37,44 @@ const makeTree = (paths: string[]) => {
 export const DocsLinks: FC<Props> = ({ paths }) => {
   const tree = makeTree(paths)
   const test = tree[0].children
-  console.log(test)
 
   return (
-    <Stack>
-      <p>Test</p>
+    <Stack
+      border='2px'
+      borderColor='primary'
+    >
+      {test.map((child) => {
+        return (
+          <Accordion key={child.title} allowToggle defaultIndex={[0]}>
+            <AccordionItem>
+              <AccordionButton>
+                {
+                  paths[paths.indexOf(child.path)] ? (
+                    <NextLink href={child.path} passHref>
+                      <Link>
+                        <Text textStyle='docs-nav-dropdown'>
+                          {child.title}
+                        </Text>
+                      </Link>
+                    </NextLink>
+                  ) : (
+                    <Text textStyle='docs-nav-dropdown'>
+                        {child.title}
+                      </Text>
+                  )
+                }
+                <Stack>
+                  <AccordionIcon />
+                </Stack>
+              </AccordionButton>
+            <AccordionPanel borderBottom='2px solid'
+            borderColor='primary'>
+              <Text>test</Text>
+            </AccordionPanel>
+          </AccordionItem>
+          </Accordion>
+        )
+      })}
     </Stack>
   );
 };

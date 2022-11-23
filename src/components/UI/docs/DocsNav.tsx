@@ -21,6 +21,10 @@ export const DocsNav: FC<Props> = ({ paths }) => {
                 borderColor='primary'
                 placeContent='space-between'
                 bg='button-bg'
+                _hover={{
+                  bg: 'primary',
+                  color: 'bg'
+                }}
                 _expanded={{
                   bg: 'primary',
                   color: 'bg'
@@ -31,7 +35,7 @@ export const DocsNav: FC<Props> = ({ paths }) => {
                 </Text>
                 <AccordionIcon />
               </AccordionButton>
-            <AccordionPanel>
+            <AccordionPanel p={0}>
               <DocsLinks paths={paths} />
             </AccordionPanel>
           </AccordionItem>

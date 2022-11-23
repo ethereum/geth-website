@@ -67,7 +67,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
           <Stack>
             <DocsNav paths={paths} />
           </Stack>
-          <Stack>
+          <Stack maxWidth='768px'>
             <Heading as='h1'>{frontmatter.title}</Heading>
 
             <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
