@@ -8,7 +8,6 @@ import {
   getReleaseName,
   getReleaseSize,
   getReleaseURL,
-  getSignature,
   getSignatureURL
 } from '.';
 
@@ -22,7 +21,6 @@ export const mapReleasesData = ({ blobsList, isStableRelease }: ReleaseParams): 
     ) // filter by stable/dev builds
     .map(({ Name, Properties }: any) => {
       const commitHash = getReleaseCommitHash(Name);
-      const sig = getSignature(Name);
 
       return {
         release: {
@@ -38,8 +36,8 @@ export const mapReleasesData = ({ blobsList, isStableRelease }: ReleaseParams): 
         size: getReleaseSize(Properties['Content-Length']),
         published: getParsedDate(Properties['Last-Modified']),
         signature: {
-          label: sig,
-          url: getSignatureURL(sig)
+          label: 'Signature',
+          url: getSignatureURL(Name)
         },
         checksum: getChecksum(Properties['Content-MD5'])
       };

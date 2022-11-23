@@ -9,6 +9,5 @@ export { getReleaseKind } from './getReleaseKind';
 export { getReleaseName } from './getReleaseName';
 export { getReleaseSize } from './getReleaseSize';
 export { getReleaseURL } from './getReleaseURL';
-export { getSignature } from './getSignature';
 export { getSignatureURL } from './getSignatureURL';
 export { mapReleasesData } from './mapReleasesData';
