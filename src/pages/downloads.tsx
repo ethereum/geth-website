@@ -1,6 +1,7 @@
 import { Center, Code, Flex, Link, ListItem, Stack, Text, UnorderedList } from '@chakra-ui/react';
 import type { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
+import { XMLParser } from 'fast-xml-parser';
 
 import {
   DownloadsHero,
@@ -11,10 +12,18 @@ import {
 import { DataTable } from '../components/UI';
 
 import {
+  ALL_ANDROID_GETH_RELEASES_URL,
   ALL_GETH_COMMITS_URL,
+  ALL_IOS_GETH_RELEASES_URL,
+  ALL_LINUX_ALLTOOLS_GETH_RELEASES_URL,
+  ALL_LINUX_GETH_RELEASES_URL,
+  ALL_MACOS_ALLTOOLS_GETH_RELEASES_URL,
+  ALL_MACOS_GETH_RELEASES_URL,
+  ALL_WINDOWS_ALLTOOLS_GETH_RELEASES_URL,
+  ALL_WINDOWS_GETH_RELEASES_URL,
   DEFAULT_BUILD_AMOUNT_TO_SHOW,
-  DOWNLOAD_OPENPGP_BUILD_HEADERS,
-  DOWNLOAD_OPENPGP_DEVELOPER_HEADERS,
+  DOWNLOADS_OPENPGP_BUILD_HEADERS,
+  DOWNLOADS_OPENPGP_DEVELOPER_HEADERS,
   GETH_REPO_URL,
   LATEST_GETH_RELEASE_URL,
   LATEST_SOURCES_BASE_URL,
@@ -24,11 +33,18 @@ import {
   WINDOWS_BINARY_BASE_URL
 } from '../constants';
 
+// TODO: delete test data
 import { testDownloadData } from '../data/test/download-testdata';
 import { pgpBuildTestData } from '../data/test/pgpbuild-testdata';
 import { pgpDeveloperTestData } from '../data/test/pgpdeveloper-testdata';
 
+import { mapReleasesData } from '../utils';
+import { LatestReleasesData, ReleaseData } from '../types';
+import { compareReleasesFn } from '../utils/compareReleasesFn';
+
 export const getServerSideProps: GetServerSideProps = async () => {
+  // ==== LATEST RELEASES DATA ====
+
   // Latest release name & version number
   const { versionNumber, releaseName } = await fetch(LATEST_GETH_RELEASE_URL)
     .then(response => response.json())
@@ -70,27 +86,198 @@ export const getServerSideProps: GetServerSideProps = async () => {
     }
   };
 
+  // ==== ALL RELEASES DATA ====
+
+  // 1) fetch XML data
+  // TODO: add try/catch
+  const [
+    ALL_LINUX_RELEASES_XML_DATA,
+    ALL_LINUX_ALL_TOOLS_RELEASES_XML_DATA,
+    ALL_MACOS_RELEASES_XML_DATA,
+    ALL_MACOS_ALL_TOOLS_RELEASES_XML_DATA,
+    ALL_WINDOWS_RELEASES_XML_DATA,
+    ALL_WINDOWS_ALL_TOOLS_RELEASES_XML_DATA,
+    ALL_ANDROID_RELEASES_XML_DATA,
+    ALL_IOS_RELEASES_XML_DATA
+  ] = await Promise.all([
+    // linux
+    fetch(ALL_LINUX_GETH_RELEASES_URL).then(response => response.text()),
+    fetch(ALL_LINUX_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
+    // macOS
+    fetch(ALL_MACOS_GETH_RELEASES_URL).then(response => response.text()),
+    fetch(ALL_MACOS_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
+    // windows
+    fetch(ALL_WINDOWS_GETH_RELEASES_URL).then(response => response.text()),
+    fetch(ALL_WINDOWS_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
+    // android
+    fetch(ALL_ANDROID_GETH_RELEASES_URL).then(response => response.text()),
+    // iOS
+    fetch(ALL_IOS_GETH_RELEASES_URL).then(response => response.text())
+  ]);
+
+  // 2) XML data parsing
+  const parser = new XMLParser();
+
+  // linux
+  const linuxJson = parser.parse(ALL_LINUX_RELEASES_XML_DATA);
+  const ALL_LINUX_BLOBS_JSON_DATA = linuxJson.EnumerationResults.Blobs.Blob;
+
+  const linuxAllToolsJson = parser.parse(ALL_LINUX_ALL_TOOLS_RELEASES_XML_DATA);
+  const ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA = linuxAllToolsJson.EnumerationResults.Blobs.Blob;
+
+  // macOS
+  const macOSJson = parser.parse(ALL_MACOS_RELEASES_XML_DATA);
+  const ALL_MACOS_BLOBS_JSON_DATA = macOSJson.EnumerationResults.Blobs.Blob;
+
+  const macOSAllToolsJson = parser.parse(ALL_MACOS_ALL_TOOLS_RELEASES_XML_DATA);
+  const ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA = linuxAllToolsJson.EnumerationResults.Blobs.Blob;
+
+  // windows
+  const windowsJson = parser.parse(ALL_WINDOWS_RELEASES_XML_DATA);
+  const ALL_WINDOWS_BLOBS_JSON_DATA = macOSJson.EnumerationResults.Blobs.Blob;
+
+  const windowsAllToolsJson = parser.parse(ALL_WINDOWS_ALL_TOOLS_RELEASES_XML_DATA);
+  const ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA = windowsAllToolsJson.EnumerationResults.Blobs.Blob;
+
+  // android
+  const androidJson = parser.parse(ALL_ANDROID_RELEASES_XML_DATA);
+  const ALL_ANDROID_BLOBS_JSON_DATA = androidJson.EnumerationResults.Blobs.Blob;
+
+  // iOS
+  const iOSJson = parser.parse(ALL_IOS_RELEASES_XML_DATA);
+  const ALL_IOS_BLOBS_JSON_DATA = androidJson.EnumerationResults.Blobs.Blob;
+
+  // 3) get blobs
+  // linux
+  const LINUX_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_LINUX_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const LINUX_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const LINUX_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_LINUX_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+  const LINUX_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+
+  // macOS
+  const MACOS_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_MACOS_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const MACOS_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const MACOS_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_MACOS_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+  const MACOS_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+
+  // windows
+  const WINDOWS_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_WINDOWS_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const WINDOWS_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_WINDOWS_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+  const WINDOWS_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+
+  // android
+  const ANDROID_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_ANDROID_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const ANDROID_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_ANDROID_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+
+  // iOS
+  const IOS_STABLE_RELEASES_DATA = mapReleasesData({
+    blobsList: ALL_IOS_BLOBS_JSON_DATA,
+    isStableRelease: true
+  });
+  const IOS_DEV_BUILDS_DATA = mapReleasesData({
+    blobsList: ALL_IOS_BLOBS_JSON_DATA,
+    isStableRelease: false
+  });
+
   return {
     props: {
-      data: { LATEST_RELEASES_DATA }
+      data: {
+        // latest
+        LATEST_RELEASES_DATA,
+        // linux
+        ALL_LINUX_STABLE_RELEASES: LINUX_STABLE_RELEASES_DATA.concat(
+          LINUX_ALLTOOLS_STABLE_RELEASES_DATA
+        ).sort(compareReleasesFn),
+        ALL_LINUX_DEV_BUILDS: LINUX_DEV_BUILDS_DATA.concat(LINUX_ALLTOOLS_DEV_BUILDS_DATA).sort(
+          compareReleasesFn
+        ),
+        // macOS
+        ALL_MACOS_STABLE_RELEASES: MACOS_STABLE_RELEASES_DATA.concat(
+          MACOS_ALLTOOLS_STABLE_RELEASES_DATA
+        ).sort(compareReleasesFn),
+        ALL_MACOS_DEV_BUILDS: MACOS_DEV_BUILDS_DATA.concat(MACOS_ALLTOOLS_DEV_BUILDS_DATA).sort(
+          compareReleasesFn
+        ),
+        // windows
+        ALL_WINDOWS_STABLE_RELEASES: WINDOWS_STABLE_RELEASES_DATA.concat(
+          WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA
+        ).sort(compareReleasesFn),
+        ALL_WINDOWS_DEV_BUILDS: WINDOWS_DEV_BUILDS_DATA.concat(
+          WINDOWS_ALLTOOLS_DEV_BUILDS_DATA
+        ).sort(compareReleasesFn),
+        // android
+        ALL_ANDROID_STABLE_RELEASES: ANDROID_STABLE_RELEASES_DATA,
+        ALL_ANDROID_DEV_BUILDS: ANDROID_DEV_BUILDS_DATA,
+        // iOS
+        ALL_IOS_STABLE_RELEASES: IOS_STABLE_RELEASES_DATA,
+        ALL_IOS_DEV_BUILDS: IOS_DEV_BUILDS_DATA
+      }
     }
   };
 };
 
 interface Props {
   data: {
-    // TODO: define interfaces after adding the rest of the logic
-    LATEST_RELEASES_DATA: {
-      versionNumber: string;
-      releaseName: string;
-      urls: {
-        LATEST_LINUX_BINARY_URL: string;
-        LATEST_MACOS_BINARY_URL: string;
-        LATEST_WINDOWS_BINARY_URL: string;
-        LATEST_SOURCES_URL: string;
-        RELEASE_NOTES_URL: string;
-      };
-    };
+    // latest
+    LATEST_RELEASES_DATA: LatestReleasesData;
+    // linux
+    ALL_LINUX_STABLE_RELEASES: ReleaseData[];
+    ALL_LINUX_DEV_BUILDS: ReleaseData[];
+    // macOS
+    ALL_MACOS_STABLE_RELEASES: ReleaseData[];
+    ALL_MACOS_DEV_BUILDS: ReleaseData[];
+    // windows
+    ALL_WINDOWS_STABLE_RELEASES: ReleaseData[];
+    ALL_WINDOWS_DEV_BUILDS: ReleaseData[];
+    // android
+    ALL_ANDROID_STABLE_RELEASES: ReleaseData[];
+    ALL_ANDROID_DEV_BUILDS: ReleaseData[];
+    // iOS
+    ALL_IOS_STABLE_RELEASES: ReleaseData[];
+    ALL_IOS_DEV_BUILDS: ReleaseData[];
   };
 }
 
@@ -107,8 +294,32 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
   };
 
   const {
-    LATEST_RELEASES_DATA: { releaseName, versionNumber, urls }
+    // latest
+    LATEST_RELEASES_DATA,
+    // linux
+    ALL_LINUX_STABLE_RELEASES,
+    ALL_LINUX_DEV_BUILDS,
+    // macOS
+    ALL_MACOS_STABLE_RELEASES,
+    ALL_MACOS_DEV_BUILDS,
+    // windows
+    ALL_WINDOWS_STABLE_RELEASES,
+    ALL_WINDOWS_DEV_BUILDS,
+    // android
+    ALL_ANDROID_STABLE_RELEASES,
+    ALL_ANDROID_DEV_BUILDS,
+    // iOS
+    ALL_IOS_STABLE_RELEASES,
+    ALL_IOS_DEV_BUILDS
   } = data;
+
+  const ALL_STABLE_RELEASES = {
+    ALL_LINUX_STABLE_RELEASES,
+    ALL_MACOS_STABLE_RELEASES,
+    ALL_WINDOWS_STABLE_RELEASES,
+    ALL_IOS_STABLE_RELEASES,
+    ALL_ANDROID_STABLE_RELEASES
+  };
 
   return (
     <>
@@ -117,13 +328,13 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
       <main>
         <Stack spacing={4}>
           <DownloadsHero
-            currentBuild={releaseName}
-            currentBuildVersion={versionNumber}
-            linuxBuildURL={urls.LATEST_LINUX_BINARY_URL}
-            macOSBuildURL={urls.LATEST_MACOS_BINARY_URL}
-            windowsBuildURL={urls.LATEST_WINDOWS_BINARY_URL}
-            sourceCodeURL={urls.LATEST_SOURCES_URL}
-            releaseNotesURL={urls.RELEASE_NOTES_URL}
+            currentBuild={LATEST_RELEASES_DATA.releaseName}
+            currentBuildVersion={LATEST_RELEASES_DATA.versionNumber}
+            linuxBuildURL={LATEST_RELEASES_DATA.urls.LATEST_LINUX_BINARY_URL}
+            macOSBuildURL={LATEST_RELEASES_DATA.urls.LATEST_MACOS_BINARY_URL}
+            windowsBuildURL={LATEST_RELEASES_DATA.urls.LATEST_WINDOWS_BINARY_URL}
+            sourceCodeURL={LATEST_RELEASES_DATA.urls.LATEST_SOURCES_URL}
+            releaseNotesURL={LATEST_RELEASES_DATA.urls.RELEASE_NOTES_URL}
           />
 
           <SpecificVersionsSection>
@@ -178,7 +389,8 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             sectionTitle='Stable releases'
           >
             {/* TODO: swap test data for real data */}
-            <DownloadsTable data={testDownloadData.slice(0, amountStableReleases)} />
+            {/* MACOS_STABLE_RELEASES_DATA.concat(MACOS_ALLTOOLS_STABLE_RELEASES_DATA).sort(compareReleasesFn) */}
+            <DownloadsTable data={ALL_STABLE_RELEASES} />
 
             <Flex
               sx={{ mt: '0 !important' }}
@@ -227,7 +439,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             sectionTitle='Develop builds'
           >
             {/* TODO: swap for real data */}
-            <DownloadsTable data={testDownloadData.slice(0, amountDevelopBuilds)} />
+            {/* <DownloadsTable data={testDownloadData.slice(0, amountDevelopBuilds)} /> */}
 
             <Flex
               sx={{ mt: '0 !important' }}
@@ -273,13 +485,13 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
           >
             {/* TODO: swap for real data */}
             <Stack borderBottom='2px solid' borderColor='brand.light.primary'>
-              <DataTable columnHeaders={DOWNLOAD_OPENPGP_BUILD_HEADERS} data={pgpBuildTestData} />
+              <DataTable columnHeaders={DOWNLOADS_OPENPGP_BUILD_HEADERS} data={pgpBuildTestData} />
             </Stack>
 
             {/* TODO: swap for real data */}
             <Stack>
               <DataTable
-                columnHeaders={DOWNLOAD_OPENPGP_DEVELOPER_HEADERS}
+                columnHeaders={DOWNLOADS_OPENPGP_DEVELOPER_HEADERS}
                 data={pgpDeveloperTestData}
               />
             </Stack>
