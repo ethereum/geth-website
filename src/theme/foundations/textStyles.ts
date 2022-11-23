@@ -83,6 +83,13 @@ export const textStyles = {
     textAlign: 'center',
     fontSize: 'sm'
   },
+  'docs-nav-dropdown': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: '18px',
+    lineHeight: 6,
+    letterSpacing: '4%'
+  },
   // TODO: refactor w/ semantic tokens for light/dark mode
   'link-light': {},
   // TODO: refactor w/ semantic tokens for light/dark mode

@@ -2,7 +2,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
 import ReactMarkdown from 'react-markdown';
-import { Heading, Stack } from '@chakra-ui/react';
+import { Flex, Heading, Stack } from '@chakra-ui/react';
 import MDXComponents from '../components/';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
@@ -63,14 +63,16 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
   return (
     <>
       <main>
-        <Stack>
-          <DocsNav paths={paths} />
-        </Stack>
-        <Stack py={8} px={4}>
-          <Heading as='h1'>{frontmatter.title}</Heading>
+        <Flex direction={{base: 'column', lg: 'row'}} gap={{base: 4, lg: 8}}>
+          <Stack>
+            <DocsNav paths={paths} />
+          </Stack>
+          <Stack>
+            <Heading as='h1'>{frontmatter.title}</Heading>
 
-          <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
-        </Stack>
+            <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
+          </Stack>
+        </Flex>
       </main>
     </>
   );
