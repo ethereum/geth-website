@@ -13,11 +13,11 @@ export const HeaderButtons: FC<Props> = ({
 }) => {
   const menuItemStyles = {
     p: { base: 8, md: 4 },
-    justifyContent: 'center',
     borderBottom: { base: BORDER_WIDTH, md: 'none' },
     borderRight: { base: 'none', md: BORDER_WIDTH },
     borderColor: {base: 'bg', md: 'primary' }, 
-    color: {base: 'bg', md: 'primary' }, 
+    color: {base: 'bg', md: 'primary' },
+    alignItems: 'center',
     _hover: {
       textDecoration: 'none',
       bg: 'primary',

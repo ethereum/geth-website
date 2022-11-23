@@ -42,7 +42,8 @@ export const MobileMenu: React.FC = () => {
             maxW='min(calc(var(--chakra-sizes-container-sm) - 2rem), 100vw - 2rem)'
             marginInline='auto'
             inset="0"
-            top={`calc(2rem - ${BORDER_WIDTH} - ${BORDER_WIDTH})`}
+            top={4}
+            mb={4}
             color='bg'
             bg='secondary'
             border={BORDER_WIDTH}

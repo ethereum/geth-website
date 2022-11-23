@@ -10,7 +10,8 @@ export const Search: FC = () => {
       borderBottom={{ base: BORDER_WIDTH, md: 'none' }}
       borderRight={{ base: 'none', md: BORDER_WIDTH }}
       borderColor={{ base: 'bg', md: 'primary' }}
-      p={{ base: 8, md: 4 }}
+      px={4}
+      py={{ base: 8, md: 4 }}
       _hover={{ base: {bg: 'primary'}, md: {bg: 'none'}}}
     >
       <InputGroup>
@@ -21,7 +22,7 @@ export const Search: FC = () => {
           _placeholder={{ color: {base: 'bg', md: 'primary'}, fontStyle: 'italic' }}
         />
         <Stack pl={4} justifyContent='center' alignItems='center'>
-          <LensIcon color={{ base: 'bg', md: 'primary' }} fontSize={{ base: '2xl', md: 'md' }} />
+          <LensIcon color={{ base: 'bg', md: 'primary' }} fontSize={{ base: '3xl', md: 'md' }} />
         </Stack>
       </InputGroup>
     </Stack>
