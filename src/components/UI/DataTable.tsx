@@ -1,5 +1,6 @@
-import { Table, Thead, Tr, Th, TableContainer, Text, Tbody, Td } from '@chakra-ui/react';
+import { Link, Table, Thead, Tr, Th, TableContainer, Text, Tbody, Td } from '@chakra-ui/react';
 import { FC } from 'react';
+import { ReleaseData } from '../../types';
 
 interface Props {
   columnHeaders: string[];
@@ -41,8 +42,9 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
             })}
           </Tr>
         </Thead>
+
         <Tbody>
-          {data.map((item: any, idx: number) => {
+          {data.map((release: ReleaseData, idx: number) => {
             return (
               <Tr
                 key={idx}
@@ -50,11 +52,26 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
                 transition={'all 0.5s'}
                 _hover={{ background: 'green.50', transition: 'all 0.5s' }}
               >
-                {columnHeaders.map((columnHeader, idx) => {
+                {Object.entries(release).map(item => {
                   // TODO: Make the font size smaller (refer to design system)
+                  const objectItems = ['release', 'commit', 'signature'];
+
+                  if (objectItems.includes(item[0])) {
+                    const label = item[1].label;
+                    const url = item[1].url;
+
+                    return (
+                      <Td key={idx} px={4} fontSize='13px'>
+                        <Link _hover={{ textDecoration: 'none' }} href={url} isExternal>
+                          <Text color='brand.light.primary'>{label}</Text>
+                        </Link>
+                      </Td>
+                    );
+                  }
+
                   return (
                     <Td key={idx} px={4} fontSize='13px'>
-                      {item[columnHeader.toLowerCase()]}
+                      <Text>{item[1]}</Text>
                     </Td>
                   );
                 })}
