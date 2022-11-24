@@ -58,6 +58,13 @@ export const textStyles = {
     fontSize: '13px',
     fontFamily: '"Inter", sans-serif'
   },
+  'footer-link-label': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 700,
+    textTransform: 'uppercase',
+    lineHeight: '21.12px',
+    letterSpacing: '2%'
+  },
   'footer-text': {
     fontFamily: '"Inter", sans-serif',
     lineHeight: '22px',
@@ -82,6 +89,30 @@ export const textStyles = {
     textTransform: 'uppercase',
     textAlign: 'center',
     fontSize: 'sm'
+  },
+  'header-button': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 700,
+    fontSize: { base: '0.86rem', sm: '1rem' },
+  },
+  'header-mobile-button': {
+    fontFamily: '"JetBrains Mono", monospace',
+    textTransform: 'uppercase',
+    fontSize: '2xl'
+  },
+  'inline-code-snippet': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: 4,
+    letterSpacing: '1%'
+  },
+  'code-block': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: '21.12px',
+    letterSpacing: '1%'
   },
   // TODO: refactor w/ semantic tokens for light/dark mode
   'link-light': {},
