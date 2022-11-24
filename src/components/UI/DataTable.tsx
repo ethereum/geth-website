@@ -63,7 +63,9 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
                     return (
                       <Td key={idx} px={4} fontSize='13px'>
                         <Link _hover={{ textDecoration: 'none' }} href={url} isExternal>
-                          <Text color='brand.light.primary'>{label}</Text>
+                          <Text color='primary'>
+                            {item[0] === 'commit' ? `${label}...` : label}
+                          </Text>
                         </Link>
                       </Td>
                     );

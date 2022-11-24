@@ -1,5 +1,5 @@
 import { Center, Code, Flex, Link, ListItem, Stack, Text, UnorderedList } from '@chakra-ui/react';
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import { useState } from 'react';
 import { XMLParser } from 'fast-xml-parser';
 
@@ -43,7 +43,10 @@ import { mapReleasesData } from '../utils';
 import { LatestReleasesData, ReleaseData } from '../types';
 import { compareReleasesFn } from '../utils/compareReleasesFn';
 
-export const getServerSideProps: GetServerSideProps = async () => {
+// This function gets called at build time on server-side.
+// It'll be called again if a new request comes in after 1hr, so data is refreshed periodically
+// More info: https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration
+export const getStaticProps: GetStaticProps = async () => {
   // ==== LATEST RELEASES DATA ====
 
   // Latest release name & version number
@@ -256,7 +259,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
         ALL_IOS_STABLE_RELEASES: IOS_STABLE_RELEASES_DATA,
         ALL_IOS_DEV_BUILDS: IOS_DEV_BUILDS_DATA
       }
-    }
+    },
+    revalidate: 3600 // In seconds
   };
 };
 
