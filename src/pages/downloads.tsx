@@ -1,5 +1,5 @@
 import { Center, Code, Flex, Link, ListItem, Stack, Text, UnorderedList } from '@chakra-ui/react';
-import type { GetServerSideProps, GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import { useState } from 'react';
 import { XMLParser } from 'fast-xml-parser';
 
@@ -110,12 +110,12 @@ export const getStaticProps: GetStaticProps = async () => {
     // macOS
     fetch(ALL_MACOS_GETH_RELEASES_URL).then(response => response.text()),
     fetch(ALL_MACOS_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
-    // windows
+    // // windows
     fetch(ALL_WINDOWS_GETH_RELEASES_URL).then(response => response.text()),
     fetch(ALL_WINDOWS_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
     // android
     fetch(ALL_ANDROID_GETH_RELEASES_URL).then(response => response.text()),
-    // iOS
+    // // iOS
     fetch(ALL_IOS_GETH_RELEASES_URL).then(response => response.text())
   ]);
 
@@ -134,11 +134,11 @@ export const getStaticProps: GetStaticProps = async () => {
   const ALL_MACOS_BLOBS_JSON_DATA = macOSJson.EnumerationResults.Blobs.Blob;
 
   const macOSAllToolsJson = parser.parse(ALL_MACOS_ALL_TOOLS_RELEASES_XML_DATA);
-  const ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA = linuxAllToolsJson.EnumerationResults.Blobs.Blob;
+  const ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA = macOSAllToolsJson.EnumerationResults.Blobs.Blob;
 
   // windows
   const windowsJson = parser.parse(ALL_WINDOWS_RELEASES_XML_DATA);
-  const ALL_WINDOWS_BLOBS_JSON_DATA = macOSJson.EnumerationResults.Blobs.Blob;
+  const ALL_WINDOWS_BLOBS_JSON_DATA = windowsJson.EnumerationResults.Blobs.Blob;
 
   const windowsAllToolsJson = parser.parse(ALL_WINDOWS_ALL_TOOLS_RELEASES_XML_DATA);
   const ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA = windowsAllToolsJson.EnumerationResults.Blobs.Blob;
@@ -149,7 +149,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // iOS
   const iOSJson = parser.parse(ALL_IOS_RELEASES_XML_DATA);
-  const ALL_IOS_BLOBS_JSON_DATA = androidJson.EnumerationResults.Blobs.Blob;
+  const ALL_IOS_BLOBS_JSON_DATA = iOSJson.EnumerationResults.Blobs.Blob;
 
   // 3) get blobs
   // linux
@@ -260,7 +260,7 @@ export const getStaticProps: GetStaticProps = async () => {
         ALL_IOS_DEV_BUILDS: IOS_DEV_BUILDS_DATA
       }
     },
-    revalidate: 3600 // In seconds
+    revalidate: 3600 // 1hr in seconds
   };
 };
 

@@ -10,8 +10,6 @@ interface Props {
 }
 
 export const DownloadsTable: FC<Props> = ({ data }) => {
-  console.log(data.ALL_LINUX_STABLE_RELEASES);
-
   return (
     <Stack sx={{ mt: '0 !important' }} borderBottom='2px solid' borderColor='primary'>
       <Tabs variant='unstyled'>
@@ -46,25 +44,25 @@ export const DownloadsTable: FC<Props> = ({ data }) => {
           <TabPanel p={0}>
             <DataTable
               columnHeaders={DOWNLOADS_TABLE_TAB_COLUMN_HEADERS}
-              data={data.ALL_MACOS_STABLE_RELEASES.slice(0, 21)}
+              data={data.ALL_MACOS_STABLE_RELEASES.slice(0, 31)}
             />
           </TabPanel>
           <TabPanel p={0}>
             <DataTable
               columnHeaders={DOWNLOADS_TABLE_TAB_COLUMN_HEADERS}
-              data={data.ALL_ANDROID_STABLE_RELEASES.slice(0, 21)}
+              data={data.ALL_WINDOWS_STABLE_RELEASES.slice(0, 31)}
             />
           </TabPanel>
           <TabPanel p={0}>
             <DataTable
               columnHeaders={DOWNLOADS_TABLE_TAB_COLUMN_HEADERS}
-              data={data.ALL_ANDROID_STABLE_RELEASES.slice(0, 21)}
+              data={data.ALL_IOS_STABLE_RELEASES.slice(0, 11)}
             />
           </TabPanel>
           <TabPanel p={0}>
             <DataTable
               columnHeaders={DOWNLOADS_TABLE_TAB_COLUMN_HEADERS}
-              data={data.ALL_ANDROID_STABLE_RELEASES.slice(0, 21)}
+              data={data.ALL_ANDROID_STABLE_RELEASES.slice(0, 11)}
             />
           </TabPanel>
         </TabPanels>

@@ -2,7 +2,7 @@ import { Heading, Link, Stack, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-import { Code } from './UI/docs'
+import { Code } from './UI/docs';
 
 import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
 import go from 'react-syntax-highlighter/dist/cjs/languages/prism/go';
@@ -88,28 +88,26 @@ const MDXComponents = {
   },
   // code
   code: (code: any) => {
-    return (
-      <Code code={code} />
-    )
+    return <Code code={code} />;
 
-  //   return !!code.inline ? (
-  //     <Text
-  //       as={'span'}
-  //       padding='0.125em 0.25em'
-  //       color='red.300'
-  //       background='code-bg-contrast'
-  //       borderRadius='0.25em'
-  //       fontFamily='code'
-  //       fontSize='sm'
-  //       overflowY='scroll'
-  //     >
-  //       {code.children[0]}
-  //     </Text>
-  //   ) : (
-  //     <Stack style={nightOwl}>
-  //       {code.children[0]}
-  //     </Stack>
-  //   );
+    //   return !!code.inline ? (
+    //     <Text
+    //       as={'span'}
+    //       padding='0.125em 0.25em'
+    //       color='red.300'
+    //       background='code-bg-contrast'
+    //       borderRadius='0.25em'
+    //       fontFamily='code'
+    //       fontSize='sm'
+    //       overflowY='scroll'
+    //     >
+    //       {code.children[0]}
+    //     </Text>
+    //   ) : (
+    //     <Stack style={nightOwl}>
+    //       {code.children[0]}
+    //     </Stack>
+    //   );
   }
 };
 

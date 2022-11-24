@@ -1,6 +1,5 @@
 import {
   getChecksum,
-  getParsedDate,
   getReleaseArch,
   getReleaseCommitHash,
   getReleaseCommitURL,
@@ -34,7 +33,8 @@ export const mapReleasesData = ({ blobsList, isStableRelease }: ReleaseParams): 
         kind: getReleaseKind(Name),
         arch: getReleaseArch(Name),
         size: getReleaseSize(Properties['Content-Length']),
-        published: getParsedDate(Properties['Last-Modified']),
+        // date is formatted later on the table, we use the raw value here for comparison
+        published: Properties['Last-Modified'],
         signature: {
           label: 'Signature',
           url: getSignatureURL(Name)

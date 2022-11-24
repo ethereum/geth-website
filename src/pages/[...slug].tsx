@@ -7,10 +7,9 @@ import MDXComponents from '../components/';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Breadcrumbs } from '../components/docs'
+import { Breadcrumbs } from '../components/docs';
 
 import { PageMetadata } from '../components/UI';
-
 
 const MATTER_OPTIONS = {
   engines: {
@@ -73,14 +72,11 @@ interface Props {
 }
 
 const DocPage: NextPage<Props> = ({ frontmatter, content }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <>
-      <PageMetadata
-        title={frontmatter.title}
-        description={frontmatter.description}
-      />
+      <PageMetadata title={frontmatter.title} description={frontmatter.description} />
 
       <main>
         <Stack py={8} px={4}>

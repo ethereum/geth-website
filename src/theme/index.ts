@@ -30,7 +30,7 @@ const overrides = {
       'code-bg': { _light: 'gray.200', _dark: 'gray.700' },
       'code-bg-contrast': { _light: 'gray.800', _dark: 'gray.900' },
       'code-text': { _light: 'green.50', _dark: 'green.50' },
-      bg: { _light: 'yellow.50', _dark: 'gray.800' },
+      bg: { _light: 'yellow.50', _dark: 'gray.800' }
     }
   }
 };
