@@ -281,6 +281,9 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
     ALL_IOS_DEV_BUILDS
   } = data;
 
+  console.log('ALL_MACOS_STABLE_RELEASES.length: ', ALL_MACOS_STABLE_RELEASES.length);
+  console.log('ALL_MACOS_DEV_BUILDS.length: ', ALL_MACOS_DEV_BUILDS.length);
+
   const [amountStableReleases, setAmountStableReleases] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
   const [amountDevBuilds, setAmountDevBuilds] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
 
@@ -291,7 +294,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
     setAmountStableReleases(amountStableReleases + 10);
   };
 
-  const showMoreDevelopBuilds = () => {
+  const showMoreDevBuilds = () => {
     setAmountDevBuilds(amountDevBuilds + 10);
   };
 
@@ -364,11 +367,11 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             sectionTitle='Stable releases'
           >
             <DownloadsTable
-              linuxData={ALL_LINUX_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
-              macOSData={ALL_MACOS_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
-              windowsData={ALL_WINDOWS_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
-              iOSData={ALL_IOS_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
-              androidData={ALL_ANDROID_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
+              linuxData={ALL_LINUX_STABLE_RELEASES}
+              macOSData={ALL_MACOS_STABLE_RELEASES}
+              windowsData={ALL_WINDOWS_STABLE_RELEASES}
+              iOSData={ALL_IOS_STABLE_RELEASES}
+              androidData={ALL_ANDROID_STABLE_RELEASES}
               amountOfReleasesToShow={amountStableReleases}
               setTotalReleases={setTotalStableReleases}
             />
@@ -380,7 +383,6 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               <Stack p={4} display={{ base: 'none', md: 'block' }}>
                 <Center>
                   <Text>
-                    {/* TODO: fix bug of total number of releases */}
                     {totalStableReleases > 0
                       ? `Showing ${Math.min(
                           amountStableReleases,
@@ -392,7 +394,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
                 </Center>
               </Stack>
 
-              {totalStableReleases > 0 && (
+              {totalStableReleases > amountStableReleases && (
                 <Stack
                   sx={{ mt: '0 !important' }}
                   borderLeft={{ base: 'none', md: '2px solid #11866f' }}
@@ -432,11 +434,11 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             sectionTitle='Develop builds'
           >
             <DownloadsTable
-              linuxData={ALL_LINUX_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
-              macOSData={ALL_MACOS_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
-              windowsData={ALL_WINDOWS_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
-              iOSData={ALL_IOS_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
-              androidData={ALL_ANDROID_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
+              linuxData={ALL_LINUX_DEV_BUILDS}
+              macOSData={ALL_MACOS_DEV_BUILDS}
+              windowsData={ALL_WINDOWS_DEV_BUILDS}
+              iOSData={ALL_IOS_DEV_BUILDS}
+              androidData={ALL_ANDROID_DEV_BUILDS}
               amountOfReleasesToShow={amountDevBuilds}
               setTotalReleases={setTotalDevBuilds}
             />
@@ -448,7 +450,6 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               <Stack p={4} display={{ base: 'none', md: 'block' }}>
                 <Center>
                   <Text>
-                    {/* TODO: fix bug of total number of releases */}
                     {totalDevBuilds > 0
                       ? `Showing ${Math.min(amountDevBuilds, totalDevBuilds)} latest releases of
                     a total ${totalDevBuilds} releases`
@@ -457,12 +458,12 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
                 </Center>
               </Stack>
 
-              {totalDevBuilds > 0 && (
+              {totalDevBuilds > amountDevBuilds && (
                 <Stack
                   sx={{ mt: '0 !important' }}
                   borderLeft={{ base: 'none', md: '2px solid #11866f' }}
                 >
-                  <Link as='button' variant='button-link-secondary' onClick={showMoreDevelopBuilds}>
+                  <Link as='button' variant='button-link-secondary' onClick={showMoreDevBuilds}>
                     <Text
                       fontFamily='"JetBrains Mono", monospace'
                       fontWeight={700}
