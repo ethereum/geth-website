@@ -17,21 +17,19 @@ import {
   DOWNLOADS_OPENPGP_DEVELOPER_HEADERS,
   GETH_REPO_URL,
   METADATA,
-  LATEST_GETH_RELEASE_URL,
   LATEST_SOURCES_BASE_URL,
-  LINUX_BINARY_BASE_URL,
-  MACOS_BINARY_BASE_URL,
-  RELEASE_NOTES_BASE_URL,
-  WINDOWS_BINARY_BASE_URL
+  RELEASE_NOTES_BASE_URL
 } from '../constants';
 
 import { pgpBuildTestData } from '../data/test/pgpbuild-testdata';
 import { pgpDeveloperTestData } from '../data/test/pgpdeveloper-testdata';
 
 import {
-  compareReleasesFn,
   fetchLatestReleaseCommit,
+  fetchLatestReleaseVersionAndName,
   fetchXMLData,
+  getLatestBinaryURL,
+  getSortedReleases,
   mapReleasesData
 } from '../utils';
 import { LatestReleasesData, ReleaseData } from '../types';
@@ -42,28 +40,15 @@ import { LatestReleasesData, ReleaseData } from '../types';
 export const getStaticProps: GetStaticProps = async () => {
   // ==== LATEST RELEASES DATA ====
 
-  // Latest release name & version number
-  const { versionNumber, releaseName } = await fetch(LATEST_GETH_RELEASE_URL)
-    .then(response => response.json())
-    .then(release => {
-      return {
-        versionNumber: release.tag_name as string,
-        releaseName: release.name as string
-      };
-    });
+  // Latest version number & release name
+  const { versionNumber, releaseName } = await fetchLatestReleaseVersionAndName();
   // Latest release commit hash
   const commit = await fetchLatestReleaseCommit(versionNumber);
 
   // Latest binaries urls
-  const LATEST_LINUX_BINARY_URL = `${LINUX_BINARY_BASE_URL}${versionNumber.slice(
-    1
-  )}-${commit}.tar.gz`;
-  const LATEST_MACOS_BINARY_URL = `${MACOS_BINARY_BASE_URL}${versionNumber.slice(
-    1
-  )}-${commit}.tar.gz`;
-  const LATEST_WINDOWS_BINARY_URL = `${WINDOWS_BINARY_BASE_URL}${versionNumber.slice(
-    1
-  )}-${commit}.exe`;
+  const LATEST_LINUX_BINARY_URL = getLatestBinaryURL('linux', versionNumber, commit);
+  const LATEST_MACOS_BINARY_URL = getLatestBinaryURL('darwin', versionNumber, commit);
+  const LATEST_WINDOWS_BINARY_URL = getLatestBinaryURL('windows', versionNumber, commit);
 
   // Sources urls
   const LATEST_SOURCES_URL = `${LATEST_SOURCES_BASE_URL}${versionNumber}.tar.gz`;
@@ -209,32 +194,38 @@ export const getStaticProps: GetStaticProps = async () => {
           // latest
           LATEST_RELEASES_DATA,
           // linux
-          ALL_LINUX_STABLE_RELEASES: LINUX_STABLE_RELEASES_DATA.concat(
+          ALL_LINUX_STABLE_RELEASES: getSortedReleases(
+            LINUX_STABLE_RELEASES_DATA,
             LINUX_ALLTOOLS_STABLE_RELEASES_DATA
-          ).sort(compareReleasesFn),
-          ALL_LINUX_DEV_BUILDS: LINUX_DEV_BUILDS_DATA.concat(LINUX_ALLTOOLS_DEV_BUILDS_DATA).sort(
-            compareReleasesFn
+          ),
+          ALL_LINUX_DEV_BUILDS: getSortedReleases(
+            LINUX_DEV_BUILDS_DATA,
+            LINUX_ALLTOOLS_DEV_BUILDS_DATA
           ),
           // macOS
-          ALL_MACOS_STABLE_RELEASES: MACOS_STABLE_RELEASES_DATA.concat(
+          ALL_MACOS_STABLE_RELEASES: getSortedReleases(
+            MACOS_STABLE_RELEASES_DATA,
             MACOS_ALLTOOLS_STABLE_RELEASES_DATA
-          ).sort(compareReleasesFn),
-          ALL_MACOS_DEV_BUILDS: MACOS_DEV_BUILDS_DATA.concat(MACOS_ALLTOOLS_DEV_BUILDS_DATA).sort(
-            compareReleasesFn
+          ),
+          ALL_MACOS_DEV_BUILDS: getSortedReleases(
+            MACOS_DEV_BUILDS_DATA,
+            MACOS_ALLTOOLS_DEV_BUILDS_DATA
           ),
           // windows
-          ALL_WINDOWS_STABLE_RELEASES: WINDOWS_STABLE_RELEASES_DATA.concat(
+          ALL_WINDOWS_STABLE_RELEASES: getSortedReleases(
+            WINDOWS_STABLE_RELEASES_DATA,
             WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA
-          ).sort(compareReleasesFn),
-          ALL_WINDOWS_DEV_BUILDS: WINDOWS_DEV_BUILDS_DATA.concat(
+          ),
+          ALL_WINDOWS_DEV_BUILDS: getSortedReleases(
+            WINDOWS_DEV_BUILDS_DATA,
             WINDOWS_ALLTOOLS_DEV_BUILDS_DATA
-          ).sort(compareReleasesFn),
+          ),
           // android
-          ALL_ANDROID_STABLE_RELEASES: ANDROID_STABLE_RELEASES_DATA.sort(compareReleasesFn),
-          ALL_ANDROID_DEV_BUILDS: ANDROID_DEV_BUILDS_DATA.sort(compareReleasesFn),
+          ALL_ANDROID_STABLE_RELEASES: getSortedReleases(ANDROID_STABLE_RELEASES_DATA),
+          ALL_ANDROID_DEV_BUILDS: getSortedReleases(ANDROID_DEV_BUILDS_DATA),
           // iOS
-          ALL_IOS_STABLE_RELEASES: IOS_STABLE_RELEASES_DATA.sort(compareReleasesFn),
-          ALL_IOS_DEV_BUILDS: IOS_DEV_BUILDS_DATA.sort(compareReleasesFn)
+          ALL_IOS_STABLE_RELEASES: getSortedReleases(IOS_STABLE_RELEASES_DATA),
+          ALL_IOS_DEV_BUILDS: getSortedReleases(IOS_DEV_BUILDS_DATA)
         }
       },
       // using ISR here (https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)

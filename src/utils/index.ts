@@ -1,6 +1,8 @@
 export { compareReleasesFn } from './compareReleasesFn';
 export { fetchLatestReleaseCommit } from './fetchLatestReleaseCommit';
+export { fetchLatestReleaseVersionAndName } from './fetchLatestReleaseVersionAndName';
 export { fetchXMLData } from './fetchXMLData';
+export { getLatestBinaryURL } from './getLatestBinaryURL';
 export { getChecksum } from './getChecksum';
 export { getParsedDate } from './getParsedDate';
 export { getReleaseArch } from './getReleaseArch';
@@ -11,4 +13,5 @@ export { getReleaseName } from './getReleaseName';
 export { getReleaseSize } from './getReleaseSize';
 export { getReleaseURL } from './getReleaseURL';
 export { getSignatureURL } from './getSignatureURL';
+export { getSortedReleases } from './getSortedReleases';
 export { mapReleasesData } from './mapReleasesData';
