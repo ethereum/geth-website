@@ -128,6 +128,14 @@ export const textStyles = {
     lineHeight: '21.12px',
     letterSpacing: '2%'
   },
+  'document-nav-link': {
+    fontFamily: '"Inter", sans-serif',
+    fontWeight: 400,
+    fontSize: '13px',
+    lineHeight: 5,
+    letterSpacing: '1%',
+    mb: 4
+  },
   // TODO: refactor w/ semantic tokens for light/dark mode
   'link-light': {},
   // TODO: refactor w/ semantic tokens for light/dark mode

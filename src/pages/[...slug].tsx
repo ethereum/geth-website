@@ -14,6 +14,7 @@ import { PageMetadata } from '../components/UI';
 import { DocsNav, DocumentNav } from '../components/UI/docs';
 
 import { getFileList } from '../utils';
+import { useEffect } from 'react';
 
 const MATTER_OPTIONS = {
   engines: {
@@ -65,6 +66,16 @@ interface Props {
 
 const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
   const router = useRouter()
+  useEffect(() => {
+    const id = router.asPath.split('#')[1]
+    const element = document.getElementById(id)
+
+    if (!element) {
+      return
+    }
+
+    element.scrollIntoView({ behavior: "smooth", block: "start" })
+  }, [router.asPath])
 
   return (
     <>
@@ -92,7 +103,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
               </Stack>
               
               <Stack display={{ base: 'none', xl: 'block'}} w={48}>
-                <DocumentNav />
+                <DocumentNav content={content} />
               </Stack>
             </Flex>
           </Stack>

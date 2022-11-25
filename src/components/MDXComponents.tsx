@@ -14,6 +14,7 @@ import python from 'react-syntax-highlighter/dist/cjs/languages/prism/python';
 import sh from 'react-syntax-highlighter/dist/cjs/languages/prism/shell-session';
 import solidity from 'react-syntax-highlighter/dist/cjs/languages/prism/solidity';
 import swift from 'react-syntax-highlighter/dist/cjs/languages/prism/swift';
+import { parseHeadingId } from '../utils/parseHeadingId';
 
 // syntax highlighting languages supported
 SyntaxHighlighter.registerLanguage('bash', bash);
@@ -51,32 +52,56 @@ const MDXComponents = {
   },
   // headings
   h1: ({ children }: any) => {
-    return (
+    const heading = parseHeadingId(children)
+
+    return heading ? (
+      <Heading as='h1' textAlign='start' fontSize='4xl' mb={5} id={heading.headingId}>
+        {heading.children}
+      </Heading>
+    ) : (
       <Heading as='h1' textAlign='start' fontSize='4xl' mb={5}>
         {children}
       </Heading>
-    );
+    )
   },
   h2: ({ children }: any) => {
-    return (
+    const heading = parseHeadingId(children)
+
+    return heading ? (
+      <Heading as='h2' textAlign='start' fontSize='3xl' mb={4} id={heading.headingId}>
+        {heading.children}
+      </Heading>
+    ) : (
       <Heading as='h2' textAlign='start' fontSize='3xl' mb={4}>
         {children}
       </Heading>
-    );
+    )
   },
   h3: ({ children }: any) => {
-    return (
+    const heading = parseHeadingId(children)
+
+    return heading ? (
+      <Heading as='h3' fontSize='2xl' mt={5} mb={2.5} id={heading.headingId}>
+        {heading.children}
+      </Heading>
+    ) : (
       <Heading as='h3' fontSize='2xl' mt={5} mb={2.5}>
         {children}
       </Heading>
-    );
+    )
   },
   h4: ({ children }: any) => {
-    return (
+    const heading = parseHeadingId(children)
+
+    return heading ? (
+      <Heading as='h4' fontSize='lg' mb={2.5} id={heading.headingId}>
+        {heading.children}
+      </Heading>
+    ) : (
       <Heading as='h4' fontSize='lg' mb={2.5}>
         {children}
       </Heading>
-    );
+    )
   },
   // pre
   pre: ({ children }: any) => {

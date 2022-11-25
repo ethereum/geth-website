@@ -3,7 +3,7 @@ title: FAQ
 description: Frequently asked questions related to Geth
 ---
 
-### Where can I get more information?
+### Where can I get more information? {# Where can I get more information?}
 
 This page contains answers to common questions about Geth. Source code and README documentation can be found on the Geth [Github](https://github.com/ethereum/go-ethereum). You can also ask questions on Geth's [Discord channel](https://discord.gg/WHNkYDsAKU) or keep up to date with Geth on [Twitter](https://twitter.com/go_ethereum). Information about Ethereum in general can be found at [ethereum.org](https://ethereum.org).
 
@@ -13,16 +13,16 @@ The Geth team have also recently started to run AMA's on Reddit:
 
 It is also recommended to search for 'Geth' and 'go-ethereum' on [ethereum.stackexchange](ethereum.stackexchange.com).
 
-## What are RPC and IPC?
+## What are RPC and IPC? {# What are RPC and IPC}
 
 IPC stands for Inter-Process Communications. Geth creates a `geth.ipc` file on startup that other processes on the same computer can use to communicate with Geth.
 RPC stands for Remote Procedure Call. RPC is a mode of communication between processes that may be running on different machines. Geth accepts RPC traffic over HTTP or Websockets. Geth functions are invoked by sending requests that are formatted according to the RPC-API to the node via either IPC or RPC.
 
-## What is `jwtsecret`?
+## What is `jwtsecret`{# What is jwtsecret}
 
 The `jwtsecret` file is required to create an authenticated connection between Geth and a consensus client. JWT stands for JSON Web Token - it is signed using a secret key. The signed token acts as a shared secret used to check that information is sent to and received from the correct peer. Read about how to create `jwt-secret` in Geth on our [Connecting to consensus clients](/docs/getting_started/consensus-clients) page.
 
-## I noticed my peercount slowly decreasing, and now it is at 0. Restarting doesn't get any peers.
+## I noticed my peercount slowly decreasing, and now it is at 0. Restarting doesn't get any peers. {# I noticed my peercount slowly decreasing}
 
 This may be because your clock has fallen out of sync with other nodes. You can [force a clock update using ntp](https://askubuntu.com/questions/254826/how-to-force-a-clock-update-using-ntp) like so:
 
