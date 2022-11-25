@@ -12,7 +12,6 @@ import {
 import { DataTable, PageMetadata } from '../components/UI';
 
 import {
-  ALL_GETH_COMMITS_URL,
   DEFAULT_BUILD_AMOUNT_TO_SHOW,
   DOWNLOADS_OPENPGP_BUILD_HEADERS,
   DOWNLOADS_OPENPGP_DEVELOPER_HEADERS,
@@ -29,7 +28,12 @@ import {
 import { pgpBuildTestData } from '../data/test/pgpbuild-testdata';
 import { pgpDeveloperTestData } from '../data/test/pgpdeveloper-testdata';
 
-import { compareReleasesFn, fetchXMLData, mapReleasesData } from '../utils';
+import {
+  compareReleasesFn,
+  fetchLatestReleaseCommit,
+  fetchXMLData,
+  mapReleasesData
+} from '../utils';
 import { LatestReleasesData, ReleaseData } from '../types';
 
 // This function gets called at build time on server-side.
@@ -48,9 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
       };
     });
   // Latest release commit hash
-  const commit = await fetch(`${ALL_GETH_COMMITS_URL}/${versionNumber}`)
-    .then(response => response.json())
-    .then(commit => commit.sha.slice(0, 8));
+  const commit = await fetchLatestReleaseCommit(versionNumber);
 
   // Latest binaries urls
   const LATEST_LINUX_BINARY_URL = `${LINUX_BINARY_BASE_URL}${versionNumber.slice(
