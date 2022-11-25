@@ -1,16 +1,17 @@
 import { Stack, Tabs, TabList, Tab, Text, TabPanel, TabPanels } from '@chakra-ui/react';
 import { FC } from 'react';
 
-import { DOWNLOADS_TABLE_TABS, DOWNLOADS_TABLE_TAB_COLUMN_HEADERS } from '../../../constants';
-
 import { DataTable } from '../../UI';
 
+import { DOWNLOADS_TABLE_TABS, DOWNLOADS_TABLE_TAB_COLUMN_HEADERS } from '../../../constants';
+import { ReleaseData } from '../../../types';
+
 interface Props {
-  linuxData: any;
-  macOSData: any;
-  windowsData: any;
-  iOSData: any;
-  androidData: any;
+  linuxData: ReleaseData[];
+  macOSData: ReleaseData[];
+  windowsData: ReleaseData[];
+  iOSData: ReleaseData[];
+  androidData: ReleaseData[];
   amountOfReleasesToShow: number;
   setTotalReleases: (idx: number) => void;
 }
