@@ -2,7 +2,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
 import ReactMarkdown from 'react-markdown';
-import { Flex, Heading, Stack } from '@chakra-ui/react';
+import { Grid, Flex, Heading, Stack } from '@chakra-ui/react';
 import MDXComponents from '../components/';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
@@ -11,7 +11,7 @@ import { Breadcrumbs } from '../components/docs'
 
 import { PageMetadata } from '../components/UI';
 
-import { DocsNav } from '../components/UI/docs';
+import { DocsNav, DocumentNav } from '../components/UI/docs';
 
 import { getFileList } from '../utils';
 
@@ -78,12 +78,23 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
           <Stack>
             <DocsNav paths={paths} />
           </Stack>
-          <Stack py={8} px={4} maxW='768px'>
+          
+          <Stack py={8} px={4}>
             <Breadcrumbs router={router} />
 
             <Heading as='h1'>{frontmatter.title}</Heading>
 
-            <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
+            <Grid templateColumns={{ base: '100%', xl: '768px 12rem' }} gap={4}>
+              <Stack>
+                <ReactMarkdown components={MDXComponents}>
+                  {content}
+                </ReactMarkdown>
+              </Stack>
+              
+              <Stack display={{ base: 'none', xl: 'block'}}>
+                <DocumentNav />
+              </Stack>
+            </Grid>
           </Stack>
         </Flex>
       </main>

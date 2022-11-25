@@ -121,6 +121,13 @@ export const textStyles = {
     lineHeight: '21.12px',
     letterSpacing: '1%'
   },
+  'document-nav-title': {
+    fontFamily: '"JetBrains Mono", monospace',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: '21.12px',
+    letterSpacing: '2%'
+  },
   // TODO: refactor w/ semantic tokens for light/dark mode
   'link-light': {},
   // TODO: refactor w/ semantic tokens for light/dark mode
