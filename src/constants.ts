@@ -2,6 +2,8 @@ import React from 'react';
 import { IconProps } from '@chakra-ui/react';
 import { WindowsLogo, MacosLogo, LinuxPenguin, SourceBranch } from './components/UI/icons';
 
+export const BORDER_WIDTH = '2px';
+
 // internal pages
 export const DOWNLOADS_PAGE = '/downloads';
 export const DOCS_PAGE = '/docs';
@@ -75,6 +77,17 @@ export const DOWNLOAD_OPENPGP_DEVELOPER_HEADERS = [
   'OpenPGP Key',
   'Fingerprint'
 ];
+
+// Metadata
+export const SITE_URL = 'https://geth.ethereum.org';
+export const SITE_NAME = 'go-ethereum';
+export const METADATA = {
+  HOME_TITLE: 'Home',
+  HOME_DESCRIPTION:
+    'Go-ethereum website, home for the official Golang execution layer implementation of the Ethereum protocol',
+  DOWNLOADS_TITLE: 'Downloads',
+  DOWNLOADS_DESCRIPTION: 'All Geth releases and builds, available for download'
+};
 
 // GitHub urls
 export const LATEST_GETH_RELEASE_URL =

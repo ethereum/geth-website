@@ -6,6 +6,10 @@ import { Flex, Heading, Stack } from '@chakra-ui/react';
 import MDXComponents from '../components/';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { Breadcrumbs } from '../components/docs'
+
+import { PageMetadata } from '../components/UI';
 
 import { DocsNav } from '../components/UI/docs';
 
@@ -60,14 +64,23 @@ interface Props {
 }
 
 const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
+  const router = useRouter()
+
   return (
     <>
+      <PageMetadata
+        title={frontmatter.title}
+        description={frontmatter.description}
+      />
+
       <main>
         <Flex direction={{base: 'column', lg: 'row'}} gap={{base: 4, lg: 8}}>
           <Stack>
             <DocsNav paths={paths} />
           </Stack>
-          <Stack maxWidth='768px'>
+          <Stack py={8} px={4} maxW='768px'>
+            <Breadcrumbs router={router} />
+
             <Heading as='h1'>{frontmatter.title}</Heading>
 
             <ReactMarkdown components={MDXComponents}>{content}</ReactMarkdown>
