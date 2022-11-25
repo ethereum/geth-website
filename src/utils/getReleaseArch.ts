@@ -20,7 +20,9 @@ export const getReleaseArch = (filename: string) => {
       return 'MIPS32(le)';
     case 'mips64':
       return 'MIPS64';
-    default:
+    case 'MIPS64(le)':
       return 'MIPS64(le)';
+    default:
+      return 'all';
   }
 };
