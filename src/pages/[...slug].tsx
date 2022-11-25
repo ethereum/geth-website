@@ -79,22 +79,22 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
             <DocsNav paths={paths} />
           </Stack>
           
-          <Stack py={8} px={4}>
+          <Stack py={8} px={4} width='100%'>
             <Breadcrumbs router={router} />
 
             <Heading as='h1'>{frontmatter.title}</Heading>
 
-            <Grid templateColumns={{ base: '100%', xl: '768px 12rem' }} gap={4}>
-              <Stack>
+            <Flex width='100%' placeContent='space-between'>
+              <Stack maxW='768px'>
                 <ReactMarkdown components={MDXComponents}>
                   {content}
                 </ReactMarkdown>
               </Stack>
               
-              <Stack display={{ base: 'none', xl: 'block'}}>
+              <Stack display={{ base: 'none', xl: 'block'}} w={48}>
                 <DocumentNav />
               </Stack>
-            </Grid>
+            </Flex>
           </Stack>
         </Flex>
       </main>
