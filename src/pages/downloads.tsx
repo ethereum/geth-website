@@ -35,7 +35,7 @@ import {
 } from '../constants';
 
 // TODO: delete test data
-import { testDownloadData } from '../data/test/download-testdata';
+// import { testDownloadData } from '../data/test/download-testdata';
 import { pgpBuildTestData } from '../data/test/pgpbuild-testdata';
 import { pgpDeveloperTestData } from '../data/test/pgpdeveloper-testdata';
 
@@ -54,8 +54,8 @@ export const getStaticProps: GetStaticProps = async () => {
     .then(response => response.json())
     .then(release => {
       return {
-        versionNumber: release.tag_name,
-        releaseName: release.name
+        versionNumber: release.tag_name as string,
+        releaseName: release.name as string
       };
     });
   // Latest release commit hash
@@ -260,6 +260,7 @@ export const getStaticProps: GetStaticProps = async () => {
         ALL_IOS_DEV_BUILDS: IOS_DEV_BUILDS_DATA
       }
     },
+    // using ISR here (https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)
     revalidate: 3600 // 1hr in seconds
   };
 };
@@ -287,17 +288,6 @@ interface Props {
 }
 
 const DownloadsPage: NextPage<Props> = ({ data }) => {
-  const [amountStableReleases, updateAmountStables] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
-  const [amountDevelopBuilds, updateAmountDevelopBuilds] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
-
-  const showMoreStableReleases = () => {
-    updateAmountStables(amountStableReleases + 10);
-  };
-
-  const showMoreDevelopBuilds = () => {
-    updateAmountDevelopBuilds(amountDevelopBuilds + 10);
-  };
-
   const {
     // latest
     LATEST_RELEASES_DATA,
@@ -318,12 +308,18 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
     ALL_IOS_DEV_BUILDS
   } = data;
 
-  const ALL_STABLE_RELEASES = {
-    ALL_LINUX_STABLE_RELEASES,
-    ALL_MACOS_STABLE_RELEASES,
-    ALL_WINDOWS_STABLE_RELEASES,
-    ALL_IOS_STABLE_RELEASES,
-    ALL_ANDROID_STABLE_RELEASES
+  const [amountStableReleases, setAmountStableReleases] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
+  const [amountDevBuilds, setAmountDevBuilds] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
+
+  const [totalStableReleases, setTotalStableReleases] = useState(ALL_LINUX_STABLE_RELEASES.length);
+  const [totalDevBuilds, setTotalDevBuilds] = useState(ALL_LINUX_DEV_BUILDS.length);
+
+  const showMoreStableReleases = () => {
+    setAmountStableReleases(amountStableReleases + 10);
+  };
+
+  const showMoreDevelopBuilds = () => {
+    setAmountDevBuilds(amountDevBuilds + 10);
   };
 
   return (
@@ -380,6 +376,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             </Stack>
           </SpecificVersionsSection>
 
+          {/* STABLE RELEASES */}
           <DownloadsSection
             id='stablereleases'
             sectionDescription={
@@ -393,9 +390,15 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             }
             sectionTitle='Stable releases'
           >
-            {/* TODO: swap test data for real data */}
-            {/* MACOS_STABLE_RELEASES_DATA.concat(MACOS_ALLTOOLS_STABLE_RELEASES_DATA).sort(compareReleasesFn) */}
-            <DownloadsTable data={ALL_STABLE_RELEASES} />
+            <DownloadsTable
+              linuxData={ALL_LINUX_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
+              macOSData={ALL_MACOS_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
+              windowsData={ALL_WINDOWS_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
+              iOSData={ALL_IOS_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
+              androidData={ALL_ANDROID_STABLE_RELEASES.slice(0, amountStableReleases + 1)}
+              amountOfReleasesToShow={amountStableReleases}
+              setTotalReleases={setTotalStableReleases}
+            />
 
             <Flex
               sx={{ mt: '0 !important' }}
@@ -404,10 +407,9 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             >
               <Stack p={4} display={{ base: 'none', md: 'block' }}>
                 <Center>
-                  {/* TODO: swap testDownloadData with actual data */}
                   <Text>
-                    Showing {amountStableReleases} latest releases of a total{' '}
-                    {testDownloadData.length} releases
+                    Showing {Math.min(amountStableReleases, totalStableReleases)} latest releases of
+                    a total {totalStableReleases} releases
                   </Text>
                 </Center>
               </Stack>
@@ -430,6 +432,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             </Flex>
           </DownloadsSection>
 
+          {/* DEV BUILDS */}
           <DownloadsSection
             id='developbuilds'
             sectionDescription={
@@ -443,8 +446,15 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             }
             sectionTitle='Develop builds'
           >
-            {/* TODO: swap for real data */}
-            {/* <DownloadsTable data={testDownloadData.slice(0, amountDevelopBuilds)} /> */}
+            <DownloadsTable
+              linuxData={ALL_LINUX_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
+              macOSData={ALL_MACOS_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
+              windowsData={ALL_WINDOWS_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
+              iOSData={ALL_IOS_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
+              androidData={ALL_ANDROID_DEV_BUILDS.slice(0, amountDevBuilds + 1)}
+              amountOfReleasesToShow={amountDevBuilds}
+              setTotalReleases={setTotalDevBuilds}
+            />
 
             <Flex
               sx={{ mt: '0 !important' }}
@@ -455,8 +465,8 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
                 <Center>
                   {/* TODO: swap testDownloadData with actual data */}
                   <Text>
-                    Showing {amountDevelopBuilds} latest releases of a total{' '}
-                    {testDownloadData.length} releases
+                    Showing {Math.min(amountDevBuilds, totalDevBuilds)} latest releases of a total{' '}
+                    {totalDevBuilds} releases
                   </Text>
                 </Center>
               </Stack>
