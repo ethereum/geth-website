@@ -1,3 +1,5 @@
+export { compareReleasesFn } from './compareReleasesFn';
+export { fetchXMLData } from './fetchXMLData';
 export { getChecksum } from './getChecksum';
 export { getParsedDate } from './getParsedDate';
 export { getReleaseArch } from './getReleaseArch';

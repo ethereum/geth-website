@@ -12,15 +12,7 @@ import {
 import { DataTable, PageMetadata } from '../components/UI';
 
 import {
-  ALL_ANDROID_GETH_RELEASES_URL,
   ALL_GETH_COMMITS_URL,
-  ALL_IOS_GETH_RELEASES_URL,
-  ALL_LINUX_ALLTOOLS_GETH_RELEASES_URL,
-  ALL_LINUX_GETH_RELEASES_URL,
-  ALL_MACOS_ALLTOOLS_GETH_RELEASES_URL,
-  ALL_MACOS_GETH_RELEASES_URL,
-  ALL_WINDOWS_ALLTOOLS_GETH_RELEASES_URL,
-  ALL_WINDOWS_GETH_RELEASES_URL,
   DEFAULT_BUILD_AMOUNT_TO_SHOW,
   DOWNLOADS_OPENPGP_BUILD_HEADERS,
   DOWNLOADS_OPENPGP_DEVELOPER_HEADERS,
@@ -34,14 +26,11 @@ import {
   WINDOWS_BINARY_BASE_URL
 } from '../constants';
 
-// TODO: delete test data
-// import { testDownloadData } from '../data/test/download-testdata';
 import { pgpBuildTestData } from '../data/test/pgpbuild-testdata';
 import { pgpDeveloperTestData } from '../data/test/pgpdeveloper-testdata';
 
-import { mapReleasesData } from '../utils';
+import { compareReleasesFn, fetchXMLData, mapReleasesData } from '../utils';
 import { LatestReleasesData, ReleaseData } from '../types';
-import { compareReleasesFn } from '../utils/compareReleasesFn';
 
 // This function gets called at build time on server-side.
 // It'll be called again if a new request comes in after 1hr, so data is refreshed periodically
@@ -93,176 +82,167 @@ export const getStaticProps: GetStaticProps = async () => {
   // ==== ALL RELEASES DATA ====
 
   // 1) fetch XML data
-  // TODO: add try/catch
-  const [
-    ALL_LINUX_RELEASES_XML_DATA,
-    ALL_LINUX_ALL_TOOLS_RELEASES_XML_DATA,
-    ALL_MACOS_RELEASES_XML_DATA,
-    ALL_MACOS_ALL_TOOLS_RELEASES_XML_DATA,
-    ALL_WINDOWS_RELEASES_XML_DATA,
-    ALL_WINDOWS_ALL_TOOLS_RELEASES_XML_DATA,
-    ALL_ANDROID_RELEASES_XML_DATA,
-    ALL_IOS_RELEASES_XML_DATA
-  ] = await Promise.all([
+  try {
+    const [
+      ALL_LINUX_RELEASES_XML_DATA,
+      ALL_LINUX_ALL_TOOLS_RELEASES_XML_DATA,
+      ALL_MACOS_RELEASES_XML_DATA,
+      ALL_MACOS_ALL_TOOLS_RELEASES_XML_DATA,
+      ALL_WINDOWS_RELEASES_XML_DATA,
+      ALL_WINDOWS_ALL_TOOLS_RELEASES_XML_DATA,
+      ALL_ANDROID_RELEASES_XML_DATA,
+      ALL_IOS_RELEASES_XML_DATA
+    ] = await fetchXMLData();
+
+    // 2) XML data parsing
+    const parser = new XMLParser();
+
     // linux
-    fetch(ALL_LINUX_GETH_RELEASES_URL).then(response => response.text()),
-    fetch(ALL_LINUX_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
+    const linuxJson = parser.parse(ALL_LINUX_RELEASES_XML_DATA);
+    const ALL_LINUX_BLOBS_JSON_DATA = linuxJson.EnumerationResults.Blobs.Blob;
+
+    const linuxAllToolsJson = parser.parse(ALL_LINUX_ALL_TOOLS_RELEASES_XML_DATA);
+    const ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA = linuxAllToolsJson.EnumerationResults.Blobs.Blob;
+
     // macOS
-    fetch(ALL_MACOS_GETH_RELEASES_URL).then(response => response.text()),
-    fetch(ALL_MACOS_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
-    // // windows
-    fetch(ALL_WINDOWS_GETH_RELEASES_URL).then(response => response.text()),
-    fetch(ALL_WINDOWS_ALLTOOLS_GETH_RELEASES_URL).then(response => response.text()),
+    const macOSJson = parser.parse(ALL_MACOS_RELEASES_XML_DATA);
+    const ALL_MACOS_BLOBS_JSON_DATA = macOSJson.EnumerationResults.Blobs.Blob;
+
+    const macOSAllToolsJson = parser.parse(ALL_MACOS_ALL_TOOLS_RELEASES_XML_DATA);
+    const ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA = macOSAllToolsJson.EnumerationResults.Blobs.Blob;
+
+    // windows
+    const windowsJson = parser.parse(ALL_WINDOWS_RELEASES_XML_DATA);
+    const ALL_WINDOWS_BLOBS_JSON_DATA = windowsJson.EnumerationResults.Blobs.Blob;
+
+    const windowsAllToolsJson = parser.parse(ALL_WINDOWS_ALL_TOOLS_RELEASES_XML_DATA);
+    const ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA = windowsAllToolsJson.EnumerationResults.Blobs.Blob;
+
     // android
-    fetch(ALL_ANDROID_GETH_RELEASES_URL).then(response => response.text()),
-    // // iOS
-    fetch(ALL_IOS_GETH_RELEASES_URL).then(response => response.text())
-  ]);
+    const androidJson = parser.parse(ALL_ANDROID_RELEASES_XML_DATA);
+    const ALL_ANDROID_BLOBS_JSON_DATA = androidJson.EnumerationResults.Blobs.Blob;
 
-  // 2) XML data parsing
-  const parser = new XMLParser();
+    // iOS
+    const iOSJson = parser.parse(ALL_IOS_RELEASES_XML_DATA);
+    const ALL_IOS_BLOBS_JSON_DATA = iOSJson.EnumerationResults.Blobs.Blob;
 
-  // linux
-  const linuxJson = parser.parse(ALL_LINUX_RELEASES_XML_DATA);
-  const ALL_LINUX_BLOBS_JSON_DATA = linuxJson.EnumerationResults.Blobs.Blob;
+    // 3) get blobs
+    // linux
+    const LINUX_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_LINUX_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const LINUX_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const LINUX_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_LINUX_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
+    const LINUX_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
 
-  const linuxAllToolsJson = parser.parse(ALL_LINUX_ALL_TOOLS_RELEASES_XML_DATA);
-  const ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA = linuxAllToolsJson.EnumerationResults.Blobs.Blob;
+    // macOS
+    const MACOS_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_MACOS_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const MACOS_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const MACOS_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_MACOS_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
+    const MACOS_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
 
-  // macOS
-  const macOSJson = parser.parse(ALL_MACOS_RELEASES_XML_DATA);
-  const ALL_MACOS_BLOBS_JSON_DATA = macOSJson.EnumerationResults.Blobs.Blob;
+    // windows
+    const WINDOWS_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_WINDOWS_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const WINDOWS_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_WINDOWS_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
+    const WINDOWS_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
 
-  const macOSAllToolsJson = parser.parse(ALL_MACOS_ALL_TOOLS_RELEASES_XML_DATA);
-  const ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA = macOSAllToolsJson.EnumerationResults.Blobs.Blob;
+    // android
+    const ANDROID_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_ANDROID_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const ANDROID_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_ANDROID_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
 
-  // windows
-  const windowsJson = parser.parse(ALL_WINDOWS_RELEASES_XML_DATA);
-  const ALL_WINDOWS_BLOBS_JSON_DATA = windowsJson.EnumerationResults.Blobs.Blob;
+    // iOS
+    const IOS_STABLE_RELEASES_DATA = mapReleasesData({
+      blobsList: ALL_IOS_BLOBS_JSON_DATA,
+      isStableRelease: true
+    });
+    const IOS_DEV_BUILDS_DATA = mapReleasesData({
+      blobsList: ALL_IOS_BLOBS_JSON_DATA,
+      isStableRelease: false
+    });
 
-  const windowsAllToolsJson = parser.parse(ALL_WINDOWS_ALL_TOOLS_RELEASES_XML_DATA);
-  const ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA = windowsAllToolsJson.EnumerationResults.Blobs.Blob;
+    return {
+      props: {
+        data: {
+          // latest
+          LATEST_RELEASES_DATA,
+          // linux
+          ALL_LINUX_STABLE_RELEASES: LINUX_STABLE_RELEASES_DATA.concat(
+            LINUX_ALLTOOLS_STABLE_RELEASES_DATA
+          ).sort(compareReleasesFn),
+          ALL_LINUX_DEV_BUILDS: LINUX_DEV_BUILDS_DATA.concat(LINUX_ALLTOOLS_DEV_BUILDS_DATA).sort(
+            compareReleasesFn
+          ),
+          // macOS
+          ALL_MACOS_STABLE_RELEASES: MACOS_STABLE_RELEASES_DATA.concat(
+            MACOS_ALLTOOLS_STABLE_RELEASES_DATA
+          ).sort(compareReleasesFn),
+          ALL_MACOS_DEV_BUILDS: MACOS_DEV_BUILDS_DATA.concat(MACOS_ALLTOOLS_DEV_BUILDS_DATA).sort(
+            compareReleasesFn
+          ),
+          // windows
+          ALL_WINDOWS_STABLE_RELEASES: WINDOWS_STABLE_RELEASES_DATA.concat(
+            WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA
+          ).sort(compareReleasesFn),
+          ALL_WINDOWS_DEV_BUILDS: WINDOWS_DEV_BUILDS_DATA.concat(
+            WINDOWS_ALLTOOLS_DEV_BUILDS_DATA
+          ).sort(compareReleasesFn),
+          // android
+          ALL_ANDROID_STABLE_RELEASES: ANDROID_STABLE_RELEASES_DATA.sort(compareReleasesFn),
+          ALL_ANDROID_DEV_BUILDS: ANDROID_DEV_BUILDS_DATA.sort(compareReleasesFn),
+          // iOS
+          ALL_IOS_STABLE_RELEASES: IOS_STABLE_RELEASES_DATA.sort(compareReleasesFn),
+          ALL_IOS_DEV_BUILDS: IOS_DEV_BUILDS_DATA.sort(compareReleasesFn)
+        }
+      },
+      // using ISR here (https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)
+      revalidate: 3600 // 1hr in seconds
+    };
+  } catch (error) {
+    console.error(error);
 
-  // android
-  const androidJson = parser.parse(ALL_ANDROID_RELEASES_XML_DATA);
-  const ALL_ANDROID_BLOBS_JSON_DATA = androidJson.EnumerationResults.Blobs.Blob;
-
-  // iOS
-  const iOSJson = parser.parse(ALL_IOS_RELEASES_XML_DATA);
-  const ALL_IOS_BLOBS_JSON_DATA = iOSJson.EnumerationResults.Blobs.Blob;
-
-  // 3) get blobs
-  // linux
-  const LINUX_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_LINUX_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const LINUX_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const LINUX_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_LINUX_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-  const LINUX_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_LINUX_ALL_TOOLS_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-
-  // macOS
-  const MACOS_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_MACOS_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const MACOS_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const MACOS_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_MACOS_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-  const MACOS_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_MACOS_ALL_TOOLS_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-
-  // windows
-  const WINDOWS_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_WINDOWS_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const WINDOWS_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_WINDOWS_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-  const WINDOWS_ALLTOOLS_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_WINDOWS_ALL_TOOLS_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-
-  // android
-  const ANDROID_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_ANDROID_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const ANDROID_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_ANDROID_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-
-  // iOS
-  const IOS_STABLE_RELEASES_DATA = mapReleasesData({
-    blobsList: ALL_IOS_BLOBS_JSON_DATA,
-    isStableRelease: true
-  });
-  const IOS_DEV_BUILDS_DATA = mapReleasesData({
-    blobsList: ALL_IOS_BLOBS_JSON_DATA,
-    isStableRelease: false
-  });
-
-  return {
-    props: {
-      data: {
-        // latest
-        LATEST_RELEASES_DATA,
-        // linux
-        ALL_LINUX_STABLE_RELEASES: LINUX_STABLE_RELEASES_DATA.concat(
-          LINUX_ALLTOOLS_STABLE_RELEASES_DATA
-        ).sort(compareReleasesFn),
-        ALL_LINUX_DEV_BUILDS: LINUX_DEV_BUILDS_DATA.concat(LINUX_ALLTOOLS_DEV_BUILDS_DATA).sort(
-          compareReleasesFn
-        ),
-        // macOS
-        ALL_MACOS_STABLE_RELEASES: MACOS_STABLE_RELEASES_DATA.concat(
-          MACOS_ALLTOOLS_STABLE_RELEASES_DATA
-        ).sort(compareReleasesFn),
-        ALL_MACOS_DEV_BUILDS: MACOS_DEV_BUILDS_DATA.concat(MACOS_ALLTOOLS_DEV_BUILDS_DATA).sort(
-          compareReleasesFn
-        ),
-        // windows
-        ALL_WINDOWS_STABLE_RELEASES: WINDOWS_STABLE_RELEASES_DATA.concat(
-          WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA
-        ).sort(compareReleasesFn),
-        ALL_WINDOWS_DEV_BUILDS: WINDOWS_DEV_BUILDS_DATA.concat(
-          WINDOWS_ALLTOOLS_DEV_BUILDS_DATA
-        ).sort(compareReleasesFn),
-        // android
-        ALL_ANDROID_STABLE_RELEASES: ANDROID_STABLE_RELEASES_DATA,
-        ALL_ANDROID_DEV_BUILDS: ANDROID_DEV_BUILDS_DATA,
-        // iOS
-        ALL_IOS_STABLE_RELEASES: IOS_STABLE_RELEASES_DATA,
-        ALL_IOS_DEV_BUILDS: IOS_DEV_BUILDS_DATA
-      }
-    },
-    // using ISR here (https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)
-    revalidate: 3600 // 1hr in seconds
-  };
+    return { notFound: true };
+  }
 };
 
 interface Props {
@@ -399,7 +379,6 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               amountOfReleasesToShow={amountStableReleases}
               setTotalReleases={setTotalStableReleases}
             />
-
             <Flex
               sx={{ mt: '0 !important' }}
               flexDirection={{ base: 'column', md: 'row' }}
@@ -408,27 +387,39 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               <Stack p={4} display={{ base: 'none', md: 'block' }}>
                 <Center>
                   <Text>
-                    Showing {Math.min(amountStableReleases, totalStableReleases)} latest releases of
-                    a total {totalStableReleases} releases
+                    {totalStableReleases > 0
+                      ? `Showing ${Math.min(
+                          amountStableReleases,
+                          totalStableReleases
+                        )} latest releases of
+                    a total ${totalStableReleases} releases`
+                      : `No releases`}
                   </Text>
                 </Center>
               </Stack>
-              <Stack
-                sx={{ mt: '0 !important' }}
-                borderLeft={{ base: 'none', md: '2px solid #11866f' }}
-              >
-                <Link as='button' variant='button-link-secondary' onClick={showMoreStableReleases}>
-                  <Text
-                    fontFamily='"JetBrains Mono", monospace'
-                    fontWeight={700}
-                    textTransform='uppercase'
-                    textAlign='center'
-                    p={4}
+
+              {totalStableReleases > 0 && (
+                <Stack
+                  sx={{ mt: '0 !important' }}
+                  borderLeft={{ base: 'none', md: '2px solid #11866f' }}
+                >
+                  <Link
+                    as='button'
+                    variant='button-link-secondary'
+                    onClick={showMoreStableReleases}
                   >
-                    Show older releases
-                  </Text>
-                </Link>
-              </Stack>
+                    <Text
+                      fontFamily='"JetBrains Mono", monospace'
+                      fontWeight={700}
+                      textTransform='uppercase'
+                      textAlign='center'
+                      p={4}
+                    >
+                      Show older releases
+                    </Text>
+                  </Link>
+                </Stack>
+              )}
             </Flex>
           </DownloadsSection>
 
@@ -455,7 +446,6 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               amountOfReleasesToShow={amountDevBuilds}
               setTotalReleases={setTotalDevBuilds}
             />
-
             <Flex
               sx={{ mt: '0 !important' }}
               flexDirection={{ base: 'column', md: 'row' }}
@@ -463,29 +453,33 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
             >
               <Stack p={4} display={{ base: 'none', md: 'block' }}>
                 <Center>
-                  {/* TODO: swap testDownloadData with actual data */}
                   <Text>
-                    Showing {Math.min(amountDevBuilds, totalDevBuilds)} latest releases of a total{' '}
-                    {totalDevBuilds} releases
+                    {totalDevBuilds > 0
+                      ? `Showing ${Math.min(amountDevBuilds, totalDevBuilds)} latest releases of
+                    a total ${totalDevBuilds} releases`
+                      : `No releases`}
                   </Text>
                 </Center>
               </Stack>
-              <Stack
-                sx={{ mt: '0 !important' }}
-                borderLeft={{ base: 'none', md: '2px solid #11866f' }}
-              >
-                <Link as='button' variant='button-link-secondary' onClick={showMoreDevelopBuilds}>
-                  <Text
-                    fontFamily='"JetBrains Mono", monospace'
-                    fontWeight={700}
-                    textTransform='uppercase'
-                    textAlign='center'
-                    p={4}
-                  >
-                    Show older releases
-                  </Text>
-                </Link>
-              </Stack>
+
+              {totalDevBuilds > 0 && (
+                <Stack
+                  sx={{ mt: '0 !important' }}
+                  borderLeft={{ base: 'none', md: '2px solid #11866f' }}
+                >
+                  <Link as='button' variant='button-link-secondary' onClick={showMoreDevelopBuilds}>
+                    <Text
+                      fontFamily='"JetBrains Mono", monospace'
+                      fontWeight={700}
+                      textTransform='uppercase'
+                      textAlign='center'
+                      p={4}
+                    >
+                      Show older releases
+                    </Text>
+                  </Link>
+                </Stack>
+              )}
             </Flex>
           </DownloadsSection>
 
