@@ -380,6 +380,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               <Stack p={4} display={{ base: 'none', md: 'block' }}>
                 <Center>
                   <Text>
+                    {/* TODO: fix bug of total number of releases */}
                     {totalStableReleases > 0
                       ? `Showing ${Math.min(
                           amountStableReleases,
@@ -447,6 +448,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               <Stack p={4} display={{ base: 'none', md: 'block' }}>
                 <Center>
                   <Text>
+                    {/* TODO: fix bug of total number of releases */}
                     {totalDevBuilds > 0
                       ? `Showing ${Math.min(amountDevBuilds, totalDevBuilds)} latest releases of
                     a total ${totalDevBuilds} releases`
