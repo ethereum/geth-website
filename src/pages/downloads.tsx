@@ -281,9 +281,6 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
     ALL_IOS_DEV_BUILDS
   } = data;
 
-  console.log('ALL_MACOS_STABLE_RELEASES.length: ', ALL_MACOS_STABLE_RELEASES.length);
-  console.log('ALL_MACOS_DEV_BUILDS.length: ', ALL_MACOS_DEV_BUILDS.length);
-
   const [amountStableReleases, setAmountStableReleases] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
   const [amountDevBuilds, setAmountDevBuilds] = useState(DEFAULT_BUILD_AMOUNT_TO_SHOW);
 
@@ -379,19 +376,18 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               sx={{ mt: '0 !important' }}
               flexDirection={{ base: 'column', md: 'row' }}
               justifyContent='space-between'
+              alignItems='center'
             >
-              <Stack p={4} display={{ base: 'none', md: 'block' }}>
-                <Center>
-                  <Text>
-                    {totalStableReleases > 0
-                      ? `Showing ${Math.min(
-                          amountStableReleases,
-                          totalStableReleases
-                        )} latest releases of
+              <Stack p={4} display={{ base: 'none', md: 'block' }} mx='auto'>
+                <Text textStyle='hero-text-small'>
+                  {totalStableReleases > 0
+                    ? `Showing ${Math.min(
+                        amountStableReleases,
+                        totalStableReleases
+                      )} latest releases of
                     a total ${totalStableReleases} releases`
-                      : `No releases`}
-                  </Text>
-                </Center>
+                    : `No releases`}
+                </Text>
               </Stack>
 
               {totalStableReleases > amountStableReleases && (
@@ -446,16 +442,15 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               sx={{ mt: '0 !important' }}
               flexDirection={{ base: 'column', md: 'row' }}
               justifyContent='space-between'
+              alignItems='center'
             >
-              <Stack p={4} display={{ base: 'none', md: 'block' }}>
-                <Center>
-                  <Text>
-                    {totalDevBuilds > 0
-                      ? `Showing ${Math.min(amountDevBuilds, totalDevBuilds)} latest releases of
+              <Stack p={4} display={{ base: 'none', md: 'block' }} mx='auto'>
+                <Text textStyle='hero-text-small'>
+                  {totalDevBuilds > 0
+                    ? `Showing ${Math.min(amountDevBuilds, totalDevBuilds)} latest releases of
                     a total ${totalDevBuilds} releases`
-                      : `No releases`}
-                  </Text>
-                </Center>
+                    : `No releases`}
+                </Text>
               </Stack>
 
               {totalDevBuilds > amountDevBuilds && (
