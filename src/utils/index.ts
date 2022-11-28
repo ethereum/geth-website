@@ -5,6 +5,7 @@ export { fetchXMLData } from './fetchXMLData';
 export { getLatestBinaryURL } from './getLatestBinaryURL';
 export { getChecksum } from './getChecksum';
 export { getParsedDate } from './getParsedDate';
+export { getProgrammingLanguageName } from './getProgrammingLanguageName';
 export { getReleaseArch } from './getReleaseArch';
 export { getReleaseCommitHash } from './getReleaseCommitHash';
 export { getReleaseCommitURL } from './getReleaseCommitURL';
