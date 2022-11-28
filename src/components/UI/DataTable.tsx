@@ -61,20 +61,7 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
                     const url = item[1].url;
 
                     return (
-                      <Td
-                        key={idx}
-                        px={4}
-                        fontSize='13px'
-                        w={
-                          item[0] === 'release'
-                            ? '156px'
-                            : item[0] === 'commit'
-                            ? '141px'
-                            : item[0] === 'published'
-                            ? '237px'
-                            : 'auto'
-                        }
-                      >
+                      <Td key={idx} px={4} textStyle='hero-text-small'>
                         <Link _hover={{ textDecoration: 'none' }} href={url} isExternal>
                           <Text color='primary'>
                             {item[0] === 'commit' ? `${label}...` : label}
@@ -86,14 +73,14 @@ export const DataTable: FC<Props> = ({ columnHeaders, data }) => {
 
                   if (item[0] === 'published') {
                     return (
-                      <Td key={idx} px={4} fontSize='13px'>
+                      <Td key={idx} px={4} textStyle='hero-text-small'>
                         <Text>{getParsedDate(item[1])}</Text>
                       </Td>
                     );
                   }
 
                   return (
-                    <Td key={idx} px={4} fontSize='13px'>
+                    <Td key={idx} px={4} textStyle='hero-text-small'>
                       <Text>{item[1]}</Text>
                     </Td>
                   );
