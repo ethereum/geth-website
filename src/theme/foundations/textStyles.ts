@@ -18,14 +18,16 @@ export const textStyles = {
   'header-font': {
     fontFamily: '"JetBrains Mono", monospace',
     fontWeight: 700,
-    fontSize: { base: '0.86rem', sm: '1rem' }
+    fontSize: { base: '0.86rem', sm: '1rem' },
+    color: 'body'
   },
   'homepage-description': {
     fontFamily: '"JetBrains Mono", monospace',
     fontWeight: 700,
     lineHeight: '21px',
     letterSpacing: '0.05em',
-    textAlign: { base: 'center', md: 'left' }
+    textAlign: { base: 'center', md: 'left' },
+    color: 'body'
   },
   'homepage-primary-label': {
     fontFamily: '"JetBrains Mono", monospace',
@@ -42,7 +44,8 @@ export const textStyles = {
   },
   'quick-link-text': {
     fontFamily: '"Inter", sans-serif',
-    lineHeight: '26px'
+    lineHeight: '26px',
+    color: 'body'
   },
   'quick-link-label': {
     fontFamily: '"JetBrains Mono", monospace',
@@ -56,7 +59,8 @@ export const textStyles = {
   },
   'hero-text-small': {
     fontSize: '13px',
-    fontFamily: '"Inter", sans-serif'
+    fontFamily: '"Inter", sans-serif',
+    color: 'body'
   },
   'footer-link-label': {
     fontFamily: '"JetBrains Mono", monospace',
@@ -69,7 +73,8 @@ export const textStyles = {
     fontFamily: '"Inter", sans-serif',
     lineHeight: '22px',
     fontWeight: 400,
-    fontSize: '12px'
+    fontSize: '12px',
+    color: 'body'
   },
   'downloads-button-label': {
     fontFamily: '"JetBrains Mono", monospace',
@@ -93,7 +98,7 @@ export const textStyles = {
   'header-button': {
     fontFamily: '"JetBrains Mono", monospace',
     fontWeight: 700,
-    fontSize: { base: '0.86rem', sm: '1rem' },
+    fontSize: { base: '0.86rem', sm: '1rem' }
   },
   'header-mobile-button': {
     fontFamily: '"JetBrains Mono", monospace',
