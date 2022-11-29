@@ -20,37 +20,43 @@ export const textStyles = {
     fontWeight: 700,
     fontSize: { base: '1.875rem', md: '2.125rem' },
     letterSpacing: '0.04em',
-    lineHeight: 'normal'
+    lineHeight: 'normal',
+    color: 'body'
   },
   header2: {
     fontFamily: 'heading',
     fontSize: { base: '1.5rem', md: '1.75rem' },
     letterSpacing: '0.04em',
-    lineHeight: 'normal'
+    lineHeight: 'normal',
+    color: 'body'
   },
   header3: {
     fontFamily: 'heading',
     fontSize: { base: '1.25rem', md: '1.375rem' },
     letterSpacing: '0.04em',
-    lineHeight: 'normal'
+    lineHeight: 'normal',
+    color: 'body'
   },
   header4: {
     fontFamily: 'heading',
     fontSize: '1.125rem',
     letterSpacing: '0.04em',
-    lineHeight: 'normal'
+    lineHeight: 'normal',
+    color: 'body'
   },
   header5: {
     fontFamily: 'heading',
     fontSize: '1rem',
     letterSpacing: '0.02em',
-    lineHeight: 'normal'
+    lineHeight: 'normal',
+    color: 'body'
   },
   header6: {
     fontFamily: 'heading',
     fontSize: '0.875rem',
     letterSpacing: '0.02em',
-    lineHeight: 'normal'
+    lineHeight: 'normal',
+    color: 'body'
   },
   'header-font': {
     fontFamily: 'heading',
