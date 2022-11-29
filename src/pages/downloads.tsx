@@ -113,10 +113,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
 
   return (
     <>
-      <PageMetadata
-        title={METADATA.DOWNLOADS_TITLE}
-        description={METADATA.DOWNLOADS_DESCRIPTION}
-      />
+      <PageMetadata title={METADATA.DOWNLOADS_TITLE} description={METADATA.DOWNLOADS_DESCRIPTION} />
 
       <main>
         <Stack spacing={4}>

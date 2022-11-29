@@ -1,1 +1,1 @@
-export * from '../UI/docs/Breadcrumbs'
+export * from '../UI/docs/Breadcrumbs';

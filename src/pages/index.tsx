@@ -26,10 +26,7 @@ import {
 const HomePage: NextPage = ({}) => {
   return (
     <>
-      <PageMetadata
-        title={METADATA.HOME_TITLE}
-        description={METADATA.HOME_DESCRIPTION}
-      />
+      <PageMetadata title={METADATA.HOME_TITLE} description={METADATA.HOME_DESCRIPTION} />
 
       <main>
         <Stack spacing={4}>

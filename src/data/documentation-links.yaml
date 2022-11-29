@@ -2,7 +2,7 @@
   to: /docs/getting-started
   items:
     - id: Hardware requirements
-      to: /docs/getting-started/hardware-requirements 
+      to: /docs/getting-started/hardware-requirements
     - id: Installing Geth
       to: /docs/getting-started/installing-geth
     - id: Consensus clients
@@ -73,7 +73,7 @@
   to: /docs/developers
   items:
     - id: Dapp developers
-      items: 
+      items:
         - id: Go API
           to: /docs/developers/dapp-developers/native
         - id: Go Account Management

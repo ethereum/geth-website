@@ -62,33 +62,33 @@ interface Props {
     [key: string]: string;
   };
   content: string;
-  navLinks: any[]
+  navLinks: any[];
 }
 
 const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    const id = router.asPath.split('#')[1]
-    const element = document.getElementById(id)
+    const id = router.asPath.split('#')[1];
+    const element = document.getElementById(id);
 
     if (!element) {
-      return
+      return;
     }
 
-    element.scrollIntoView({ behavior: "smooth", block: "start" })
-  }, [router.asPath])
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [router.asPath]);
 
   return (
     <>
       <PageMetadata title={frontmatter.title} description={frontmatter.description} />
 
       <main>
-        <Flex direction={{base: 'column', lg: 'row'}} gap={{base: 4, lg: 8}}>
+        <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 4, lg: 8 }}>
           <Stack>
             <DocsNav navLinks={navLinks} />
           </Stack>
-          
+
           <Stack pb={4} width='100%'>
             <Stack mb={16}>
               <Breadcrumbs />
@@ -100,15 +100,12 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks }) => {
 
             <Flex width='100%' placeContent='space-between'>
               <Stack maxW='768px'>
-              <ReactMarkdown
-                remarkPlugins={[gfm]}
-                components={ChakraUIRenderer(MDXComponents)}
-              >
-                {content}
-              </ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[gfm]} components={ChakraUIRenderer(MDXComponents)}>
+                  {content}
+                </ReactMarkdown>
               </Stack>
-              
-              <Stack display={{ base: 'none', xl: 'block'}} w={48}>
+
+              <Stack display={{ base: 'none', xl: 'block' }} w={48}>
                 <DocumentNav content={content} />
               </Stack>
             </Flex>

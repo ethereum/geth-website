@@ -41,7 +41,7 @@ const MDXComponents = {
   },
   // headings
   h1: ({ children }: any) => {
-    const heading = parseHeadingId(children)
+    const heading = parseHeadingId(children);
 
     return heading ? (
       <Heading as='h1' textAlign='start' mb='5 !important' {...header1} id={heading.headingId}>
@@ -51,23 +51,30 @@ const MDXComponents = {
       <Heading as='h1' textAlign='start' mb='5 !important' {...header1}>
         {children}
       </Heading>
-    )
+    );
   },
   h2: ({ children }: any) => {
-    const heading = parseHeadingId(children)
+    const heading = parseHeadingId(children);
 
     return heading ? (
-      <Heading as='h2' textAlign='start' mt='16 !important' mb='4 !important' {...header2} id={heading.headingId}>
+      <Heading
+        as='h2'
+        textAlign='start'
+        mt='16 !important'
+        mb='4 !important'
+        {...header2}
+        id={heading.headingId}
+      >
         {heading.children}
       </Heading>
     ) : (
       <Heading as='h2' textAlign='start' mt='16 !important' mb={4} {...header2}>
         {children}
       </Heading>
-    )
+    );
   },
   h3: ({ children }: any) => {
-    const heading = parseHeadingId(children)
+    const heading = parseHeadingId(children);
 
     return heading ? (
       <Heading as='h3' mt='5 !important' mb='2.5 !important' {...header3} id={heading.headingId}>
@@ -77,10 +84,10 @@ const MDXComponents = {
       <Heading as='h3' mt='5 !important' mb='2.5 !important' {...header3}>
         {children}
       </Heading>
-    )
+    );
   },
   h4: ({ children }: any) => {
-    const heading = parseHeadingId(children)
+    const heading = parseHeadingId(children);
 
     return heading ? (
       <Heading as='h4' mb='2.5 !important' {...header4} id={heading.headingId}>
@@ -90,7 +97,7 @@ const MDXComponents = {
       <Heading as='h4' mb='2.5 !important' {...header4}>
         {children}
       </Heading>
-    )
+    );
   },
   // tables
   table: ({ children }: any) => (
@@ -117,22 +124,26 @@ const MDXComponents = {
   // code
   code: ({ children, ...props }: any) => <Code {...props}>{children}</Code>,
   // list
-  ul: ({children}: any) => {
+  ul: ({ children }: any) => {
     return (
       <Stack>
-        <UnorderedList mb={7} px={4}>{children}</UnorderedList>
+        <UnorderedList mb={7} px={4}>
+          {children}
+        </UnorderedList>
       </Stack>
-    )
+    );
   },
-  ol: ({children}: any) => {
+  ol: ({ children }: any) => {
     return (
       <Stack>
-        <OrderedList mb={7} px={4}>{children}</OrderedList>
+        <OrderedList mb={7} px={4}>
+          {children}
+        </OrderedList>
       </Stack>
-    )
+    );
   },
   li: ({ children }: any) => {
-    return <ListItem color='primary'>{children}</ListItem>
+    return <ListItem color='primary'>{children}</ListItem>;
   }
 };
 
