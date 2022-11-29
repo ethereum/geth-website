@@ -67,12 +67,16 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
   );
 };
 
-const LinksList: FC = ({ links }) => {
+interface LinksListProps {
+  links: any[];
+}
+
+const LinksList: FC<LinksListProps> = ({ links }) => {
   return (
     <Stack px={4}>
       {links.map(link => {
         return link.to ? (
-          <Stack mt={links.items ? '16' : '0'}>
+          <Stack>
             <NextLink href={link.to} passHref key={link.id}>
               <Link>
                 <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
@@ -83,7 +87,7 @@ const LinksList: FC = ({ links }) => {
             {link.items && <LinksList links={link.items} />}
           </Stack>
         ) : (
-          <Stack mt={links.items ? '16' : '0'}>
+          <Stack>
             <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
               {link.id}
             </Text>
