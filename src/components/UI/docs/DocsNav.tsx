@@ -3,11 +3,10 @@ import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPane
 import { DocsLinks } from './DocsLinks';
 
 interface Props {
-  paths: string[];
+  navLinks: any[];
 }
 
-export const DocsNav: FC<Props> = ({ paths }) => {
-
+export const DocsNav: FC<Props> = ({ navLinks }) => {
   return (
     <Stack w={{ base: '100%', lg: 72 }}>
       <Stack display={{ base: 'block', lg: 'none' }}>
@@ -36,13 +35,13 @@ export const DocsNav: FC<Props> = ({ paths }) => {
                 <AccordionIcon />
               </AccordionButton>
             <AccordionPanel p={0}>
-              <DocsLinks paths={paths} />
+              <DocsLinks navLinks={navLinks} />
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
       </Stack>
       <Stack display={{ base: 'none', lg: 'block' }}>
-        <DocsLinks paths={paths} />
+        <DocsLinks navLinks={navLinks} />
       </Stack>
     </Stack>
     

@@ -1,0 +1,19 @@
+- id: Getting started
+  to: /docs/getting-started
+  items:
+    - id: Hardware requirements
+    - to: /docs/getting-started/hardware-requirements 
+- id: Fundamentals
+  to: /docs/fundamentals
+- id: Interacting with Geth
+  to: /docs/interacting-with-geth
+- id: Developers
+  to: /docs/developers
+- id: Monitoring
+  to: /docs/monitoring
+- id: Tools
+  to: /docs/tools
+- id: FAQs
+  to: /docs/faq
+- id: Resources
+  to: /docs/resources

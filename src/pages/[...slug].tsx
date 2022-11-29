@@ -34,10 +34,11 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 // Reads file data for markdown pages
 export const getStaticProps: GetStaticProps = async context => {
-  const paths: string[] = getFileList('docs'); // This is folder that get crawled for valid docs paths. Change if this path changes.
   const { slug } = context.params as ParsedUrlQuery;
   const filePath = (slug as string[])!.join('/');
   let file;
+
+  const navLinks = yaml.load(fs.readFileSync('src/data/documentation-links.yaml', 'utf8'));
 
   try {
     file = fs.readFileSync(`${filePath}.md`, 'utf-8');
@@ -51,7 +52,7 @@ export const getStaticProps: GetStaticProps = async context => {
     props: {
       frontmatter,
       content,
-      paths
+      navLinks
     }
   };
 };
@@ -61,10 +62,10 @@ interface Props {
     [key: string]: string;
   };
   content: string;
-  paths: string[];
+  navLinks: any[]
 }
 
-const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
+const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks }) => {
   const router = useRouter()
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
       <main>
         <Flex direction={{base: 'column', lg: 'row'}} gap={{base: 4, lg: 8}}>
           <Stack>
-            <DocsNav paths={paths} />
+            <DocsNav navLinks={navLinks} />
           </Stack>
           
           <Stack pb={4} width='100%'>

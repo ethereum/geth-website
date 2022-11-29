@@ -132,7 +132,8 @@ export const textStyles = {
     fontWeight: 400,
     fontSize: '18px',
     lineHeight: 6,
-    letterSpacing: '4%'
+    letterSpacing: '4%',
+    textAlign: 'left'
   },
   'header-button': {
     fontFamily: '"JetBrains Mono", monospace',

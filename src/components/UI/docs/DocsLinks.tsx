@@ -1,80 +1,48 @@
 import { FC } from 'react';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Link, Stack, Text } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Center, Link, Stack, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
 interface Props {
-  paths: string[];
+  navLinks: any[];
 }
 
-const makeTree = (paths: string[]) => {
-  // TODO: typing
-  const base: { children: any[] } = { children: [] };
-
-  for (const path of paths) {
-    const slugs = path.match(/\/[^\/]+/g);
-    let curr = base;
-
-    for (let idx in slugs) {
-      const currPath = slugs.slice(0, Number(idx) + 1).join('');
-      const child = curr.children.find(node => node.path === currPath);
-
-      if (child) {
-        curr = child;
-      } else {
-        curr.children.push({
-          path: currPath,
-          children: [],
-          title: slugs[Number(idx)].substring(1)
-        });
-        curr = curr.children[curr.children.length - 1];
-      }
-    }
-  }
-
-  return base.children;
-};
-
-export const DocsLinks: FC<Props> = ({ paths }) => {
-  const tree = makeTree(paths)
-  const test = tree[0].children
-
+export const DocsLinks: FC<Props> = ({ navLinks }) => {
   return (
     <Stack
       border='2px'
       borderColor='primary'
     >
-      {test.map((child) => {
-        return (
-          <Accordion key={child.title} allowToggle defaultIndex={[0]}>
-            <AccordionItem>
-              <AccordionButton>
-                {
-                  paths[paths.indexOf(child.path)] ? (
-                    <NextLink href={child.path} passHref>
+      {
+        navLinks.map((links, idx) => {
+          return (
+            <Accordion key={links.id} allowToggle mt='0 !important' defaultIndex={[0]}>
+              <AccordionItem>
+                <AccordionButton borderBottom={navLinks.length-1 === idx ? 'none' : '2px'} p={0} borderColor='primary' display='flex' justifyContent='space-between'>
+                  <Stack p={4}>
+                    <NextLink href={links.to} passHref>
                       <Link>
                         <Text textStyle='docs-nav-dropdown'>
-                          {child.title}
+                          {links.id}
                         </Text>
                       </Link>
                     </NextLink>
-                  ) : (
-                    <Text textStyle='docs-nav-dropdown'>
-                        {child.title}
-                      </Text>
-                  )
-                }
-                <Stack>
-                  <AccordionIcon />
-                </Stack>
-              </AccordionButton>
-            <AccordionPanel borderBottom='2px solid'
-            borderColor='primary'>
-              <Text>test</Text>
-            </AccordionPanel>
-          </AccordionItem>
-          </Accordion>
-        )
-      })}
+                  </Stack>
+
+                  {links.items && (
+                    <Center minW='61px' h='61px' bg='button-bg' borderLeft='2px' borderColor='primary'>
+                      <AccordionIcon color='primary' />
+                    </Center>
+                  )}
+                </AccordionButton>
+                {/* <AccordionPanel borderBottom='2px solid'
+                borderColor='primary'>
+                  <Text>test</Text>
+                </AccordionPanel> */}
+              </AccordionItem>
+            </Accordion>
+          )
+        })
+      }
     </Stack>
   );
 };
