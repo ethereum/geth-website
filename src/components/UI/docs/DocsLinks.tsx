@@ -42,10 +42,14 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                     </Center>
                   )}
                 </AccordionButton>
-                {/* <AccordionPanel borderBottom='2px solid'
-                borderColor='primary'>
-                  <Text>test</Text>
-                </AccordionPanel> */}
+6                {
+                  links.items && (
+                    <AccordionPanel borderBottom='2px solid'
+                    borderColor='primary' px={0} py={4}>
+                      <LinksList links={links.items} />
+                    </AccordionPanel>
+                  )
+                }
               </AccordionItem>
             </Accordion>
           )
@@ -54,3 +58,33 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
     </Stack>
   );
 };
+
+const LinksList: FC = ({ links }) => {
+  return (
+    <Stack px={4}>
+      {
+        links.map((link) => {
+          return link.to ? (
+                <Stack mt={links.items ? '16' : '0'}>
+                  <NextLink href={link.to} passHref key={link.id}>
+                    <Link>
+                      <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
+                        {link.id}
+                      </Text>
+                    </Link>
+                  </NextLink>
+                  {link.items && <LinksList links={link.items} />}
+                </Stack>
+              ) : (
+                <Stack mt={links.items ? '16' : '0'}>
+                  <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
+                    {link.id}
+                  </Text>
+                  {link.items && <LinksList links={link.items} />}
+                </Stack>
+              )
+        })
+      }
+    </Stack>
+  )
+}

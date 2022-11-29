@@ -96,7 +96,7 @@ export const textStyles = {
     fontFamily: 'body'
   },
   'footer-link-label': {
-    fontFamily: '"JetBrains Mono", monospace',
+    fontFamily: 'heading',
     fontWeight: 700,
     textTransform: 'uppercase',
     lineHeight: '21.12px',
@@ -128,20 +128,27 @@ export const textStyles = {
     fontSize: 'sm'
   },
   'docs-nav-dropdown': {
-    fontFamily: '"JetBrains Mono", monospace',
+    fontFamily: 'heading',
     fontWeight: 400,
     fontSize: '18px',
     lineHeight: 6,
     letterSpacing: '4%',
     textAlign: 'left'
   },
+  'docs-nav-links': {
+    fontFamily: 'heading',
+    weight: 400,
+    fontSize: 'md',
+    lineHeight: 8,
+    letterSpacing: '0.01em'
+  },
   'header-button': {
-    fontFamily: '"JetBrains Mono", monospace',
+    fontFamily: 'heading',
     fontWeight: 700,
     fontSize: { base: '0.86rem', sm: '1rem' }
   },
   'header-mobile-button': {
-    fontFamily: '"JetBrains Mono", monospace',
+    fontFamily: 'heading',
     textTransform: 'uppercase',
     fontSize: '2xl'
   },
@@ -160,14 +167,14 @@ export const textStyles = {
     letterSpacing: '0.01em'
   },
   'document-nav-title': {
-    fontFamily: '"JetBrains Mono", monospace',
+    fontFamily: 'heading',
     fontWeight: 400,
     fontSize: 'md',
     lineHeight: '21.12px',
     letterSpacing: '2%'
   },
   'document-nav-link': {
-    fontFamily: '"Inter", sans-serif',
+    fontFamily: 'body',
     fontWeight: 400,
     fontSize: '13px',
     lineHeight: 5,
