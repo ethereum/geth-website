@@ -1,20 +1,20 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import ReactMarkdown from 'react-markdown';
-import { Grid, Flex, Heading, Stack } from '@chakra-ui/react';
-import MDXComponents from '../components/';
+import { Flex, Heading, Stack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import gfm from 'remark-gfm';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { Breadcrumbs } from '../components/docs'
 
+import MDXComponents from '../components/';
+import { Breadcrumbs, DocsNav, DocumentNav } from '../components/UI/docs';
 import { PageMetadata } from '../components/UI';
 
-import { DocsNav, DocumentNav } from '../components/UI/docs';
-
-import { getFileList } from '../utils';
-import { useEffect } from 'react';
+import { getFileList } from '../utils/getFileList';
 
 const MATTER_OPTIONS = {
   engines: {
@@ -66,6 +66,7 @@ interface Props {
 
 const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
   const router = useRouter()
+
   useEffect(() => {
     const id = router.asPath.split('#')[1]
     const element = document.getElementById(id)
@@ -79,10 +80,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
 
   return (
     <>
-      <PageMetadata
-        title={frontmatter.title}
-        description={frontmatter.description}
-      />
+      <PageMetadata title={frontmatter.title} description={frontmatter.description} />
 
       <main>
         <Flex direction={{base: 'column', lg: 'row'}} gap={{base: 4, lg: 8}}>
@@ -90,16 +88,23 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, paths }) => {
             <DocsNav paths={paths} />
           </Stack>
           
-          <Stack py={8} px={4} width='100%'>
-            <Breadcrumbs router={router} />
-
-            <Heading as='h1'>{frontmatter.title}</Heading>
+          <Stack pb={4} width='100%'>
+            <Stack mb={16}>
+              <Breadcrumbs />
+              <Heading as='h1' mt='4 !important' mb={0} textStyle='header1'>
+                {frontmatter.title}
+              </Heading>
+              {/* <Text as='span' mt='0 !important'>last edited {TODO: get last edited date}</Text> */}
+            </Stack>
 
             <Flex width='100%' placeContent='space-between'>
               <Stack maxW='768px'>
-                <ReactMarkdown components={MDXComponents}>
-                  {content}
-                </ReactMarkdown>
+              <ReactMarkdown
+                remarkPlugins={[gfm]}
+                components={ChakraUIRenderer(MDXComponents)}
+              >
+                {content}
+              </ReactMarkdown>
               </Stack>
               
               <Stack display={{ base: 'none', xl: 'block'}} w={48}>

@@ -1,4 +1,4 @@
-const check = '{# '
+const check = '{#'
 
 export const parseHeadingId = (children: string[]) => {
   if (children[children.length-1].includes(check)) {

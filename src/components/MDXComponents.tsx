@@ -1,38 +1,27 @@
-import { Heading, Link, Stack, Text } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  Link,
+  ListItem,
+  OrderedList,
+  Stack,
+  Table,
+  Text,
+  UnorderedList
+} from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-import { Code } from './UI/docs'
-
-import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
-import go from 'react-syntax-highlighter/dist/cjs/languages/prism/go';
-import graphql from 'react-syntax-highlighter/dist/cjs/languages/prism/graphql';
-import java from 'react-syntax-highlighter/dist/cjs/languages/prism/java';
-import javascript from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
-import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
-import python from 'react-syntax-highlighter/dist/cjs/languages/prism/python';
-import sh from 'react-syntax-highlighter/dist/cjs/languages/prism/shell-session';
-import solidity from 'react-syntax-highlighter/dist/cjs/languages/prism/solidity';
-import swift from 'react-syntax-highlighter/dist/cjs/languages/prism/swift';
+import { Code } from './UI/docs';
+import { textStyles } from '../theme/foundations';
 import { parseHeadingId } from '../utils/parseHeadingId';
 
-// syntax highlighting languages supported
-SyntaxHighlighter.registerLanguage('bash', bash);
-SyntaxHighlighter.registerLanguage('go', go);
-SyntaxHighlighter.registerLanguage('graphql', graphql);
-SyntaxHighlighter.registerLanguage('java', java);
-SyntaxHighlighter.registerLanguage('javascript', javascript);
-SyntaxHighlighter.registerLanguage('json', json);
-SyntaxHighlighter.registerLanguage('python', python);
-SyntaxHighlighter.registerLanguage('sh', sh);
-SyntaxHighlighter.registerLanguage('solidity', solidity);
-SyntaxHighlighter.registerLanguage('swift', swift);
+const { header1, header2, header3, header4 } = textStyles;
 
 const MDXComponents = {
   // paragraphs
   p: ({ children }: any) => {
     return (
-      <Text mb={7} _last={{ mb: 0 }} size='sm' lineHeight={1.5}>
+      <Text mb='7 !important' lineHeight={1.5}>
         {children}
       </Text>
     );
@@ -43,7 +32,7 @@ const MDXComponents = {
       <NextLink href={href} passHref>
         <Link
           isExternal={href.startsWith('http') && !href.includes('geth.ethereum.org')}
-          color='primary'
+          variant='light'
         >
           {children}
         </Link>
@@ -55,11 +44,11 @@ const MDXComponents = {
     const heading = parseHeadingId(children)
 
     return heading ? (
-      <Heading as='h1' textAlign='start' fontSize='4xl' mb={5} id={heading.headingId}>
+      <Heading as='h1' textAlign='start' mb='5 !important' {...header1} id={heading.headingId}>
         {heading.children}
       </Heading>
     ) : (
-      <Heading as='h1' textAlign='start' fontSize='4xl' mb={5}>
+      <Heading as='h1' textAlign='start' mb='5 !important' {...header1}>
         {children}
       </Heading>
     )
@@ -68,11 +57,11 @@ const MDXComponents = {
     const heading = parseHeadingId(children)
 
     return heading ? (
-      <Heading as='h2' textAlign='start' fontSize='3xl' mb={4} id={heading.headingId}>
+      <Heading as='h2' textAlign='start' mt='16 !important' mb='4 !important' {...header2} id={heading.headingId}>
         {heading.children}
       </Heading>
     ) : (
-      <Heading as='h2' textAlign='start' fontSize='3xl' mb={4}>
+      <Heading as='h2' textAlign='start' mt='16 !important' mb={4} {...header2}>
         {children}
       </Heading>
     )
@@ -81,11 +70,11 @@ const MDXComponents = {
     const heading = parseHeadingId(children)
 
     return heading ? (
-      <Heading as='h3' fontSize='2xl' mt={5} mb={2.5} id={heading.headingId}>
+      <Heading as='h3' mt='5 !important' mb='2.5 !important' {...header3} id={heading.headingId}>
         {heading.children}
       </Heading>
     ) : (
-      <Heading as='h3' fontSize='2xl' mt={5} mb={2.5}>
+      <Heading as='h3' mt='5 !important' mb='2.5 !important' {...header3}>
         {children}
       </Heading>
     )
@@ -94,47 +83,56 @@ const MDXComponents = {
     const heading = parseHeadingId(children)
 
     return heading ? (
-      <Heading as='h4' fontSize='lg' mb={2.5} id={heading.headingId}>
+      <Heading as='h4' mb='2.5 !important' {...header4} id={heading.headingId}>
         {heading.children}
       </Heading>
     ) : (
-      <Heading as='h4' fontSize='lg' mb={2.5}>
+      <Heading as='h4' mb='2.5 !important' {...header4}>
         {children}
       </Heading>
     )
   },
+  // tables
+  table: ({ children }: any) => (
+    <Flex maxW='min(100%, 100vw)' overflowX='auto'>
+      <Table
+        variant='striped'
+        colorScheme='greenAlpha'
+        border='1px'
+        borderColor='blackAlpha.50'
+        my='6 !important'
+        size={{ base: 'sm', lg: 'md' }}
+        w='auto'
+      >
+        {children}
+      </Table>
+    </Flex>
+  ),
   // pre
-  pre: ({ children }: any) => {
-    return (
-      <Stack mb={5}>
-        <pre>{children}</pre>
-      </Stack>
-    );
-  },
+  pre: ({ children }: any) => (
+    <Stack mb={5}>
+      <pre>{children}</pre>
+    </Stack>
+  ),
   // code
-  code: (code: any) => {
+  code: ({ children, ...props }: any) => <Code {...props}>{children}</Code>,
+  // list
+  ul: ({children}: any) => {
     return (
-      <Code code={code} />
+      <Stack>
+        <UnorderedList mb={7} px={4}>{children}</UnorderedList>
+      </Stack>
     )
-
-  //   return !!code.inline ? (
-  //     <Text
-  //       as={'span'}
-  //       padding='0.125em 0.25em'
-  //       color='red.300'
-  //       background='code-bg-contrast'
-  //       borderRadius='0.25em'
-  //       fontFamily='code'
-  //       fontSize='sm'
-  //       overflowY='scroll'
-  //     >
-  //       {code.children[0]}
-  //     </Text>
-  //   ) : (
-  //     <Stack style={nightOwl}>
-  //       {code.children[0]}
-  //     </Stack>
-  //   );
+  },
+  ol: ({children}: any) => {
+    return (
+      <Stack>
+        <OrderedList mb={7} px={4}>{children}</OrderedList>
+      </Stack>
+    )
+  },
+  li: ({ children }: any) => {
+    return <ListItem color='primary'>{children}</ListItem>
   }
 };
 
