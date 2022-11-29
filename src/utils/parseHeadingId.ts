@@ -1,21 +1,16 @@
 const check = '{#'
 
 export const parseHeadingId = (children: string[]) => {
-  if (children[children.length-1].includes(check)) {
+  if (children[children.length-1].includes(check) ) {
     const temp = children[children.length-1].split(check)
-    const heading = temp[temp.length-1].split('}')[0]
+    const headingId = temp[temp.length-1].split('}')[0]
 
-    // const headingIndex = children.findIndex(item => {
-    //   if (typeof item === 'string') {
-    //     return item.includes('{# ')
-    //   }
-    //   return false
-    // })
+    children[children.length - 1] = temp[0]
 
     return {
       children,
-      title: heading,
-      headingId: heading.split(' ').join('-')
+      title: temp[0].replaceAll('#',''),
+      headingId
     }
   }
 
