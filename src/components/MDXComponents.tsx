@@ -68,7 +68,7 @@ const MDXComponents = {
         {heading.children}
       </Heading>
     ) : (
-      <Heading as='h2' textAlign='start' mt='16 !important' mb={4} {...header2}>
+      <Heading as='h2' textAlign='start' mt='16 !important'  mb='4 !important'  {...header2}>
         {children}
       </Heading>
     );
