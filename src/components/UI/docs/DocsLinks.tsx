@@ -42,7 +42,7 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                     </Center>
                   )}
                 </AccordionButton>
-6                {
+                {
                   links.items && (
                     <AccordionPanel borderBottom='2px solid'
                     borderColor='primary' px={0} py={4}>
