@@ -54,7 +54,7 @@ export const HomeHero: FC = () => {
             </Button>
           </NextLink>
 
-          <Text mt={1} textStyle='hero-text-small' alignSelf='center'>
+          <Text mt={1} textStyle='hero-text-small'>
             Read our documentation
           </Text>
         </Flex>
