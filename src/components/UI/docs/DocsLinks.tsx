@@ -19,13 +19,21 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
               <AccordionItem>
                 <AccordionButton borderBottom={navLinks.length-1 === idx ? 'none' : '2px'} p={0} borderColor='primary' display='flex' justifyContent='space-between'>
                   <Stack p={4}>
-                    <NextLink href={links.to} passHref>
-                      <Link>
-                        <Text textStyle='docs-nav-dropdown'>
-                          {links.id}
-                        </Text>
-                      </Link>
-                    </NextLink>
+                    {
+                      links.to ? (
+                        <NextLink href={links.to} passHref>
+                          <Link>
+                            <Text textStyle='docs-nav-dropdown'>
+                              {links.id}
+                            </Text>
+                          </Link>
+                        </NextLink>
+                        ) : (
+                          <Text textStyle='docs-nav-dropdown'>
+                            {links.id}
+                          </Text>
+                        )
+                    }
                   </Stack>
 
                   {links.items && (
