@@ -22,7 +22,6 @@ export const SpecificVersionsSection: FC<Props> = ({ children }) => {
         borderRight={{ base: 'none', md: '2px' }}
         borderColor='primary !important'
         flex='none'
-        width={{ base: 'auto', md: '300px' }}
       >
         <GopherHomeLinks />
       </Flex>
