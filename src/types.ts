@@ -34,3 +34,9 @@ export interface ReleaseParams {
   blobsList: string[];
   isStableRelease: boolean;
 }
+
+export interface NavLink {
+  id: string;
+  to?: string;
+  items?: NavLink[];
+}

@@ -14,6 +14,8 @@ import MDXComponents from '../components/';
 import { Breadcrumbs, DocsNav, DocumentNav } from '../components/UI/docs';
 import { PageMetadata } from '../components/UI';
 
+import { NavLink } from '../types';
+
 import { getFileList } from '../utils/getFileList';
 
 const MATTER_OPTIONS = {
@@ -62,7 +64,7 @@ interface Props {
     [key: string]: string;
   };
   content: string;
-  navLinks: any[];
+  navLinks: NavLink[];
 }
 
 const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks }) => {

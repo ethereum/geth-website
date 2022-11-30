@@ -10,8 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { DocsLinks } from './DocsLinks';
 
+import { NavLink } from '../../../types';
+
 interface Props {
-  navLinks: any[];
+  navLinks: NavLink[];
 }
 
 export const DocsNav: FC<Props> = ({ navLinks }) => {

@@ -6,34 +6,34 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
+import { NavLink } from '../../../types'
+
 interface LinksListProps {
-  links: any[];
+  links: NavLink[];
 }
 
-export const LinksList: FC<LinksListProps> = ({ links }) => {
-  return (
-    <Stack px={4}>
-      {links.map(link => {
-        return link.to ? (
-          <Stack key={link.id}>
-              <NextLink href={link.to} passHref key={link.id}>
-              <Link>
-                  <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
-                    {link.id}
-                  </Text>
-              </Link>
-              </NextLink>
-              {link.items && <LinksList links={link.items} />}
-          </Stack>
-          ) : (
-          <Stack key={link.id}>
-              <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
-                {link.id}
-              </Text>
-              {link.items && <LinksList links={link.items} />}
-          </Stack>
-        );
-      })}
-    </Stack>
-  );
-};
+export const LinksList: FC<LinksListProps> = ({ links }) => (
+  <Stack px={4}>
+    {links.map(({ id, to, items }) => {
+      return to ? (
+        <Stack key={id}>
+            <NextLink href={to} passHref key={id}>
+            <Link>
+                <Text textStyle='docs-nav-links' color={items ? 'primary' : 'body'}>
+                  {id}
+                </Text>
+            </Link>
+            </NextLink>
+            {items && <LinksList links={items} />}
+        </Stack>
+        ) : (
+        <Stack key={id}>
+            <Text textStyle='docs-nav-links' color={items ? 'primary' : 'body'}>
+              {id}
+            </Text>
+            {items && <LinksList links={items} />}
+        </Stack>
+      );
+    })}
+  </Stack>
+);
