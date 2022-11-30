@@ -22,7 +22,7 @@ export const DocsNav: FC<Props> = ({ navLinks }) => {
       <Stack display={{ base: 'none', lg: 'block' }}>
         <DocsLinks navLinks={navLinks} />
       </Stack>
-      
+
       <Stack display={{ base: 'block', lg: 'none' }}>
         <Accordion allowToggle>
           <AccordionItem border='none'>

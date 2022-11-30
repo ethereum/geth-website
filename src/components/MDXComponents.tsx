@@ -145,8 +145,8 @@ const MDXComponents = {
   li: ({ children }: any) => {
     return <ListItem color='primary'>{children}</ListItem>;
   },
-  span: ({children}) => {
-    return <Note>{children}</Note>
+  Note: ({ children }: any) => {
+    return <Note>{children}</Note>;
   }
 };
 

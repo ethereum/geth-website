@@ -5,7 +5,5 @@ interface Props {
 }
 
 export const Note: FC<Props> = ({ children }) => {
-  return (
-    <p>{children}</p>
-  );
+  return <p>{children}</p>;
 };
