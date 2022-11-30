@@ -193,8 +193,10 @@ export const textStyles = {
     letterSpacing: '1%',
     mb: 4
   },
-  // TODO: refactor w/ semantic tokens for light/dark mode
-  'link-light': {},
-  // TODO: refactor w/ semantic tokens for light/dark mode
-  'text-light': {}
+  'note-text': {
+    fontFamily: 'body',
+    fontWeight: 400,
+    fontSize: 'md',
+    lineHeight: '26px'
+  }
 };
