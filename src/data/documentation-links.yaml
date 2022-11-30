@@ -75,22 +75,22 @@
     - id: Dapp developers
       items:
         - id: Go API
-          to: /docs/developers/dapp-developers/native
+          to: /docs/developers/dapp-developer/native
         - id: Go Account Management
-          to: /docs/developers/dapp-developers/native-accounts
+          to: /docs/developers/dapp-developer/native-accounts
         - id: Go Contract Bindings
-          to: /docs/developers/dapp-developers/native-bindings
+          to: /docs/developers/dapp-developer/native-bindings
         - id: Geth for Mobile
-          to: /docs/developers/dapp-developers/mobile
+          to: /docs/developers/dapp-developer/mobile
     - id: EVM tracing
       to: /docs/developers/evm-tracing
       items:
         - id: Basic traces
           to: /docs/developers/evm-tracing/basic-traces
         - id: Built-in tracers
-          to: /docs/developers/evm-tracing/build-in-tracers
+          to: /docs/developers/evm-tracing/built-in-tracers
         - id: Custom EVM tracer
-          to: /docs/developers/evm-tracing/custom-tracers
+          to: /docs/developers/evm-tracing/custom-tracer
         - id: Tutorial for Javascript tracing
           to: /docs/developers/evm-tracing/javascript-tutorial
     - id: Geth developer
@@ -104,11 +104,11 @@
         - id: Issue handling workflow
           to: /docs/developers/geth-developer/issue-handling-workflow
         - id: DNS discovery setup guide
-          to: /docs/developers/geth-developer/dns-discovery
+          to: /docs/developers/geth-developer/dns-discovery-setup
         - id: Code review guidelines
           to: /docs/developers/geth-developer/code-review-guidelines
         - id: Private networks
-          to: /docs/developers/geth-developer/private-networks
+          to: /docs/developers/geth-developer/private-network
     - id: Contributing
       to: /docs/developers/contributing
 - id: Monitoring
