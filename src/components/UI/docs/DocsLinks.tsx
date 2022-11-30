@@ -76,7 +76,7 @@ const LinksList: FC<LinksListProps> = ({ links }) => {
     <Stack px={4}>
       {links.map(link => {
         return link.to ? (
-          <Stack>
+          <Stack key={link.id}>
             <NextLink href={link.to} passHref key={link.id}>
               <Link>
                 <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
@@ -87,7 +87,7 @@ const LinksList: FC<LinksListProps> = ({ links }) => {
             {link.items && <LinksList links={link.items} />}
           </Stack>
         ) : (
-          <Stack>
+          <Stack key={link.id}>
             <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
               {link.id}
             </Text>
