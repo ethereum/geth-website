@@ -12,6 +12,8 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
+import { LinksList } from './';
+
 interface NavLink {
   id: string
   to?: string
@@ -67,38 +69,6 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
               )}
             </AccordionItem>
           </Accordion>
-        );
-      })}
-    </Stack>
-  );
-};
-
-interface LinksListProps {
-  links: any[];
-}
-
-const LinksList: FC<LinksListProps> = ({ links }) => {
-  return (
-    <Stack px={4}>
-      {links.map(link => {
-        return link.to ? (
-          <Stack key={link.id}>
-            <NextLink href={link.to} passHref key={link.id}>
-              <Link>
-                <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
-                  {link.id}
-                </Text>
-              </Link>
-            </NextLink>
-            {link.items && <LinksList links={link.items} />}
-          </Stack>
-        ) : (
-          <Stack key={link.id}>
-            <Text textStyle='docs-nav-links' color={link.items ? 'primary' : 'body'}>
-              {link.id}
-            </Text>
-            {link.items && <LinksList links={link.items} />}
-          </Stack>
         );
       })}
     </Stack>
