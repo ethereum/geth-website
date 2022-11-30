@@ -12,6 +12,7 @@ First things first, Clef needs to store some data itself. Since that data might 
 ```sh
 $ clef init
 ```
+
 ```terminal
 WARNING!
 
