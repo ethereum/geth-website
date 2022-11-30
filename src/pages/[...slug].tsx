@@ -54,11 +54,10 @@ export const getStaticProps: GetStaticProps = async context => {
 
   try {
     file = fs.readFileSync(`${filePath}.md`, 'utf-8');
-    lastModified = fs.statSync(`${filePath}.md`)
-
+    lastModified = fs.statSync(`${filePath}.md`);
   } catch {
     file = fs.readFileSync(`${filePath}/index.md`, 'utf-8');
-    lastModified = fs.statSync(`${filePath}/index.md`)
+    lastModified = fs.statSync(`${filePath}/index.md`);
   }
 
   const { data: frontmatter, content } = matter(file, MATTER_OPTIONS);
@@ -70,8 +69,8 @@ export const getStaticProps: GetStaticProps = async context => {
       lastModified: getParsedDate(lastModified.mtime, {
         month: 'numeric',
         day: 'numeric',
-        year: 'numeric',
-    })
+        year: 'numeric'
+      })
     }
   };
 };
@@ -95,7 +94,9 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, lastModified }) => {
           <Heading as='h1' mt='4 !important' mb={0} {...textStyles.header1}>
             {frontmatter.title}
           </Heading>
-          <Text as='span' mt='0 !important'>last edited {lastModified}</Text>
+          <Text as='span' mt='0 !important'>
+            last edited {lastModified}
+          </Text>
         </Stack>
         <ReactMarkdown remarkPlugins={[gfm]} components={ChakraUIRenderer(MDXComponents)}>
           {content}
