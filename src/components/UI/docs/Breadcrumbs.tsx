@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Stack } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -10,18 +10,24 @@ export const Breadcrumbs: FC = () => {
   pathSplit = pathSplit.splice(1, pathSplit.length);
 
   return (
-    <Breadcrumb>
-      {pathSplit.map((path: string, idx: number) => {
-        return (
-          <BreadcrumbItem key={path}>
-            <NextLink href={`/${pathSplit.slice(0, idx + 1).join('/')}`} passHref>
-              <BreadcrumbLink color={idx + 1 === pathSplit.length ? 'body' : 'primary'}>
-                {path}
-              </BreadcrumbLink>
-            </NextLink>
-          </BreadcrumbItem>
-        );
-      })}
-    </Breadcrumb>
+    <>
+      {router.asPath !== '/docs' ? (
+        <Breadcrumb>
+          {pathSplit.map((path: string, idx: number) => {
+            return (
+              <BreadcrumbItem key={path}>
+                <NextLink href={`/${pathSplit.slice(0, idx + 1).join('/')}`} passHref>
+                  <BreadcrumbLink color={idx + 1 === pathSplit.length ? 'body' : 'primary'}>
+                    {path}
+                  </BreadcrumbLink>
+                </NextLink>
+              </BreadcrumbItem>
+            );
+          })}
+        </Breadcrumb>
+      ) : (
+        <Stack h='24px'></Stack>
+      )}
+    </>
   );
 };
