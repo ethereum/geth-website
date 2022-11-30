@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import gfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
@@ -116,7 +117,11 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
 
             <Flex width='100%' placeContent='space-between'>
               <Stack maxW='768px'>
-                <ReactMarkdown remarkPlugins={[gfm]} components={ChakraUIRenderer(MDXComponents)}>
+                <ReactMarkdown
+                  remarkPlugins={[gfm]}
+                  rehypePlugins={[rehypeRaw]}
+                  components={ChakraUIRenderer(MDXComponents)}
+                >
                   {content}
                 </ReactMarkdown>
               </Stack>
