@@ -1,6 +1,6 @@
 import { Link, Table, Thead, Tr, Th, TableContainer, Text, Tbody, Td } from '@chakra-ui/react';
 import { FC } from 'react';
-import { OpenPGPSignaturesData, ReleaseData, XOR } from '../../types';
+import { OpenPGPSignaturesData, ReleaseData } from '../../types';
 import { getParsedDate } from '../../utils';
 
 interface Props {
