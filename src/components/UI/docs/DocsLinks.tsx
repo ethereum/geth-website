@@ -12,8 +12,14 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
+interface NavLink {
+  id: string
+  to?: string
+  items?: NavLink[]
+}
+
 interface Props {
-  navLinks: any[];
+  navLinks: NavLink[];
 }
 
 export const DocsLinks: FC<Props> = ({ navLinks }) => {
