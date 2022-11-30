@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Center,
+  Grid,
   Link,
   Stack,
   Text
@@ -22,39 +23,44 @@ interface Props {
 
 export const DocsLinks: FC<Props> = ({ navLinks }) => (
   <Stack border='2px' borderColor='primary'>
-    {navLinks.map(({ id, to, items }, idx) => (
+    {navLinks.map(({ id, to, items }, idx) => {
+      console.log(items)
+      return (
       <Accordion key={id} allowToggle mt='0 !important' defaultIndex={[0]}>
         <AccordionItem>
           <AccordionButton
             borderBottom={navLinks.length - 1 === idx ? 'none' : '2px'}
             p={0}
             borderColor='primary'
-            display='flex'
             justifyContent='space-between'
+            placeContent='flex-end'
+            bg='button-bg'
           >
-            <Stack p={4}>
-              {to ? (
-                <NextLink href={to} passHref>
-                  <Link>
-                    <Text textStyle='docs-nav-dropdown'>{id}</Text>
-                  </Link>
-                </NextLink>
-              ) : (
-                <Text textStyle='docs-nav-dropdown'>{id}</Text>
-              )}
-            </Stack>
-
-            {items && (
-              <Center
-                minW='61px'
-                h='61px'
-                bg='button-bg'
-                borderLeft='2px'
+              <Stack
+                p={4}
+                borderRight={items ? '2px' : 'none'}
                 borderColor='primary'
+                w='100%'
+                bg='bg'
               >
-                <AccordionIcon color='primary' />
-              </Center>
-            )}
+                {to ? (
+                  <NextLink href={to} passHref>
+                    <Link>
+                      <Text textStyle='docs-nav-dropdown'>{id}</Text>
+                    </Link>
+                  </NextLink>
+                ) : (
+                  <Text textStyle='docs-nav-dropdown'>{id}</Text>
+                )}
+              </Stack>
+
+              {items && (
+                <Stack minW='61px'>
+                  <Center>
+                    <AccordionIcon color='primary' />
+                  </Center>
+                </Stack>
+              )}
           </AccordionButton>
           {items && (
             <AccordionPanel borderBottom='2px solid' borderColor='primary' px={0} py={4}>
@@ -63,6 +69,6 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => (
           )}
         </AccordionItem>
       </Accordion>
-    ))}
+    )})}
   </Stack>
 );
