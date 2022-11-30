@@ -19,6 +19,10 @@ interface Props {
 export const DocsNav: FC<Props> = ({ navLinks }) => {
   return (
     <Stack w={{ base: '100%', lg: 72 }}>
+      <Stack display={{ base: 'none', lg: 'block' }}>
+        <DocsLinks navLinks={navLinks} />
+      </Stack>
+      
       <Stack display={{ base: 'block', lg: 'none' }}>
         <Accordion allowToggle>
           <AccordionItem border='none'>
@@ -49,9 +53,6 @@ export const DocsNav: FC<Props> = ({ navLinks }) => {
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
-      </Stack>
-      <Stack display={{ base: 'none', lg: 'block' }}>
-        <DocsLinks navLinks={navLinks} />
       </Stack>
     </Stack>
   );
