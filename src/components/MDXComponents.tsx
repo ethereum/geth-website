@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { Code } from './UI/docs';
+import { Code, Note } from './UI/docs';
 import { textStyles } from '../theme/foundations';
 import { parseHeadingId } from '../utils/parseHeadingId';
 
@@ -144,6 +144,9 @@ const MDXComponents = {
   },
   li: ({ children }: any) => {
     return <ListItem color='primary'>{children}</ListItem>;
+  },
+  span: ({children}) => {
+    return <Note>{children}</Note>
   }
 };
 

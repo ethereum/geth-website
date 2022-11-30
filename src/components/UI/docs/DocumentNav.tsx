@@ -25,9 +25,9 @@ export const DocumentNav: FC<Props> = ({ content }) => {
         on this page
       </Text>
       <Divider borderColor='primary' my={`4 !important`} />
-      {parsedHeadings.map(heading => {
+      {parsedHeadings.map((heading, idx) => {
         return (
-          <NextLink key={heading?.title} href={`#${heading?.headingId}`}>
+          <NextLink key={`${idx} ${heading?.title}`} href={`#${heading?.headingId}`}>
             <Link m={0}>
               <Text
                 color={activeHash === heading?.headingId ? 'body' : 'primary'}
