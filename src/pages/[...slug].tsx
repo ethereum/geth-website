@@ -1,9 +1,9 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
+import { Flex, Stack, Heading, Text } from '@chakra-ui/react';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import ReactMarkdown from 'react-markdown';
-import { Flex, Heading, Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import gfm from 'remark-gfm';
@@ -17,6 +17,9 @@ import { PageMetadata } from '../components/UI';
 import { NavLink } from '../types';
 
 import { getFileList } from '../utils/getFileList';
+
+import { textStyles } from '../theme/foundations';
+import { getParsedDate } from '../utils';
 
 const MATTER_OPTIONS = {
   engines: {
@@ -39,13 +42,16 @@ export const getStaticProps: GetStaticProps = async context => {
   const { slug } = context.params as ParsedUrlQuery;
   const filePath = (slug as string[])!.join('/');
   let file;
+  let lastModified;
 
   const navLinks = yaml.load(fs.readFileSync('src/data/documentation-links.yaml', 'utf8'));
 
   try {
     file = fs.readFileSync(`${filePath}.md`, 'utf-8');
+    lastModified = fs.statSync(`${filePath}.md`);
   } catch {
     file = fs.readFileSync(`${filePath}/index.md`, 'utf-8');
+    lastModified = fs.statSync(`${filePath}/index.md`);
   }
 
   const { data: frontmatter, content } = matter(file, MATTER_OPTIONS);
@@ -54,7 +60,12 @@ export const getStaticProps: GetStaticProps = async context => {
     props: {
       frontmatter,
       content,
-      navLinks
+      navLinks,
+      lastModified: getParsedDate(lastModified.mtime, {
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric'
+      })
     }
   };
 };
@@ -65,9 +76,10 @@ interface Props {
   };
   content: string;
   navLinks: NavLink[];
+  lastModified: string;
 }
 
-const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks }) => {
+const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -94,10 +106,12 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks }) => {
           <Stack pb={4} width='100%'>
             <Stack mb={16}>
               <Breadcrumbs />
-              <Heading as='h1' mt='4 !important' mb={0} textStyle='header1'>
+              <Heading as='h1' mt='4 !important' mb={0} {...textStyles.header1}>
                 {frontmatter.title}
               </Heading>
-              {/* <Text as='span' mt='0 !important'>last edited {TODO: get last edited date}</Text> */}
+              <Text as='span' mt='0 !important'>
+                last edited {lastModified}
+              </Text>
             </Stack>
 
             <Flex width='100%' placeContent='space-between'>
