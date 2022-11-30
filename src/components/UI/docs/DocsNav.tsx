@@ -21,7 +21,7 @@ export const DocsNav: FC<Props> = ({ navLinks }) => {
     <Stack w={{ base: '100%', lg: 72 }}>
       <Stack display={{ base: 'block', lg: 'none' }}>
         <Accordion allowToggle>
-          <AccordionItem>
+          <AccordionItem border='none'>
             <AccordionButton
               display='flex'
               py={4}

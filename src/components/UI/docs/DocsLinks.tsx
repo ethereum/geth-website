@@ -25,7 +25,7 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => (
     {navLinks.map(({ id, to, items }, idx) => {
       return (
         <Accordion key={id} allowToggle mt='0 !important' defaultIndex={[0]}>
-          <AccordionItem>
+          <AccordionItem border='none'>
             {({ isExpanded }) => (
               <>
                 <AccordionButton
