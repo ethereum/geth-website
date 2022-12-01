@@ -11,13 +11,13 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { Code, Note } from './UI/docs';
-import { textStyles } from '../theme/foundations';
-import { parseHeadingId } from '../utils/parseHeadingId';
+import { Code, Note } from '.';
+import { textStyles } from '../../../theme/foundations';
+import { parseHeadingId } from '../../../utils/parseHeadingId';
 
 const { header1, header2, header3, header4 } = textStyles;
 
-const MDXComponents = {
+const MDComponents = {
   // paragraphs
   p: ({ children }: any) => {
     return (
@@ -150,4 +150,4 @@ const MDXComponents = {
   }
 };
 
-export default MDXComponents;
+export default MDComponents;

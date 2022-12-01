@@ -11,7 +11,7 @@ import rehypeRaw from 'rehype-raw';
 import { ParsedUrlQuery } from 'querystring';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
-import MDXComponents from '../components/';
+import MDComponents from '../components/UI/docs';
 import { Breadcrumbs, DocsNav, DocumentNav } from '../components/UI/docs';
 import { PageMetadata } from '../components/UI';
 
@@ -120,7 +120,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
                 <ReactMarkdown
                   remarkPlugins={[gfm]}
                   rehypePlugins={[rehypeRaw]}
-                  components={ChakraUIRenderer(MDXComponents)}
+                  components={ChakraUIRenderer(MDComponents)}
                 >
                   {content}
                 </ReactMarkdown>
