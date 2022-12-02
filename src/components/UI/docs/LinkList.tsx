@@ -21,7 +21,14 @@ export const LinksList: FC<LinksListProps> = ({ links }) => {
           <Stack key={id}>
             <NextLink href={to} passHref key={id}>
               <Link>
-                <Text textStyle='docs-nav-links' color={items ? 'primary' : 'body'} fontWeight={isActive ? 700 : 'unset'}>
+                <Text
+                  textStyle='docs-nav-links'
+                  color={items || isActive ? 'primary' : 'body'}
+                  _before={isActive ? {
+                    content: '"■"',
+                    marginInlineEnd: 2,
+                  } : {}}
+                >
                   {id}
                 </Text>
               </Link>

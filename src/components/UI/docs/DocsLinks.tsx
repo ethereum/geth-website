@@ -52,7 +52,16 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                       {to ? (
                         <NextLink href={to} passHref>
                           <Link>
-                            <Text textStyle='docs-nav-dropdown' fontWeight={isActive ? 700 : 'unset'}>{id}</Text>
+                            <Text
+                              textStyle='docs-nav-dropdown'
+                              color={isActive ? 'primary' : 'unset'}
+                              _before={isActive ? {
+                                content: '"■"',
+                                marginInlineEnd: 2,
+                              } : {}}
+                            >
+                              {id}
+                            </Text>
                           </Link>
                         </NextLink>
                       ) : (
