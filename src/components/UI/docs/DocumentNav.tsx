@@ -24,7 +24,7 @@ export const DocumentNav: FC<Props> = ({ content }) => {
       <Text as='h5' textStyle='document-nav-title'>
         on this page
       </Text>
-      <Divider borderColor='primary' my={`4 !important`} w="70%" />
+      <Divider borderColor='primary' my={`4 !important`} />
       {parsedHeadings.map((heading, idx) => {
         return (
           <NextLink key={`${idx} ${heading?.title}`} href={`#${heading?.headingId}`}>

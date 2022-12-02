@@ -126,7 +126,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
                 </ReactMarkdown>
               </Stack>
 
-              <Stack display={{ base: 'none', xl: 'block' }} w={48}>
+              <Stack display={{ base: 'none', xl: 'block' }} w="clamp(var(--chakra-sizes-40), 12.5%, var(--chakra-sizes-56))">
                 <DocumentNav content={content} />
               </Stack>
             </Flex>
