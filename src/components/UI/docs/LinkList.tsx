@@ -24,10 +24,12 @@ export const LinksList: FC<LinksListProps> = ({ links }) => {
                 <Text
                   textStyle='docs-nav-links'
                   color={items || isActive ? 'primary' : 'body'}
-                  _before={isActive ? {
+                  _before={{
                     content: '"■"',
                     marginInlineEnd: 2,
-                  } : {}}
+                    fontSize: 'xl',
+                    display: isActive ? 'unset' : 'none',
+                  }}
                   _groupHover={{
                     color: 'bg',
                     boxShadow: '0 0 0 var(--chakra-space-2) var(--chakra-colors-primary)',

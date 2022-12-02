@@ -53,14 +53,16 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                     >
                       {to ? (
                         <NextLink href={to} passHref>
-                          <Link>
+                          <Link textDecoration='none !important'>
                             <Text
                               textStyle='docs-nav-dropdown'
                               color={isActive ? 'primary' : 'unset'}
-                              _before={isActive ? {
+                              _before={{
                                 content: '"■"',
                                 marginInlineEnd: 2,
-                              } : {}}
+                                fontSize: 'xl',
+                                display: isActive ? 'unset' : 'none',
+                              }}
                               _groupHover={{ color: 'bg' }}
                             >
                               {id}
