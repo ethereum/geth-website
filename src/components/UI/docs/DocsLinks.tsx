@@ -41,6 +41,7 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                     justifyContent='space-between'
                     placeContent='flex-end'
                     bg='button-bg'
+                    data-group
                   >
                     <Stack
                       p={4}
@@ -48,6 +49,7 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                       borderColor='primary'
                       w='100%'
                       bg='bg'
+                      _groupHover={{ background: 'primary', color: 'bg', textDecoration: 'none' }}
                     >
                       {to ? (
                         <NextLink href={to} passHref>
@@ -59,6 +61,7 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                                 content: '"■"',
                                 marginInlineEnd: 2,
                               } : {}}
+                              _groupHover={{ color: 'bg' }}
                             >
                               {id}
                             </Text>
