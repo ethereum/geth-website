@@ -59,8 +59,9 @@ export const DocsLinks: FC<Props> = ({ navLinks }) => {
                               color={isActive ? 'primary' : 'unset'}
                               _before={{
                                 content: '"■"',
+                                verticalAlign: '0.6px',
                                 marginInlineEnd: 2,
-                                fontSize: 'xl',
+                                fontSize: 'lg',
                                 display: isActive ? 'unset' : 'none',
                               }}
                               _groupHover={{ color: 'bg' }}

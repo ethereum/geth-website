@@ -26,8 +26,9 @@ export const LinksList: FC<LinksListProps> = ({ links }) => {
                   color={items || isActive ? 'primary' : 'body'}
                   _before={{
                     content: '"■"',
+                    verticalAlign: '0.6px',
                     marginInlineEnd: 2,
-                    fontSize: 'xl',
+                    fontSize: 'lg',
                     display: isActive ? 'unset' : 'none',
                   }}
                   _groupHover={{
