@@ -115,7 +115,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
               </Text>
             </Stack>
 
-            <Flex width='100%' placeContent='space-between'>
+            <Flex width='100%' placeContent='space-between' gap={8}>
               <Stack maxW='768px'>
                 <ReactMarkdown
                   remarkPlugins={[gfm]}
