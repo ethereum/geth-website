@@ -9,7 +9,7 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react';
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { AddIcon, MinusIcon } from '../svgs/'
 import NextLink from 'next/link';
 
 import { LinksList } from './';
