@@ -12,7 +12,7 @@ export const LinksList: FC<LinksListProps> = ({ links }) => (
   <Stack px={4}>
     {links.map(({ id, to, items }) => {
       return to ? (
-        <Stack key={id} pb={items ? 16 : 0}>
+        <Stack key={id} pb={items ? 6 : 0}>
           <NextLink href={to} passHref key={id}>
             <Link>
               <Text textStyle='docs-nav-links' color={items ? 'primary' : 'body'}>
@@ -23,7 +23,7 @@ export const LinksList: FC<LinksListProps> = ({ links }) => (
           {items && <LinksList links={items} />}
         </Stack>
       ) : (
-        <Stack key={id} pb={16}>
+        <Stack key={id} pb={6}>
           <Text textStyle='docs-nav-links' color={items ? 'primary' : 'body'}>
             {id}
           </Text>
