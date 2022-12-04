@@ -1,18 +1,26 @@
 const check = '{#';
 
+const nameToKebabCase = (name: string): string =>
+  name
+    .replace(/[#]/g, '')
+    .trim()
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^a-z0-9-]/g, '');
+
 export const parseHeadingId = (children: string[]) => {
-  if (children[children.length - 1].includes(check)) {
-    const temp = children[children.length - 1].split(check);
-    const headingId = temp[temp.length - 1].split('}')[0];
-
-    children[children.length - 1] = temp[0];
-
+  const lastChild = children[children.length - 1];
+  const split = children[children.length - 1].split(check);
+  if (lastChild.includes(check)) {
+    const headingId = split[split.length - 1].split('}')[0];
+    const newChildren = [...children];
+    newChildren[newChildren.length - 1] = split[0];
     return {
-      children,
-      title: temp[0].replaceAll('#', ''),
+      children: newChildren,
+      title: split[0].replaceAll('#', ''),
       headingId
     };
   }
-
-  return null;
+  nameToKebabCase(split[0]);
+  return { children, title: split[0].replaceAll('#', ''), headingId: nameToKebabCase(split[0]) };
 };
