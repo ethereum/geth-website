@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps = async context => {
       content,
       navLinks,
       lastModified: getParsedDate(lastModified.mtime, {
-        month: 'numeric',
+        month: 'long',
         day: 'numeric',
         year: 'numeric'
       })
