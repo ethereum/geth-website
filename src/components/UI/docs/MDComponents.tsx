@@ -53,7 +53,7 @@ const MDComponents = {
     const { children: parsedChildren, headingId} = parseHeadingId(children);
 
     return (
-      <Heading as='h2' textAlign='start' mt='16 !important' mb='4 !important' {...header2} id={headingId}>
+      <Heading as='h2' textAlign='start' mt={{ base: '12 !important' , md: '16 !important'}} mb='4 !important' {...header2} id={headingId}>
         {parsedChildren}
       </Heading>
     );
