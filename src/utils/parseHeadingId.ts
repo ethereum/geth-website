@@ -21,6 +21,5 @@ export const parseHeadingId = (children: string[]) => {
       headingId
     };
   }
-  nameToKebabCase(split[0]);
   return { children, title: split[0].replaceAll('#', ''), headingId: nameToKebabCase(split[0]) };
 };
