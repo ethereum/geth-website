@@ -15,7 +15,7 @@ export const Link = {
     light: {
       textDecoration: 'underline',
       color: 'primary',
-      _hover: { color: 'body', textDecorationColor: 'primary' },
+      _hover: { color: 'body', textDecorationColor: 'secondary' },
       _focus: {
         color: 'primary',
         boxShadow: '0 0 0 1px var(--chakra-colors-primary) !important',
