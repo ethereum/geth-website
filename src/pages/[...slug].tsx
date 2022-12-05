@@ -111,7 +111,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
                 {frontmatter.title}
               </Heading>
               <Text as='span' mt='0 !important'>
-                last edited {lastModified}
+                Last edited {lastModified}
               </Text>
             </Stack>
 
