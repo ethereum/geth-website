@@ -16,3 +16,4 @@ export { getReleaseURL } from './getReleaseURL';
 export { getSignatureURL } from './getSignatureURL';
 export { getSortedReleases } from './getSortedReleases';
 export { mapReleasesData } from './mapReleasesData';
+export { getKebabCaseFromName } from './getKebabCaseFromName';

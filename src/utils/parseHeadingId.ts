@@ -1,12 +1,6 @@
-const check = '{#';
+import { getKebabCaseFromName } from './';
 
-const nameToKebabCase = (name: string): string =>
-  name
-    .replace(/[#]/g, '')
-    .trim()
-    .toLowerCase()
-    .replace(/ /g, '-')
-    .replace(/[^a-z0-9-]/g, '');
+const check = '{#';
 
 export const parseHeadingId = (children: string[]) => {
   const lastChild = children[children.length - 1];
@@ -21,5 +15,9 @@ export const parseHeadingId = (children: string[]) => {
       headingId
     };
   }
-  return { children, title: split[0].replaceAll('#', ''), headingId: nameToKebabCase(split[0]) };
+  return {
+    children,
+    title: split[0].replaceAll('#', ''),
+    headingId: getKebabCaseFromName(split[0])
+  };
 };
