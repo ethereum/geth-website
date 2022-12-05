@@ -380,7 +380,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               {totalStableReleases > amountStableReleases && (
                 <Stack
                   sx={{ mt: '0 !important' }}
-                  borderLeft={{ base: 'none', md: '2px solid #06fece' }}
+                  borderLeft={{ base: 'none', md: '2px solid var(--chakra-colors-primary)' }}
                 >
                   <Link
                     as='button'
