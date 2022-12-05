@@ -380,8 +380,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               {totalStableReleases > amountStableReleases && (
                 <Stack
                   sx={{ mt: '0 !important' }}
-                  borderLeft={{ base: 'none', md: '2px solid #11866f' }}
-                  w={{ base: '100%', md: 'auto' }}
+                  borderLeft={{ base: 'none', md: '2px solid var(--chakra-colors-primary)' }}
                 >
                   <Link
                     as='button'
@@ -435,8 +434,7 @@ const DownloadsPage: NextPage<Props> = ({ data }) => {
               {totalDevBuilds > amountDevBuilds && (
                 <Stack
                   sx={{ mt: '0 !important' }}
-                  borderLeft={{ base: 'none', md: '2px solid #11866f' }}
-                  w={{ base: '100%', md: 'auto' }}
+                  borderLeft={{ base: 'none', md: '2px solid var(--chakra-colors-primary)' }}
                 >
                   <Link as='button' variant='button-link-secondary' onClick={showMoreDevBuilds}>
                     <Text
