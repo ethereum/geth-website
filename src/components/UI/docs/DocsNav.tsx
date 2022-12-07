@@ -18,7 +18,7 @@ interface Props {
 
 export const DocsNav: FC<Props> = ({ navLinks }) => {
   return (
-    <Stack w={{ base: '100%', lg: 72 }}>
+    <Stack w={{ base: '100%', lg: 72 }} as='aside'>
       <Stack display={{ base: 'none', lg: 'block' }}>
         <DocsLinks navLinks={navLinks} />
       </Stack>
@@ -43,7 +43,7 @@ export const DocsNav: FC<Props> = ({ navLinks }) => {
                 color: 'bg'
               }}
             >
-              <Text as='h4' textStyle='docs-nav-dropdown'>
+              <Text textStyle='docs-nav-dropdown' >
                 Documentation
               </Text>
               <AccordionIcon />
