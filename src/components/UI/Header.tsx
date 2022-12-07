@@ -72,6 +72,7 @@ export const Header: FC = () => {
             bg: 'primary',
             svg: { color: 'bg' }
           }}
+          aria-label={`Toggle ${isDark ? 'light' : 'dark'} mode`}
         >
           {isDark ? <SunIcon color='primary' /> : <MoonIcon color='primary' />}
         </Box>

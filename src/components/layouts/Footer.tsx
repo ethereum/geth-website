@@ -83,7 +83,7 @@ export const Footer: FC = () => {
             p={4}
           >
             <Link href={GETH_TWITTER_URL} isExternal>
-              <TwitterIcon w={8} height='22px' _groupHover={{ color: 'bg' }} color='primary' />
+              <TwitterIcon w={8} height='22px' _groupHover={{ color: 'bg' }} color='primary' aria-label='Twitter' />
             </Link>
           </Center>
 
@@ -97,13 +97,13 @@ export const Footer: FC = () => {
             p={4}
           >
             <Link href={GETH_DISCORD_URL} isExternal>
-              <DiscordIcon w={8} height='22px' _groupHover={{ color: 'bg' }} color='primary' />
+              <DiscordIcon w={8} height='22px' _groupHover={{ color: 'bg' }} color='primary' aria-label='Discord' />
             </Link>
           </Center>
 
           <Center data-group flex={1} _hover={hoverStyles} p={4}>
             <Link href={GETH_REPO_URL} isExternal>
-              <GitHubIcon w={7} height='22px' _groupHover={{ color: 'bg' }} color='primary' />
+              <GitHubIcon w={7} height='22px' _groupHover={{ color: 'bg' }} color='primary' aria-label='GitHub' />
             </Link>
           </Center>
         </Flex>
