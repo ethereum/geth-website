@@ -19,7 +19,7 @@ export const DocumentNav: FC<Props> = ({ content }) => {
 
   const activeHash = useActiveHash(parsedHeadings.map(heading => heading!.headingId));
 
-  return (
+  return parsedHeadings.length ? (
     <Box position='sticky' top='4'>
       <Text as='h5' textStyle='document-nav-title'>
         on this page
@@ -58,5 +58,5 @@ export const DocumentNav: FC<Props> = ({ content }) => {
         );
       })}
     </Box>
-  );
+  ) : (<></>);
 };
