@@ -28,9 +28,11 @@ export const Header: FC = () => {
         flex={1}
         gap={6}
       >
-        <NextLink href={'/'} passHref>
+        <NextLink href={'/'} passHref legacyBehavior>
           <Link _hover={{ textDecoration: 'none' }}>
-            <Text textStyle='header-font' whiteSpace='nowrap'>go-ethereum</Text>
+            <Text textStyle='header-font' whiteSpace='nowrap'>
+              go-ethereum
+            </Text>
           </Link>
         </NextLink>
         <Box
