@@ -99,7 +99,10 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
       <PageMetadata title={frontmatter.title} description={frontmatter.description} />
 
       <main>
-        <Grid gap={{ base: 4, lg: 8 }} templateColumns={{ base: 'repeat(1, 1fr)', lg: '288px 1fr' }}>
+        <Grid
+          gap={{ base: 4, lg: 8 }}
+          templateColumns={{ base: 'repeat(1, 1fr)', lg: '288px 1fr' }}
+        >
           <Stack>
             <DocsNav navLinks={navLinks} />
           </Stack>
@@ -115,7 +118,10 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
               </Text>
             </Stack>
 
-            <Grid gap={{ base: 4, lg: 8 }} templateColumns={{ base: 'repeat(1, 1fr)', xl: '1fr 192px' }}>
+            <Grid
+              gap={{ base: 4, lg: 8 }}
+              templateColumns={{ base: 'repeat(1, 1fr)', xl: '1fr 192px' }}
+            >
               <Box
                 w='min(100%, 768px)'
                 sx={{ '*:first-of-type': { marginTop: '0 !important' } }}
@@ -130,9 +136,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
                 </ReactMarkdown>
               </Box>
 
-              <Stack
-                display={{ base: 'none', xl: 'block' }}
-              >
+              <Stack display={{ base: 'none', xl: 'block' }}>
                 <DocumentNav content={content} />
               </Stack>
             </Grid>
