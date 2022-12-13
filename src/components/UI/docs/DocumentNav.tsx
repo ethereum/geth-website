@@ -13,7 +13,7 @@ export const DocumentNav: FC<Props> = ({ content }) => {
   const parsedHeadings = content
     .split('\n\n')
     .map(item => item.replace(/[\n\r]/g, ''))
-    .filter(item => item.startsWith('#'))
+    .filter(item => item.startsWith('##'))
     .map(item => parseHeadingId([item]))
     .filter(item => item);
 
