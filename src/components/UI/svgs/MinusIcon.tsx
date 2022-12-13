@@ -8,9 +8,7 @@ const Icon = createIcon({
   viewBox: `0 0 ${w} ${h}`,
   path: (
     <svg width={w} height={h} fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <g fill='currentColor'>
-        <rect height='2' width='20' x='2' y='11'></rect>
-      </g>
+      <path d='M2 11h20v2H2z' fill='currentColor' />
     </svg>
   )
 });
