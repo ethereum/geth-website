@@ -56,7 +56,5 @@ export const DocumentNav: FC<Props> = ({ content }) => {
         );
       })}
     </Box>
-  ) : (
-    <></>
-  );
+  ) : null;
 };
