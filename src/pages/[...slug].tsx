@@ -117,8 +117,9 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
 
             <Grid gap={{ base: 4, lg: 8 }} templateColumns={{ base: 'repeat(1, 1fr)', xl: '1fr 192px' }}>
               <Box
-                maxW='min(100%, 768px)'
+                w='min(100%, 768px)'
                 sx={{ '*:first-of-type': { marginTop: '0 !important' } }}
+                overflow='auto'
               >
                 <ReactMarkdown
                   remarkPlugins={[gfm]}
