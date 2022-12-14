@@ -5,15 +5,11 @@ import { chunkReleases } from './chunkReleases';
 export const getSortedReleases = (releases: ReleaseData[], moreReleases: ReleaseData[] = []) => {
   const sortedReleasesByRelease = releases.concat(moreReleases).sort(compareReleasesFn);
 
-  let releaseVersions = sortedReleasesByRelease.map((release) => {
+  const releaseVersions = sortedReleasesByRelease.map((release) => {
     const spiltLabel = release.release.label.split(' ');
-    // get last element of array
     const releaseVersion = spiltLabel[spiltLabel.length - 1];
     return releaseVersion
-  })
-  // remove duplicates
-  releaseVersions = [...new Set(releaseVersions)]
-  console.log(releaseVersions)
+  }).filter((version, i, self) => self.indexOf(version) == i)
 
   const chunkedReleases = chunkReleases(sortedReleasesByRelease, releaseVersions);
   
