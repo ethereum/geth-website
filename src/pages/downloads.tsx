@@ -199,42 +199,36 @@ export const getStaticProps: GetStaticProps = async () => {
           // linux
           ALL_LINUX_STABLE_RELEASES: getSortedReleases(
             LINUX_STABLE_RELEASES_DATA,
-            LINUX_ALLTOOLS_STABLE_RELEASES_DATA,
-            AMOUNT_OF_RELEASES_PER_LINUX
+            LINUX_ALLTOOLS_STABLE_RELEASES_DATA
           ),
           ALL_LINUX_DEV_BUILDS: getSortedReleases(
             LINUX_DEV_BUILDS_DATA,
-            LINUX_ALLTOOLS_DEV_BUILDS_DATA,
-            AMOUNT_OF_RELEASES_PER_LINUX
+            LINUX_ALLTOOLS_DEV_BUILDS_DATA
           ),
           // macOS
           ALL_MACOS_STABLE_RELEASES: getSortedReleases(
             MACOS_STABLE_RELEASES_DATA,
-            MACOS_ALLTOOLS_STABLE_RELEASES_DATA,
-            AMOUNT_OF_RELEASES_PER_DARWIN
+            MACOS_ALLTOOLS_STABLE_RELEASES_DATA
           ),
           ALL_MACOS_DEV_BUILDS: getSortedReleases(
             MACOS_DEV_BUILDS_DATA,
-            MACOS_ALLTOOLS_DEV_BUILDS_DATA,
-            AMOUNT_OF_RELEASES_PER_DARWIN
+            MACOS_ALLTOOLS_DEV_BUILDS_DATA
           ),
           // windows
           ALL_WINDOWS_STABLE_RELEASES: getSortedReleases(
             WINDOWS_STABLE_RELEASES_DATA,
-            WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA,
-            AMOUNT_OF_RELEASES_PER_WINDOWS
+            WINDOWS_ALLTOOLS_STABLE_RELEASES_DATA
           ),
           ALL_WINDOWS_DEV_BUILDS: getSortedReleases(
             WINDOWS_DEV_BUILDS_DATA,
-            WINDOWS_ALLTOOLS_DEV_BUILDS_DATA,
-            AMOUNT_OF_RELEASES_PER_WINDOWS
+            WINDOWS_ALLTOOLS_DEV_BUILDS_DATA
           ),
           // android
-          ALL_ANDROID_STABLE_RELEASES: getSortedReleases(ANDROID_STABLE_RELEASES_DATA, [], AMOUNT_OF_RELEASES_PER_MOBILE),
-          ALL_ANDROID_DEV_BUILDS: getSortedReleases(ANDROID_DEV_BUILDS_DATA, [], AMOUNT_OF_RELEASES_PER_MOBILE),
+          ALL_ANDROID_STABLE_RELEASES: getSortedReleases(ANDROID_STABLE_RELEASES_DATA, []),
+          ALL_ANDROID_DEV_BUILDS: getSortedReleases(ANDROID_DEV_BUILDS_DATA, []),
           // iOS
-          ALL_IOS_STABLE_RELEASES: getSortedReleases(IOS_STABLE_RELEASES_DATA, [], AMOUNT_OF_RELEASES_PER_MOBILE),
-          ALL_IOS_DEV_BUILDS: getSortedReleases(IOS_DEV_BUILDS_DATA, [], AMOUNT_OF_RELEASES_PER_MOBILE)
+          ALL_IOS_STABLE_RELEASES: getSortedReleases(IOS_STABLE_RELEASES_DATA, []),
+          ALL_IOS_DEV_BUILDS: getSortedReleases(IOS_DEV_BUILDS_DATA, [])
         }
       },
       // using ISR here (https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)

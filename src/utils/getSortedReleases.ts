@@ -1,21 +1,21 @@
 import { ReleaseData } from './../types';
 import { compareReleasesFn } from './compareReleasesFn';
+import { chunkReleases } from './chunkReleases';
 
-export const getSortedReleases = (releases: ReleaseData[], moreReleases: ReleaseData[] = [], releaseChunkSize: number) => {
-  // function that takes an array and breaks it up into chunks of the specified size.
-  const chunkArray = (arr: ReleaseData[], releaseChunkSize: number) => {
-    const chunked_arr = [];
-    let index = 0;
-    while (index < arr.length) {
-      chunked_arr.push(arr.slice(index, releaseChunkSize + index));
-      index += releaseChunkSize;
-    }
-    return chunked_arr;
-  };
-
+export const getSortedReleases = (releases: ReleaseData[], moreReleases: ReleaseData[] = []) => {
   const sortedReleasesByRelease = releases.concat(moreReleases).sort(compareReleasesFn);
 
-  const chunkedReleases = chunkArray(sortedReleasesByRelease, releaseChunkSize);
+  let releaseVersions = sortedReleasesByRelease.map((release) => {
+    const spiltLabel = release.release.label.split(' ');
+    // get last element of array
+    const releaseVersion = spiltLabel[spiltLabel.length - 1];
+    return releaseVersion
+  })
+  // remove duplicates
+  releaseVersions = [...new Set(releaseVersions)]
+  console.log(releaseVersions)
+
+  const chunkedReleases = chunkReleases(sortedReleasesByRelease, releaseVersions);
   
   return chunkedReleases.map((chunk) => {
     return chunk.sort((a, b) => {
@@ -23,5 +23,5 @@ export const getSortedReleases = (releases: ReleaseData[], moreReleases: Release
     }).sort((a, b) => {
       return b.release.label.localeCompare(a.release.label);
     });
-  }).flat();;
+  }).flat();
 };
