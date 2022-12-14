@@ -1,6 +1,7 @@
 import React from 'react';
 import { IconProps } from '@chakra-ui/react';
 import { WindowsLogo, MacosLogo, LinuxPenguin, SourceBranch } from './components/UI/icons';
+import exp from 'constants';
 
 export const BORDER_WIDTH = '2px';
 
@@ -194,6 +195,7 @@ export const ALL_MACOS_GETH_RELEASES_URL =
 export const ALL_MACOS_ALLTOOLS_GETH_RELEASES_URL =
   'https://gethstore.blob.core.windows.net/builds?restype=container&comp=list&prefix=geth-alltools-darwin';
 
+
 // windows
 export const ALL_WINDOWS_GETH_RELEASES_URL =
   'https://gethstore.blob.core.windows.net/builds?restype=container&comp=list&prefix=geth-windows';
@@ -216,3 +218,9 @@ export const RELEASE_NOTES_BASE_URL = 'https://github.com/ethereum/go-ethereum/r
 
 // Code snippet class constants
 export const CLASSNAME_PREFIX = 'language-';
+
+// Amount of releases per os constants
+export const AMOUNT_OF_RELEASES_PER_DARWIN = 2;
+export const AMOUNT_OF_RELEASES_PER_LINUX = 12;
+export const AMOUNT_OF_RELEASES_PER_MOBILE = 1;
+export const AMOUNT_OF_RELEASES_PER_WINDOWS = 6;
