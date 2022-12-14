@@ -1,7 +1,6 @@
 import React from 'react';
 import { IconProps } from '@chakra-ui/react';
 import { WindowsLogo, MacosLogo, LinuxPenguin, SourceBranch } from './components/UI/icons';
-import exp from 'constants';
 
 export const BORDER_WIDTH = '2px';
 
@@ -194,7 +193,6 @@ export const ALL_MACOS_GETH_RELEASES_URL =
   'https://gethstore.blob.core.windows.net/builds?restype=container&comp=list&prefix=geth-darwin';
 export const ALL_MACOS_ALLTOOLS_GETH_RELEASES_URL =
   'https://gethstore.blob.core.windows.net/builds?restype=container&comp=list&prefix=geth-alltools-darwin';
-
 
 // windows
 export const ALL_WINDOWS_GETH_RELEASES_URL =
