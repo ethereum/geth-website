@@ -1,4 +1,3 @@
-export { chunkReleases } from './chunkReleases';
 export { compareReleasesFn } from './compareReleasesFn';
 export { fetchLatestReleaseCommit } from './fetchLatestReleaseCommit';
 export { fetchLatestReleaseVersionAndName } from './fetchLatestReleaseVersionAndName';
