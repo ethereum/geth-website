@@ -216,9 +216,3 @@ export const RELEASE_NOTES_BASE_URL = 'https://github.com/ethereum/go-ethereum/r
 
 // Code snippet class constants
 export const CLASSNAME_PREFIX = 'language-';
-
-// Amount of releases per os constants
-export const AMOUNT_OF_RELEASES_PER_DARWIN = 2;
-export const AMOUNT_OF_RELEASES_PER_LINUX = 12;
-export const AMOUNT_OF_RELEASES_PER_MOBILE = 1;
-export const AMOUNT_OF_RELEASES_PER_WINDOWS = 6;
