@@ -21,10 +21,6 @@ import {
   RELEASE_NOTES_BASE_URL,
   DOWNLOADS_OPENPGP_SIGNATURES,
   DOWNLOADS_DEVELOPERS_DATA,
-  AMOUNT_OF_RELEASES_PER_DARWIN,
-  AMOUNT_OF_RELEASES_PER_LINUX,
-  AMOUNT_OF_RELEASES_PER_MOBILE,
-  AMOUNT_OF_RELEASES_PER_WINDOWS
 } from '../constants';
 
 import {
@@ -224,11 +220,11 @@ export const getStaticProps: GetStaticProps = async () => {
             WINDOWS_ALLTOOLS_DEV_BUILDS_DATA
           ),
           // android
-          ALL_ANDROID_STABLE_RELEASES: getSortedReleases(ANDROID_STABLE_RELEASES_DATA, []),
-          ALL_ANDROID_DEV_BUILDS: getSortedReleases(ANDROID_DEV_BUILDS_DATA, []),
+          ALL_ANDROID_STABLE_RELEASES: getSortedReleases(ANDROID_STABLE_RELEASES_DATA),
+          ALL_ANDROID_DEV_BUILDS: getSortedReleases(ANDROID_DEV_BUILDS_DATA),
           // iOS
-          ALL_IOS_STABLE_RELEASES: getSortedReleases(IOS_STABLE_RELEASES_DATA, []),
-          ALL_IOS_DEV_BUILDS: getSortedReleases(IOS_DEV_BUILDS_DATA, [])
+          ALL_IOS_STABLE_RELEASES: getSortedReleases(IOS_STABLE_RELEASES_DATA),
+          ALL_IOS_DEV_BUILDS: getSortedReleases(IOS_DEV_BUILDS_DATA)
         }
       },
       // using ISR here (https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)
