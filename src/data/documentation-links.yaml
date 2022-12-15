@@ -31,7 +31,7 @@
     - id: Pruning
       to: /docs/fundamentals/pruning
     - id: Private networks
-      to: /docs/developers/geth-developer/private-network
+      to: /docs/fundamentals/private-network
     - id: Light client
       to: /docs/fundamentals/les
     - id: Mining
