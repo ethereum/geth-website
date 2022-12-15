@@ -83,7 +83,7 @@ export const DownloadsHero: FC<DownloadsHero> = ({
 
             return (
               <NextLink key={key} href={buildURL} passHref legacyBehavior>
-                <Button as='a' variant='downloadsHeader' width={{ base: '100%' }} h={16} data-group>
+                <Button as='a' variant='primary' width={{ base: '100%' }} h={16} data-group>
                   <HStack spacing={4}>
                     <Stack alignItems='center'>
                       <Svg
