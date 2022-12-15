@@ -90,6 +90,8 @@ export const DownloadsHero: FC<DownloadsHero> = ({
                         aria-label={ariaLabel}
                         maxH='44px'
                         _groupHover={{ color: 'yellow.50' }}
+                        _groupFocus={{ color: 'yellow.50' }}
+                        _groupActive={{ color: 'yellow.50' }}
                       />
                     </Stack>
                     <Box>
