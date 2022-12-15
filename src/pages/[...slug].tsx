@@ -100,6 +100,7 @@ const DocPage: NextPage<Props> = ({ frontmatter, content, navLinks, lastModified
 
       <main>
         <Grid
+          mt={{ lg: 8 }}
           gap={{ base: 4, lg: 8 }}
           templateColumns={{ base: 'repeat(1, 1fr)', lg: '288px 1fr' }}
         >
