@@ -81,7 +81,7 @@
     - id: Dapp developers
       items:
         - id: Developer mode
-          to: /docs/developers/geth-developer/dev-mode
+          to: /docs/developers/dapp-developer/dev-mode
         - id: Go API
           to: /docs/developers/dapp-developer/native
         - id: Go Account Management
