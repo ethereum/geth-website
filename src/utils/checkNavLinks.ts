@@ -1,21 +1,22 @@
-import { NavLink } from "../types";
+import { NavLink } from '../types';
 
 interface Props {
-  to?: string
-  items?: NavLink[]
-  pathCheck: string
-  tracker?: boolean
+  to?: string;
+  items?: NavLink[];
+  pathCheck: string;
 }
-export const checkNavLinks = ({ to, items, pathCheck, tracker = false }: Props): boolean => {
+export const checkNavLinks = ({ to, items, pathCheck }: Props): boolean => {
+  let tracker = false;
+
   if (to === pathCheck) {
-    tracker = true
+    tracker = true;
   }
 
-  items?.forEach(({to, items}) => {    
-    if (checkNavLinks({to, items, pathCheck})){
-      tracker = true
+  items?.forEach(({ to, items }) => {
+    if (checkNavLinks({ to, items, pathCheck })) {
+      tracker = true;
     }
   });
 
-  return tracker
-}
+  return tracker;
+};
